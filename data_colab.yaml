@@ -1,0 +1,8 @@
+# Colab Paths (assuming dataset.zip is unzipped to /content/dataset)
+train: /content/dataset/train/images
+val: /content/dataset/valid/images
+test: /content/dataset/test/images
+
+# Classes
+nc: 4
+names: ['collapsed_building', 'fire', 'flooded_areas', 'traffic_incident']
