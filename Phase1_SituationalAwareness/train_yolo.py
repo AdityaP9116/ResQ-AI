@@ -10,8 +10,9 @@ def main():
         print("DEBUG: Loading model yolov8s.pt...")
         model = YOLO('yolov8s.pt')  # load a pretrained model
 
-        # Use test_config.yaml (verified working)
-        data_path = "test_config.yaml"
+        # Use absolute path to data.yaml in the sibling Datasets directory
+        # data_path = "test_config.yaml" 
+        data_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../Datasets/Phase 1 - AIDER-Disaster/data.yaml"))
         print(f"DEBUG: Using data path: {data_path}")
         
         if not os.path.exists(data_path):

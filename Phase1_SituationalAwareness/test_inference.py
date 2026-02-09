@@ -14,7 +14,7 @@ def main():
     model = YOLO(engine_path, task='detect')
 
     # Find a test image
-    test_images = glob.glob(r"Datasets\Phase 1 - AIDER-Disaster\test\images\*.jpg")
+    test_images = glob.glob(os.path.join("..", "Datasets", "Phase 1 - AIDER-Disaster", "test", "images", "*.jpg"))
     if not test_images:
         print("No test images found.")
         return

@@ -27,24 +27,31 @@
 
 ## 📂 Repository Structure
 
-*   `train_yolo.py`: Main training script (configured for GPU, falls back to CPU/Colab if needed).
-*   `export_trt.py`: Converts trained `.pt` models to optimized TensorRT `.engine` format.
-*   `test_inference.py`: Validates the TensorRT engine with real inference.
-*   `run_on_colab.ipynb`: Jupyter Notebook for training heavily on free cloud GPUs.
-*   `data_colab.yaml`: Dataset configuration for Colab.
+## 📂 Repository Structure
+
 *   `Datasets/`: Contains the AIDER dataset (git-ignored or tracked via DVC/LFS usually, here kept local).
+*   `Phase1_SituationalAwareness/`:
+    *   `train_yolo.py`: Main training script.
+    *   `export_trt.py`: TensorRT export script.
+    *   `test_inference.py`: Inference validation script.
+    *   `run_on_colab.ipynb`: Colab notebook.
+    *   `best.pt` / `best.engine`: Trained models.
 
 ## 🚀 How to Run
 
 ### 1. Training (Google Colab Recommended)
-Due to PyTorch binary incompatibility with RTX 50-series (Blackwell), training is currently recommended on Colab:
-1.  Upload `run_on_colab.ipynb` to Google Colab.
+1.  Upload `Phase1_SituationalAwareness/run_on_colab.ipynb` to Google Colab.
 2.  Upload `dataset.zip` (zipped `Datasets` folder).
 3.  Run all cells.
-4.  Download `best.pt` weights.
+4.  Download `best.pt`.
 
 ### 2. Export & Inference (Local - RTX 5070)
-Once you have the `best.pt` weights:
+Navigate to the Phase 1 folder:
+```bash
+cd Phase1_SituationalAwareness
+```
+
+Once you have the `best.pt` weights in this folder:
 ```bash
 # Export to TensorRT Engine
 python export_trt.py
