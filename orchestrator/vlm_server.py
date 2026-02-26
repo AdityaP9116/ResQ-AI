@@ -16,9 +16,11 @@ async def analyze_image(request: AnalyzeRequest):
     
     # In the future, this will run Cosmos-Reason2-2B
     return {
-        "status": "critical",
-        "advice": f"Analyzed hazard with context: {request.context}. Proceed with caution.",
-        "hazard_details": "Debris blocking the main pathway."
+        "reasoning": f"Analyzed hazard with context: {request.context}. The primary path is severely blocked. Re-routing to the safest adjacent vector.",
+        "action": "ROUTE_OVERRIDE",
+        "vector_x": 15.0,
+        "vector_y": 5.0,
+        "altitude_adjustment": 2.5
     }
 
 if __name__ == "__main__":
