@@ -58,4 +58,11 @@ python export_trt.py
 
 # Run Inference Test
 python test_inference.py
+
+# Run Live/Video Inference
+# For Webcam:
+python live_inference.py --source 0
+
+# For Video File:
+python live_inference.py --source path/to/video.mp4
 ```

@@ -1,0 +1,9 @@
+transformers>=4.48.0
+accelerate
+qwen-vl-utils
+pillow
+torch
+torchvision
+sentencepiece
+protobuf
+bitsandbytes
