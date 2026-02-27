@@ -4,19 +4,22 @@ overview: Fix scene materials, build a closed-loop autonomous drone that uses Co
 todos:
   - id: fix-materials
     content: Regenerate scene with corrected OmniPBR MDL materials and verify rendering in streaming viewer
-    status: pending
+    status: done
   - id: upgrade-vlm-server
     content: Upgrade vlm_server.py to return structured JSON with target_waypoint [x,y,z], priority, and reasoning — parsing the hazard positions from the prompt
-    status: pending
+    status: done
   - id: upgrade-orchestrator
     content: Update orchestrator_bridge.py to extract waypoint from VLM response and expose it as a return value for the flight controller
-    status: pending
+    status: done
   - id: demo-flight-script
     content: "Create sim_bridge/demo_flight.py with Sense-Think-Act autonomous loop: initial survey hover, AI-driven waypoint updates from Cosmos, PD controller that tracks dynamic targets"
-    status: pending
+    status: done
   - id: video-recording
     content: Add OpenCV video recording with annotated frames (YOLO boxes, thermal thumbnail, Cosmos waypoint + reasoning overlay)
-    status: pending
+    status: done
+  - id: cosmos-integration
+    content: "Wire real Cosmos Reason 2 via NVIDIA NIM API (integrate.api.nvidia.com) and local vLLM backends with API key support"
+    status: done
   - id: final-demo-run
     content: "Execute complete demo: autonomous flight video + AI outputs + flight report + hazard map"
     status: pending

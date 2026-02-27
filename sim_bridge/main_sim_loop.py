@@ -240,6 +240,11 @@ def main() -> None:
             if frame_result and frame_result.get("hazards"):
                 flight_report.extend(frame_result["hazards"])
 
+                # Print waypoint if Cosmos returned one
+                wp = frame_result.get("target_waypoint")
+                if wp:
+                    print(f"[Step {step}] Cosmos waypoint: {wp}  reason: {frame_result.get('reasoning', '')[:80]}")
+
                 # Print Cosmos prompt for this frame
                 if frame_result.get("cosmos_prompt"):
                     print(f"\n[Step {step}] Cosmos Reason 2 prompt:")

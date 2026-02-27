@@ -129,10 +129,14 @@ def build_cosmos_prompt(
 _vlm_responses: dict[int, dict] = {}
 _vlm_requested: set[int] = set()
 _vlm_lock = threading.Lock()
+# Latest waypoint + reasoning from any VLM response (for flight controller)
+_latest_vlm_waypoint: list[float] | None = None
+_latest_vlm_reasoning: str = ""
 
 
 def _query_vlm_async(vlm_url: str, hazard_id: int, image_crop: np.ndarray, cosmos_prompt: str) -> None:
     """Send a hazard crop + Cosmos prompt to the VLM server in a background thread."""
+    global _latest_vlm_waypoint, _latest_vlm_reasoning
     try:
         _, buffer = cv2.imencode(".jpg", image_crop)
         img_b64 = base64.b64encode(buffer).decode("utf-8")
@@ -146,6 +150,10 @@ def _query_vlm_async(vlm_url: str, hazard_id: int, image_crop: np.ndarray, cosmo
             data = resp.json()
             with _vlm_lock:
                 _vlm_responses[hazard_id] = data
+                wp = data.get("target_waypoint")
+                if wp is not None and isinstance(wp, (list, tuple)) and len(wp) >= 3:
+                    _latest_vlm_waypoint = [float(wp[0]), float(wp[1]), float(wp[2])]
+                    _latest_vlm_reasoning = data.get("reasoning", "")
             print(f"[Cosmos] Hazard {hazard_id} → {data.get('advice', '(no advice)')[:120]}")
         else:
             print(f"[Cosmos] Hazard {hazard_id}: server returned {resp.status_code}")
@@ -320,4 +328,6 @@ class OrchestratorBridge:
         return {
             "hazards": hazards_3d,
             "cosmos_prompt": cosmos_prompt,
+            "target_waypoint": _latest_vlm_waypoint,
+            "reasoning": _latest_vlm_reasoning,
         }
