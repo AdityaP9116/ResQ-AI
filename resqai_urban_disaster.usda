@@ -1,5 +1,31 @@
 #usda 1.0
 (
+    customLayerData = {
+        dictionary cameraSettings = {
+            dictionary Front = {
+                double3 position = (5, 0, 0)
+                double radius = 5
+            }
+            dictionary Perspective = {
+                double3 position = (-2.0755895171711294, 47.645974770738945, 38.07491667490973)
+                double3 target = (-1.3470447590871422, 3.7230457512675983, 4.2678350999759544)
+            }
+            dictionary Right = {
+                double3 position = (0, -5, 0)
+                double radius = 5
+            }
+            dictionary Top = {
+                double3 position = (0, 0, 5)
+                double radius = 5
+            }
+            string boundCamera = "/OmniverseKit_Persp"
+        }
+        dictionary omni_layer = {
+            string authoring_layer = "./resqai_urban_disaster.usda"
+        }
+        dictionary renderSettings = {
+        }
+    }
     endTimeCode = 1000000
     metersPerUnit = 1
     startTimeCode = 0
@@ -1321,7 +1347,7 @@ def Xform "World"
             double size = 1
             float3 xformOp:rotateXYZ = (0, 0, 0)
             float3 xformOp:scale = (5, 0.25, 0.02)
-            double3 xformOp:translate = (10, 0, 0.05)
+            double3 xformOp:translate = (2.8424664717054093, 0, 0.05000000000000001)
             uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
         }
 
@@ -1587,7 +1613,7 @@ def Xform "World"
             double size = 1
             float3 xformOp:rotateXYZ = (0, 0, 0)
             float3 xformOp:scale = (0.25, 5, 0.02)
-            double3 xformOp:translate = (0, 10, 0.05)
+            double3 xformOp:translate = (0, 2.6706836242577303, 0.05000000000000001)
             uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
         }
 
