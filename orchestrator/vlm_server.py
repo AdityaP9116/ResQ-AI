@@ -147,6 +147,10 @@ def _mock_inference(context: str) -> dict[str, Any]:
         "decision": "investigate",
         "target_waypoint": target_waypoint,
         "reasoning": reasoning,
+        "action": "ROUTE_OVERRIDE",
+        "vector_x": target_waypoint[0] if target_waypoint else 15.0,
+        "vector_y": target_waypoint[1] if target_waypoint else 5.0,
+        "altitude_adjustment": OBSERVATION_ALTITUDE_OFFSET
     }
 
 

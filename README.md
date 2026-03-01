@@ -19,9 +19,9 @@
 *   **Model**: YOLOv8-Seg or SegFormer.
 *   **Dataset**: RescueNet.
 
-### 🔮 **Phase 3: Reasoning & Insight (Future)**
-*   **Goal**: VQA for complex queries ("Is this wall safe?").
-*   **Model**: Vision-Language Model (VLM).
+### 🔮 **Phase 3: Autonomous Flight Control (Future)**
+*   **Goal**: Embody the reasoning. Transition from a passive observer to an active Edge Agent where NVIDIA Cosmos physically controls the drone's flight path in Isaac Sim based on real-time visual assessment.
+*   **Model**: Vision-Language Model (NVIDIA Cosmos Reason 2).
 
 ---
 
