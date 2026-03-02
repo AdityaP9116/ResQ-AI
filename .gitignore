@@ -67,7 +67,7 @@ Hazard_Map.html
 hazards/
 
 # NVIDIA Omniverse asset packs (too large for Git)
-assets/CityDemo/
+assets/Architecture/
 assets/Characters/
 assets/Particles/
 assets/Environments/
