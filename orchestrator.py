@@ -34,6 +34,8 @@ from __future__ import annotations
 import argparse
 import math
 import os
+
+_SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 import random
 import sys
 from dataclasses import dataclass, field
@@ -56,6 +58,11 @@ def _parse_args() -> argparse.Namespace:
     parser.add_argument("--fire-spread-radius", type=float, default=35.0,
                         help="Distance threshold (metres) for fire spreading "
                              "(buildings are ~28 m apart in the default scene)")
+    parser.add_argument("--wind-direction", type=float, nargs=3,
+                        default=[1.0, 0.0, 0.0],
+                        help="Wind direction vector (X Y Z), default: 1 0 0")
+    parser.add_argument("--wind-speed", type=float, default=5.0,
+                        help="Wind speed in m/s (affects fire spread bias)")
     parser.add_argument("--max-steps", type=int, default=0,
                         help="Stop after N physics steps (0 = unlimited)")
     return parser.parse_args()
@@ -428,58 +435,87 @@ GENERIC_TREE_USD = (
 def generate_forest(stage: Usd.Stage,
                     buildings: List[BuildingInfo],
                     num_trees: int = 120,
-                    seed: int = 42) -> None:
-    """Place trees WITHIN the city, scattered along streets and between
-    buildings.  Trees are placed in a 15-65 m band from world origin,
-    avoiding building footprints.
+                    seed: int = 42) -> List[Gf.Vec3f]:
+    """Place trees within the city using 4 prototype types with natural
+    clustering.  Returns a list of tree positions for fire-spread tracking.
 
-    Parameters
-    ----------
-    stage : Usd.Stage
-        The active USD stage.
-    buildings : list[BuildingInfo]
-        Discovered buildings — used to avoid overlapping.
-    num_trees : int
-        Total number of tree point-instances.
-    seed : int
-        Random seed for reproducibility.
+    Prototypes: 0=Pine (tall conifer), 1=Oak (broad canopy), 2=Bush (low),
+    3=Birch (thin/tall).
     """
     random.seed(seed)
     inner_r, outer_r = 15.0, 65.0
     print(f"[ResQ-AI] Generating {num_trees} trees within city "
-          f"(r={inner_r}-{outer_r} m, avoiding buildings) …")
+          f"(r={inner_r}-{outer_r} m, 4 prototypes) …")
 
     forest_root = "/World/Forest"
     _xform(stage, forest_root)
 
-    # ── Build a local prototype tree ────────────────────────────────────
+    # ── Materials ─────────────────────────────────────────────────────
+    bark_mat = _mat(stage, "ForestBarkMat",
+                    albedo=(0.28, 0.16, 0.08), roughness=0.92)
+    bark_light = _mat(stage, "ForestBarkLightMat",
+                      albedo=(0.55, 0.45, 0.35), roughness=0.90)
+    pine_mat = _mat(stage, "ForestPineMat",
+                    albedo=(0.06, 0.22, 0.06), roughness=0.88)
+    oak_mat = _mat(stage, "ForestOakMat",
+                   albedo=(0.12, 0.38, 0.10), roughness=0.85)
+    bush_mat = _mat(stage, "ForestBushMat",
+                    albedo=(0.15, 0.30, 0.08), roughness=0.80)
+    birch_mat = _mat(stage, "ForestBirchMat",
+                     albedo=(0.20, 0.42, 0.15), roughness=0.82)
+
+    # ── 4 prototype trees ─────────────────────────────────────────────
     proto_root = f"{forest_root}/Prototypes"
     _xform(stage, proto_root)
 
-    bark_mat = _mat(stage, "ForestBarkMat",
-                    albedo=(0.28, 0.16, 0.08), roughness=0.92)
-    canopy_mat = _mat(stage, "ForestCanopyMat",
-                      albedo=(0.10, 0.35, 0.08), roughness=0.85)
+    # Proto 0: Pine — tall conical conifer
+    p_pine = f"{proto_root}/Pine"
+    _xform(stage, p_pine)
+    _cylinder(stage, f"{p_pine}/Trunk", radius=0.15, height=4.5,
+              translate=(0, 0, 2.25))
+    _bind(stage, f"{p_pine}/Trunk", bark_mat)
+    _cone(stage, f"{p_pine}/Canopy", radius=2.0, height=5.0,
+          translate=(0, 0, 6.5))
+    _bind(stage, f"{p_pine}/Canopy", pine_mat)
 
-    proto_tree = f"{proto_root}/Tree"
-    _xform(stage, proto_tree)
-    trunk_h = 3.5
-    _cylinder(stage, f"{proto_tree}/Trunk", radius=0.18, height=trunk_h,
-              translate=(0, 0, trunk_h / 2.0))
-    _bind(stage, f"{proto_tree}/Trunk", bark_mat)
-    _sphere(stage, f"{proto_tree}/Canopy", radius=2.2,
-            translate=(0, 0, trunk_h + 1.3))
-    _bind(stage, f"{proto_tree}/Canopy", canopy_mat)
+    # Proto 1: Oak — broad spherical canopy
+    p_oak = f"{proto_root}/Oak"
+    _xform(stage, p_oak)
+    _cylinder(stage, f"{p_oak}/Trunk", radius=0.25, height=3.0,
+              translate=(0, 0, 1.5))
+    _bind(stage, f"{p_oak}/Trunk", bark_mat)
+    _sphere(stage, f"{p_oak}/Canopy", radius=3.0,
+            translate=(0, 0, 5.0))
+    _bind(stage, f"{p_oak}/Canopy", oak_mat)
 
-    # Mark prototype as non-renderable (PointInstancer still clones it)
-    proto_img = UsdGeom.Imageable(stage.GetPrimAtPath(proto_tree))
-    if proto_img:
-        proto_img.GetPurposeAttr().Set(UsdGeom.Tokens.guide)
+    # Proto 2: Bush — low dense shrub
+    p_bush = f"{proto_root}/Bush"
+    _xform(stage, p_bush)
+    _sphere(stage, f"{p_bush}/Body", radius=1.2,
+            translate=(0, 0, 0.8), scale=(1.3, 1.3, 0.8))
+    _bind(stage, f"{p_bush}/Body", bush_mat)
+
+    # Proto 3: Birch — thin tall tree
+    p_birch = f"{proto_root}/Birch"
+    _xform(stage, p_birch)
+    _cylinder(stage, f"{p_birch}/Trunk", radius=0.10, height=5.5,
+              translate=(0, 0, 2.75))
+    _bind(stage, f"{p_birch}/Trunk", bark_light)
+    _sphere(stage, f"{p_birch}/Canopy", radius=1.8,
+            translate=(0, 0, 6.5), scale=(1.0, 1.0, 1.3))
+    _bind(stage, f"{p_birch}/Canopy", birch_mat)
+
+    # Mark prototypes as non-renderable
+    for pp in [p_pine, p_oak, p_bush, p_birch]:
+        proto_img = UsdGeom.Imageable(stage.GetPrimAtPath(pp))
+        if proto_img:
+            proto_img.GetPurposeAttr().Set(UsdGeom.Tokens.guide)
 
     # ── Configure the PointInstancer ──────────────────────────────────
     instancer_path = f"{forest_root}/TreeInstancer"
     instancer = UsdGeom.PointInstancer.Define(stage, instancer_path)
-    instancer.CreatePrototypesRel().SetTargets([Sdf.Path(proto_tree)])
+    proto_paths = [Sdf.Path(p) for p in [p_pine, p_oak, p_bush, p_birch]]
+    instancer.CreatePrototypesRel().SetTargets(proto_paths)
 
     # Build exclusion zones from buildings (with a 3 m buffer)
     def _inside_any_building(x: float, y: float) -> bool:
@@ -490,23 +526,63 @@ def generate_forest(stage: Usd.Stage,
                 return True
         return False
 
+    # Road corridors: clearings along cardinal axes (simulating streets)
+    def _near_road(x: float, y: float) -> bool:
+        road_w = 4.0
+        return (abs(x) < road_w or abs(y) < road_w or
+                abs(x - y) < road_w * 1.5 or abs(x + y) < road_w * 1.5)
+
     positions: List[Gf.Vec3f] = []
     orientations: List[Gf.Quath] = []
     scales: List[Gf.Vec3f] = []
     proto_indices: List[int] = []
     attempts = 0
 
-    while len(positions) < num_trees and attempts < num_trees * 10:
+    # Generate cluster centres for natural grouping
+    num_clusters = num_trees // 8
+    cluster_centres = []
+    for _ in range(num_clusters):
+        ca = random.uniform(0, 2 * math.pi)
+        cr = random.uniform(inner_r + 5, outer_r - 5)
+        cx, cy = cr * math.cos(ca), cr * math.sin(ca)
+        if not _inside_any_building(cx, cy) and not _near_road(cx, cy):
+            cluster_centres.append((cx, cy))
+
+    while len(positions) < num_trees and attempts < num_trees * 15:
         attempts += 1
-        angle = random.uniform(0, 2 * math.pi)
-        radius = random.uniform(inner_r, outer_r)
-        x = radius * math.cos(angle)
-        y = radius * math.sin(angle)
+
+        # 60% clustered, 40% scattered
+        if cluster_centres and random.random() < 0.6:
+            ccx, ccy = random.choice(cluster_centres)
+            x = ccx + random.gauss(0, 4.0)
+            y = ccy + random.gauss(0, 4.0)
+        else:
+            angle = random.uniform(0, 2 * math.pi)
+            radius = random.uniform(inner_r, outer_r)
+            x = radius * math.cos(angle)
+            y = radius * math.sin(angle)
 
         if _inside_any_building(x, y):
             continue
+        # Reduce density near roads (skip 70% of road candidates)
+        if _near_road(x, y) and random.random() < 0.7:
+            continue
 
-        s = random.uniform(0.7, 1.4)
+        # Weighted prototype selection: 35% pine, 25% oak, 25% bush, 15% birch
+        r = random.random()
+        if r < 0.35:
+            pidx = 0   # pine
+            s = random.uniform(0.8, 1.3)
+        elif r < 0.60:
+            pidx = 1   # oak
+            s = random.uniform(0.7, 1.2)
+        elif r < 0.85:
+            pidx = 2   # bush
+            s = random.uniform(0.6, 1.5)
+        else:
+            pidx = 3   # birch
+            s = random.uniform(0.9, 1.4)
+
         rot_z = random.uniform(0, 360)
         quat = Gf.Rotation(Gf.Vec3d(0, 0, 1), rot_z).GetQuat()
         qh = Gf.Quath(float(quat.GetReal()),
@@ -517,7 +593,7 @@ def generate_forest(stage: Usd.Stage,
         positions.append(Gf.Vec3f(x, y, 0.0))
         orientations.append(qh)
         scales.append(Gf.Vec3f(s, s, s))
-        proto_indices.append(0)
+        proto_indices.append(pidx)
 
     instancer.CreatePositionsAttr(positions)
     instancer.CreateOrientationsAttr(orientations)
@@ -525,7 +601,9 @@ def generate_forest(stage: Usd.Stage,
     instancer.CreateProtoIndicesAttr(proto_indices)
 
     _label_recursive(stage, forest_root, "vegetation")
-    print(f"[ResQ-AI] Placed {len(positions)} trees within the city.")
+    print(f"[ResQ-AI] Placed {len(positions)} trees (4 types) within the city.")
+
+    return positions
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -537,20 +615,27 @@ FIRE_ASSET_USD = "omniverse://localhost/NVIDIA/Assets/FX/Fire.usd"
 
 
 def spawn_fire_emitters(stage: Usd.Stage,
-                        buildings: List[BuildingInfo]) -> None:
-    """Spawn one fire emitter per building, initially invisible.
+                        buildings: List[BuildingInfo],
+                        tree_positions: List[Gf.Vec3f],
+                        wind_direction: Gf.Vec3f) -> List[Dict]:
+    """Spawn TWO types of fire emitters:
 
-    Strategy:
-      • If ``omni.flow`` is available, create a Flow emitter prim with
-        temperature / fuel parameters configured for a building fire.
-      • Otherwise, fall back to an emissive-geometry fire (cone + sphere
-        cluster) identical to the pattern in ``generate_urban_scene.py``.
+    1. Vegetation fires (10-15 at ground level on windward side of forest)
+       — start VISIBLE (wildfire origin)
+    2. Building fires (one per building on rooftop)
+       — start INVISIBLE (activated by spread logic)
 
-    All fire prims start with ``visibility = "invisible"`` so they can be
-    toggled on when the fire-spread logic ignites a building.
+    Returns a list of vegetation fire dicts for FireSpreadManager.
     """
     fires_root = "/World/Fires"
     _xform(stage, fires_root)
+
+    fire_preset = _find_fire_preset()
+    smoke_preset = _find_smoke_preset()
+    if fire_preset:
+        print(f"[ResQ-AI] Using fire preset: {os.path.basename(fire_preset)}")
+    if smoke_preset:
+        print(f"[ResQ-AI] Using smoke preset: {os.path.basename(smoke_preset)}")
 
     # Pre-create fire materials (emissive cones & spheres fallback)
     flame_outer = _mat(stage, "OrcFlameOuter",
@@ -564,22 +649,65 @@ def spawn_fire_emitters(stage: Usd.Stage,
     smoke_mat = _mat(stage, "OrcSmokeMat",
                      albedo=(0.12, 0.12, 0.12), roughness=1.0, opacity=0.3)
 
+    # ── 1. VEGETATION FIRES ──────────────────────────────────────────────
+    veg_fires: List[Dict] = []
+    veg_root = f"{fires_root}/VegetationFires"
+    _xform(stage, veg_root)
+
+    # Pick 10-15 tree positions on the windward side
+    wind_norm = Gf.Vec3f(wind_direction)
+    wlen = wind_norm.GetLength()
+    if wlen > 1e-6:
+        wind_norm /= wlen
+
+    # Score trees by how windward they are (dot product with wind)
+    scored_trees = []
+    for tp in tree_positions:
+        tlen = tp.GetLength()
+        if tlen < 1e-6:
+            continue
+        alignment = Gf.Dot(tp.GetNormalized(), wind_norm)
+        scored_trees.append((alignment, tp))
+    scored_trees.sort(key=lambda x: -x[0])  # most windward first
+
+    num_veg_fires = min(random.randint(10, 15), len(scored_trees))
+    for vi in range(num_veg_fires):
+        _, tp = scored_trees[vi]
+        vf_path = f"{veg_root}/vegfire_{vi:02d}"
+        vf_z = 0.5  # ground level
+
+        _spawn_flow_fire(stage, vf_path, float(tp[0]), float(tp[1]), vf_z,
+                         1.5, 1.5, fire_preset, smoke_preset,
+                         flame_core, flame_outer, smoke_mat,
+                         emitter_radius=3.0, fuel=2.5, smoke_amount=1.2)
+
+        # Vegetation fires start VISIBLE
+        _label_recursive(stage, vf_path, "fire")
+
+        veg_fires.append({
+            "path": vf_path,
+            "pos": Gf.Vec3f(float(tp[0]), float(tp[1]), vf_z),
+            "active": vi < 3,  # first 2-3 ignite immediately
+        })
+
+        # Initially invisible unless auto-ignited
+        fire_prim = stage.GetPrimAtPath(vf_path)
+        if fire_prim.IsValid() and vi >= 3:
+            UsdGeom.Imageable(fire_prim).MakeInvisible()
+
+    print(f"[ResQ-AI] Spawned {num_veg_fires} vegetation fires "
+          f"({sum(1 for v in veg_fires if v['active'])} initially burning).")
+
+    # ── 2. BUILDING FIRES ────────────────────────────────────────────────
     for bldg in buildings:
         fire_path = f"{fires_root}/{bldg.name}_fire"
-        # Place fire ON TOP of the building so it's visible from the drone.
-        # +2 m above rooftop so it pokes above the roof slab.
         fire_z = bldg.height + 2.0
 
-        if HAS_FLOW:
-            # ── omni.flow emitter ─────────────────────────────────────────
-            _spawn_flow_fire(stage, fire_path,
-                             bldg.world_x, bldg.world_y, fire_z,
-                             bldg.half_sx, bldg.half_sy)
-        else:
-            # ── Fallback: emissive geometry fire ──────────────────────────
-            _spawn_geometry_fire(stage, fire_path,
-                                 bldg.world_x, bldg.world_y, fire_z,
-                                 flame_core, flame_outer, smoke_mat)
+        _spawn_flow_fire(stage, fire_path,
+                         bldg.world_x, bldg.world_y, fire_z,
+                         bldg.half_sx, bldg.half_sy,
+                         fire_preset, smoke_preset,
+                         flame_core, flame_outer, smoke_mat)
 
         # Make the fire invisible at start
         fire_prim = stage.GetPrimAtPath(fire_path)
@@ -587,60 +715,90 @@ def spawn_fire_emitters(stage: Usd.Stage,
             UsdGeom.Imageable(fire_prim).MakeInvisible()
 
         bldg.fire_prim_path = fire_path
-
-        # Apply semantic label
         _label_recursive(stage, fire_path, "fire")
 
-    print(f"[ResQ-AI] Spawned {len(buildings)} fire emitters "
-          f"({'omni.flow' if HAS_FLOW else 'emissive geometry'} mode, "
-          f"all invisible).")
+    print(f"[ResQ-AI] Spawned {len(buildings)} building fire emitters "
+          f"(all invisible).")
+
+    return veg_fires
 
 
 def _spawn_flow_fire(stage: Usd.Stage, path: str,
                      wx: float, wy: float, wz: float,
-                     half_sx: float, half_sy: float) -> None:
-    """Create an ``omni.flow`` fire emitter at world position (wx, wy, wz).
-
-    The emitter is sized proportionally to the building footprint so that
-    larger buildings get larger fires.
-
-    This creates the standard Flow USD prim hierarchy::
-
-        /path            <- Xform (positioned at building roof)
-          /flowSimulate  <- OmniFlow typed prim (sim params)
-          /flowEmitter   <- FlowEmitterSphere typed prim
-          /flowRender    <- OmniFlow render prim
-    """
+                     half_sx: float, half_sy: float,
+                     fire_preset: Optional[str] = None,
+                     smoke_preset: Optional[str] = None,
+                     flame_core_mat: str = "",
+                     flame_outer_mat: str = "",
+                     smoke_mat: str = "",
+                     emitter_radius: Optional[float] = None,
+                     fuel: float = 1.8,
+                     smoke_amount: float = 0.7) -> None:
+    """Create a fire emitter via preset USD reference, manual Flow, or
+    emissive geometry fallback.  Includes a SphereLight for glow."""
     _xform(stage, path, translate=(wx, wy, wz))
 
-    # ── Flow Simulate prim ────────────────────────────────────────────
-    sim_path = f"{path}/flowSimulate"
-    sim_prim = stage.DefinePrim(sim_path, "FlowSimulate")
-    sim_prim.CreateAttribute("buoyancyPerTemp", Sdf.ValueTypeNames.Float).Set(4.0)
-    sim_prim.CreateAttribute("burnPerTemp", Sdf.ValueTypeNames.Float).Set(0.15)
-    sim_prim.CreateAttribute("coolingRate", Sdf.ValueTypeNames.Float).Set(2.5)
-    sim_prim.CreateAttribute("gravity", Sdf.ValueTypeNames.Float3).Set(
-        Gf.Vec3f(0.0, 0.0, -3.0))
+    # ── SphereLight for fire glow ─────────────────────────────────────
+    fire_light = UsdLux.SphereLight.Define(stage, f"{path}/FireLight")
+    fire_light.CreateRadiusAttr(2.0)
+    fire_light.CreateIntensityAttr(15000.0)
+    fire_light.CreateColorAttr(Gf.Vec3f(1.0, 0.45, 0.05))
+    _set_xform(fire_light, translate=(0, 0, 4.0))
 
-    # ── Flow Emitter Sphere ───────────────────────────────────────────
-    emitter_path = f"{path}/flowEmitter"
-    emitter_prim = stage.DefinePrim(emitter_path, "FlowEmitterSphere")
+    em_radius = emitter_radius or min(half_sx, half_sy) * 0.4
 
-    em_radius = min(half_sx, half_sy) * 0.4
-    emitter_prim.CreateAttribute("radius", Sdf.ValueTypeNames.Float).Set(
-        float(em_radius))
-    emitter_prim.CreateAttribute("fuel", Sdf.ValueTypeNames.Float).Set(1.8)
-    emitter_prim.CreateAttribute("temperature", Sdf.ValueTypeNames.Float).Set(
-        1500.0)
-    emitter_prim.CreateAttribute("smoke", Sdf.ValueTypeNames.Float).Set(0.7)
-    emitter_prim.CreateAttribute("velocity", Sdf.ValueTypeNames.Float3).Set(
-        Gf.Vec3f(0.0, 0.0, 2.5))
+    # Strategy 1: Reference fire preset USD
+    if fire_preset and os.path.isfile(fire_preset):
+        fire_ref_path = f"{path}/FirePreset"
+        fire_ref_prim = stage.DefinePrim(fire_ref_path)
+        fire_ref_prim.GetReferences().AddReference(fire_preset)
+        if smoke_preset and os.path.isfile(smoke_preset):
+            smoke_ref_path = f"{path}/SmokePreset"
+            smoke_ref_prim = stage.DefinePrim(smoke_ref_path)
+            smoke_ref_prim.GetReferences().AddReference(smoke_preset)
+        return
 
-    # ── Flow Render prim ──────────────────────────────────────────────
-    render_path = f"{path}/flowRender"
-    render_prim = stage.DefinePrim(render_path, "FlowRender")
-    render_prim.CreateAttribute("colorMapResolution", Sdf.ValueTypeNames.Int).Set(64)
-    render_prim.CreateAttribute("shadowFactor", Sdf.ValueTypeNames.Float).Set(1.0)
+    # Strategy 2: Manual omni.flow hierarchy
+    if HAS_FLOW:
+        sim_path = f"{path}/flowSimulate"
+        sim_prim = stage.DefinePrim(sim_path, "FlowSimulate")
+        sim_prim.CreateAttribute("buoyancyPerTemp",
+                                 Sdf.ValueTypeNames.Float).Set(4.0)
+        sim_prim.CreateAttribute("burnPerTemp",
+                                 Sdf.ValueTypeNames.Float).Set(0.15)
+        sim_prim.CreateAttribute("coolingRate",
+                                 Sdf.ValueTypeNames.Float).Set(2.5)
+        sim_prim.CreateAttribute("gravity",
+                                 Sdf.ValueTypeNames.Float3).Set(
+            Gf.Vec3f(0.0, 0.0, -3.0))
+
+        emitter_path = f"{path}/flowEmitter"
+        emitter_prim = stage.DefinePrim(emitter_path, "FlowEmitterSphere")
+        emitter_prim.CreateAttribute("radius",
+                                     Sdf.ValueTypeNames.Float).Set(
+            float(em_radius))
+        emitter_prim.CreateAttribute("fuel",
+                                     Sdf.ValueTypeNames.Float).Set(fuel)
+        emitter_prim.CreateAttribute("temperature",
+                                     Sdf.ValueTypeNames.Float).Set(1500.0)
+        emitter_prim.CreateAttribute("smoke",
+                                     Sdf.ValueTypeNames.Float).Set(
+            smoke_amount)
+        emitter_prim.CreateAttribute("velocity",
+                                     Sdf.ValueTypeNames.Float3).Set(
+            Gf.Vec3f(0.0, 0.0, 2.5))
+
+        render_path = f"{path}/flowRender"
+        render_prim = stage.DefinePrim(render_path, "FlowRender")
+        render_prim.CreateAttribute("colorMapResolution",
+                                    Sdf.ValueTypeNames.Int).Set(64)
+        render_prim.CreateAttribute("shadowFactor",
+                                    Sdf.ValueTypeNames.Float).Set(1.0)
+        return
+
+    # Strategy 3: Emissive geometry fallback
+    _spawn_geometry_fire(stage, path, 0, 0, 0,
+                         flame_core_mat, flame_outer_mat, smoke_mat)
 
 
 def _spawn_geometry_fire(stage: Usd.Stage, path: str,
@@ -708,15 +866,57 @@ def _spawn_geometry_fire(stage: Usd.Stage, path: str,
 # 6.  TASK 3 — Indoor pedestrian spawning
 # ═══════════════════════════════════════════════════════════════════════════════
 
-# Character USD assets on the Nucleus (for omni.anim.people references)
+# ── Character USD assets (local paths from Rigged Characters Asset Pack) ──
 _CHARACTER_USDS = [
-    "omniverse://localhost/NVIDIA/Assets/Characters/Reallusion/"
-    "Worker/Worker.usd",
-    "omniverse://localhost/NVIDIA/Assets/Characters/Reallusion/"
-    "BusinessMan/BusinessMan.usd",
-    "omniverse://localhost/NVIDIA/Assets/Characters/Reallusion/"
-    "Casual_Female/Casual_Female.usd",
+    os.path.join(_SCRIPT_DIR, "assets", "Characters", "Assets", "Characters",
+                 "Reallusion", "Worker", "Worker.usd"),
+    os.path.join(_SCRIPT_DIR, "assets", "Characters", "Assets", "Characters",
+                 "Reallusion", "ActorCore", "Business_F_0002", "Actor",
+                 "business-f-0002", "business-f-0002.usd"),
+    os.path.join(_SCRIPT_DIR, "assets", "Characters", "Assets", "Characters",
+                 "Reallusion", "ActorCore", "Uniform_F_0001", "Actor",
+                 "uniform_f_0001", "uniform_f_0001.usd"),
+    os.path.join(_SCRIPT_DIR, "assets", "Characters", "Assets", "Characters",
+                 "Reallusion", "ActorCore", "Uniform_M_0001", "Actor",
+                 "uniform_m_0001", "uniform_m_0001.usd"),
+    os.path.join(_SCRIPT_DIR, "assets", "Characters", "Assets", "Characters",
+                 "Reallusion", "ActorCore", "Party_M_0001", "Actor",
+                 "party-m-0001", "party-m-0001.usd"),
 ]
+
+# ── Fire Flow preset paths (from Extensions Sample Asset Pack) ──
+_FLOW_SAMPLES_DIR = os.path.join(
+    _SCRIPT_DIR, "assets", "Particles", "Assets", "Extensions",
+    "Samples", "Flow", "samples")
+
+
+def _find_fire_preset() -> Optional[str]:
+    """Find a fire preset USD in the Particles pack Flow samples."""
+    if not os.path.isdir(_FLOW_SAMPLES_DIR):
+        return None
+    # Prefer Fire.usda, then WispyFire.usda
+    for candidate in ["Fire.usda", "WispyFire.usda"]:
+        path = os.path.join(_FLOW_SAMPLES_DIR, candidate)
+        if os.path.isfile(path):
+            return path
+    for fname in os.listdir(_FLOW_SAMPLES_DIR):
+        if "fire" in fname.lower() and fname.endswith((".usd", ".usdc", ".usda")):
+            return os.path.join(_FLOW_SAMPLES_DIR, fname)
+    return None
+
+
+def _find_smoke_preset() -> Optional[str]:
+    """Find a smoke preset USD in the Particles pack Flow samples."""
+    if not os.path.isdir(_FLOW_SAMPLES_DIR):
+        return None
+    for candidate in ["DenseSmoke.usda", "DarkSmoke.usda"]:
+        path = os.path.join(_FLOW_SAMPLES_DIR, candidate)
+        if os.path.isfile(path):
+            return path
+    for fname in os.listdir(_FLOW_SAMPLES_DIR):
+        if "smoke" in fname.lower() and fname.endswith((".usd", ".usdc", ".usda")):
+            return os.path.join(_FLOW_SAMPLES_DIR, fname)
+    return None
 
 
 def spawn_indoor_pedestrians(stage: Usd.Stage,
@@ -783,7 +983,6 @@ def spawn_indoor_pedestrians(stage: Usd.Stage,
         ped_path = f"{ped_root}/{ped_name}"
 
         # ── Compute indoor spawn position ─────────────────────────────────
-        # Random offset within 70 % of the footprint
         offset_x = random.uniform(-bldg.half_sx * 0.7, bldg.half_sx * 0.7)
         offset_y = random.uniform(-bldg.half_sy * 0.7, bldg.half_sy * 0.7)
         spawn_x = bldg.world_x + offset_x
@@ -792,14 +991,13 @@ def spawn_indoor_pedestrians(stage: Usd.Stage,
         # Pick a random floor (Z height)
         max_floors = max(1, int(bldg.height / floor_height))
         floor = random.randint(0, max_floors - 1)
-        spawn_z = floor * floor_height + 0.05  # slightly above floor slab
+        spawn_z = floor * floor_height + 0.05
 
         if HAS_ANIM_PEOPLE:
-            # ── omni.anim.people character ────────────────────────────────
             _spawn_anim_person(stage, ped_path, spawn_x, spawn_y, spawn_z,
-                               idx)
+                               idx, skin_mat,
+                               shirt_mats[idx % len(shirt_mats)], pants_mat)
         else:
-            # ── Geometric fallback (cylinder + sphere) ────────────────────
             _spawn_geometry_person(stage, ped_path,
                                    spawn_x, spawn_y, spawn_z,
                                    skin_mat,
@@ -825,47 +1023,103 @@ def spawn_indoor_pedestrians(stage: Usd.Stage,
 
 
 def _spawn_anim_person(stage: Usd.Stage, path: str,
-                       x: float, y: float, z: float, idx: int) -> None:
-    """Reference an omni.anim.people character USD at the given position."""
+                       x: float, y: float, z: float, idx: int,
+                       skin_mat: str, shirt_mat: str,
+                       pants_mat: str) -> None:
+    """Reference a character USD at the given position.
+
+    Validates the file exists first. If missing, falls back to geometry.
+    If omni.anim.people + omni.anim.navigation are available, attempts to
+    bake a navmesh and register the character for idle/patrol behaviour.
+    """
     char_usd = _CHARACTER_USDS[idx % len(_CHARACTER_USDS)]
+
+    # ── Validate file exists ──────────────────────────────────────────
+    if not os.path.isfile(char_usd):
+        print(f"[ResQ-AI] WARNING: Character file not found: {char_usd}")
+        print(f"          Falling back to geometry person for {path}")
+        _spawn_geometry_person(stage, path, x, y, z,
+                               skin_mat, shirt_mat, pants_mat)
+        return
+
+    print(f"[ResQ-AI] Loading character: {os.path.basename(char_usd)} → {path}")
     xf = _xform(stage, path, translate=(x, y, z))
 
-    # Add as a USD reference so the character loads from the Nucleus
+    # Add as a USD reference
     prim = stage.GetPrimAtPath(path)
     prim.GetReferences().AddReference(char_usd)
-
     _apply_semantic_label(prim, "person")
+
+    # ── Try to configure omni.anim.people behaviour ───────────────────
+    if HAS_ANIM_PEOPLE and HAS_ANIM_NAV:
+        try:
+            # Bake a navmesh on the ground plane for navigation
+            nav_mgr = _anim_nav.get_navigation_manager()
+            if nav_mgr is not None:
+                nav_mgr.bake_navmesh()
+
+            # Register with the people extension
+            people_mgr = _anim_people.get_people_manager()
+            if people_mgr is not None:
+                people_mgr.register_character(path)
+                # Set initial behaviour to idle
+                people_mgr.set_character_behavior(path, "idle")
+                print(f"[ResQ-AI]   Registered {path} with anim.people (idle)")
+        except Exception as exc:
+            print(f"[ResQ-AI]   WARNING: anim.people setup failed for "
+                  f"{path}: {exc}")
 
 
 def _spawn_geometry_person(stage: Usd.Stage, path: str,
                            x: float, y: float, z: float,
                            skin_mat: str, shirt_mat: str,
                            pants_mat: str) -> None:
-    """Build a simple geometric person (cylinder torso + sphere head)."""
+    """Build a geometric person with improved proportions (~1.75 m tall).
+
+    Creates a full-body silhouette visible from drone altitude:
+    head (r=0.12), neck, torso (r=0.22), hips, arms, and legs.
+    """
     _xform(stage, path, translate=(x, y, z))
 
-    _cylinder(stage, f"{path}/Torso", radius=0.2, height=0.65,
-              translate=(0, 0, 1.08))
+    # Torso: radius 0.22, height 0.50, centred at z=1.15
+    _cylinder(stage, f"{path}/Torso", radius=0.22, height=0.50,
+              translate=(0, 0, 1.15))
     _bind(stage, f"{path}/Torso", shirt_mat)
 
-    _sphere(stage, f"{path}/Head", radius=0.15, translate=(0, 0, 1.6))
+    # Head: radius 0.12, at z=1.63
+    _sphere(stage, f"{path}/Head", radius=0.12, translate=(0, 0, 1.63))
     _bind(stage, f"{path}/Head", skin_mat)
 
-    _cylinder(stage, f"{path}/Hips", radius=0.18, height=0.3,
-              translate=(0, 0, 0.7))
+    # Neck: small cylinder connecting head and torso
+    _cylinder(stage, f"{path}/Neck", radius=0.05, height=0.10,
+              translate=(0, 0, 1.46))
+    _bind(stage, f"{path}/Neck", skin_mat)
+
+    # Hips: radius 0.20, height 0.25, at z=0.78
+    _cylinder(stage, f"{path}/Hips", radius=0.20, height=0.25,
+              translate=(0, 0, 0.78))
     _bind(stage, f"{path}/Hips", pants_mat)
 
-    for li, ly in enumerate([-0.1, 0.1]):
+    # Legs: radius 0.08, height 0.55, at z=0.33
+    for li, ly in enumerate([-0.10, 0.10]):
         _cylinder(stage, f"{path}/Leg_{li}", radius=0.08, height=0.55,
-                  translate=(0, ly, 0.28))
+                  translate=(0, ly, 0.33))
         _bind(stage, f"{path}/Leg_{li}", pants_mat)
 
-    for ai, ay in enumerate([-0.28, 0.28]):
+    # Feet: small flattened spheres
+    for fi, fy in enumerate([-0.10, 0.10]):
+        _sphere(stage, f"{path}/Foot_{fi}", radius=0.06,
+                translate=(0.04, fy, 0.06), scale=(1.5, 1.0, 0.6))
+        _bind(stage, f"{path}/Foot_{fi}", pants_mat)
+
+    # Arms: radius 0.06, height 0.55, at z=1.05
+    for ai, ay in enumerate([-0.30, 0.30]):
         _cylinder(stage, f"{path}/Arm_{ai}", radius=0.06, height=0.55,
-                  translate=(0, ay, 1.0))
+                  translate=(0, ay, 1.05))
         _bind(stage, f"{path}/Arm_{ai}", shirt_mat)
-        _sphere(stage, f"{path}/Hand_{ai}", radius=0.06,
-                translate=(0, ay, 0.7))
+        # Hands
+        _sphere(stage, f"{path}/Hand_{ai}", radius=0.055,
+                translate=(0, ay, 0.74))
         _bind(stage, f"{path}/Hand_{ai}", skin_mat)
 
     _label_recursive(stage, path, "person")
@@ -938,61 +1192,65 @@ def _assign_nav_waypoints(stage: Usd.Stage, ped_path: str,
 # ═══════════════════════════════════════════════════════════════════════════════
 
 class FireSpreadManager:
-    """Manages fire state, distance-based spreading, and pedestrian flee logic.
+    """Manages wind-driven fire spread across vegetation and buildings,
+    with lerp-based pedestrian flee movement.
 
-    Attributes
-    ----------
-    buildings : list[BuildingInfo]
-        All discovered buildings (state is mutated in-place).
-    spread_radius : float
-        Distance threshold (metres) for fire to jump between buildings.
-    stage : Usd.Stage
-        Active USD stage.
-    step_count : int
-        Counts physics steps for timing / throttling logic.
+    Fire spreads via three paths:
+      1. Vegetation → vegetation (through forest ring, wind-biased)
+      2. Vegetation → building   (within 15m downwind, probability ramp)
+      3. Building  → building    (distance + wind bias: 2x downwind, 0.3x upwind)
     """
 
-    # How often (in physics steps) we check for fire spreading.
-    # Checking every step is wasteful; every 60 steps ≈ 1 second at 60 Hz.
     CHECK_INTERVAL: int = 60
 
     def __init__(self, stage: Usd.Stage, buildings: List[BuildingInfo],
-                 spread_radius: float = 40.0) -> None:
+                 spread_radius: float = 40.0,
+                 wind_direction: Gf.Vec3f = Gf.Vec3f(1, 0, 0),
+                 wind_speed: float = 5.0,
+                 vegetation_fires: Optional[List[Dict]] = None,
+                 tree_positions: Optional[List[Gf.Vec3f]] = None) -> None:
         self.stage = stage
         self.buildings = buildings
         self.spread_radius = spread_radius
         self.step_count = 0
-        self._first_check = True  # debug flag for first spread check
 
-        # Pre-compute building centre positions for fast distance checks
+        # Wind parameters
+        self.wind_direction = Gf.Vec3f(wind_direction)
+        wlen = self.wind_direction.GetLength()
+        if wlen > 1e-6:
+            self.wind_direction /= wlen
+        self.wind_speed = wind_speed
+
+        # Vegetation fire tracking
+        self.vegetation_fires = vegetation_fires or []
+        self.tree_positions = tree_positions or []
+
+        # Lerp-based flee state: {ped_path: {start, end, step, total_steps}}
+        self._flee_state: Dict[str, Dict] = {}
+
+        # Pre-compute building centre positions
         self._positions = {
-            b.name: (b.world_x, b.world_y)
-            for b in buildings
+            b.name: (b.world_x, b.world_y) for b in buildings
         }
 
-        # ── Debug: print all building positions and nearest distances ──
-        print(f"[ResQ-AI] FireSpreadManager: spread_radius = {spread_radius:.1f} m")
-        print(f"[ResQ-AI] Building positions:")
-        for b in buildings:
-            print(f"          {b.name:12s}  ({b.world_x:7.1f}, {b.world_y:7.1f})")
-
-        # Show closest neighbour for each building
-        for b in buildings:
-            min_dist = float('inf')
-            closest = "none"
-            for other in buildings:
-                if other.name == b.name:
-                    continue
-                d = math.sqrt((b.world_x - other.world_x)**2 +
-                              (b.world_y - other.world_y)**2)
-                if d < min_dist:
-                    min_dist = d
-                    closest = other.name
-            within = "✅ within" if min_dist <= spread_radius else "❌ outside"
-            print(f"          {b.name:12s} → nearest: {closest:12s} "
-                  f"d={min_dist:.1f} m  {within} {spread_radius:.0f} m radius")
+        print(f"[ResQ-AI] FireSpreadManager: spread_radius={spread_radius:.0f}m  "
+              f"wind=({wind_direction[0]:.1f}, {wind_direction[1]:.1f}, "
+              f"{wind_direction[2]:.1f})  speed={wind_speed:.1f} m/s")
+        print(f"[ResQ-AI]   {len(self.vegetation_fires)} vegetation fire slots, "
+              f"{len(self.tree_positions)} tree positions tracked")
 
     # ── Public API ────────────────────────────────────────────────────────
+
+    def ignite_vegetation_fires(self) -> None:
+        """Ignite the first 2-3 vegetation fires to start the wildfire."""
+        count = 0
+        for vf in self.vegetation_fires:
+            if vf["active"]:
+                count += 1
+                fp = self.stage.GetPrimAtPath(vf["path"])
+                if fp and fp.IsValid():
+                    UsdGeom.Imageable(fp).MakeVisible()
+        print(f"[ResQ-AI] 🔥 Ignited {count} initial vegetation fires.")
 
     def ignite_random_building(self) -> None:
         """Ignite one random building to kick off the simulation."""
@@ -1003,12 +1261,25 @@ class FireSpreadManager:
         print(f"[ResQ-AI] 🔥 Initial ignition: {victim.name}")
 
     def on_physics_step(self, dt: float) -> None:
-        """Called every physics step.  Checks for fire spreading at a
-        throttled interval to avoid excessive computation."""
+        """Called every physics step."""
         self.step_count += 1
+
+        # Advance flee lerps every step
+        self._advance_flee_lerps()
+
         if self.step_count % self.CHECK_INTERVAL != 0:
             return
         self._check_spread()
+
+    def print_status(self) -> None:
+        """Print current fire status with wind info."""
+        burning = sum(1 for b in self.buildings if b.is_burning)
+        active_veg = sum(1 for v in self.vegetation_fires if v["active"])
+        print(f"[ResQ-AI] step={self.step_count}  "
+              f"burning_buildings={burning}/{len(self.buildings)}  "
+              f"active_veg_fires={active_veg}/{len(self.vegetation_fires)}  "
+              f"wind=({self.wind_direction[0]:.1f}, "
+              f"{self.wind_direction[1]:.1f})")
 
     # ── Internals ─────────────────────────────────────────────────────────
 
@@ -1019,63 +1290,107 @@ class FireSpreadManager:
             return
         bldg.is_burning = True
 
-        # Make fire visible
         fire_prim = self.stage.GetPrimAtPath(bldg.fire_prim_path)
         if fire_prim and fire_prim.IsValid():
             UsdGeom.Imageable(fire_prim).MakeVisible()
 
-        # Trigger flee for pedestrians inside this building
         self._trigger_flee(bldg)
 
+    def _wind_factor(self, source_pos: Tuple[float, float],
+                     target_pos: Tuple[float, float]) -> float:
+        """Compute wind alignment factor (0..1) for spread direction."""
+        dx = target_pos[0] - source_pos[0]
+        dy = target_pos[1] - source_pos[1]
+        length = math.sqrt(dx * dx + dy * dy)
+        if length < 1e-6:
+            return 0.5
+        nx, ny = dx / length, dy / length
+        alignment = nx * float(self.wind_direction[0]) + \
+                    ny * float(self.wind_direction[1])
+        return 0.5 + 0.5 * alignment  # map from [-1,1] to [0,1]
+
     def _check_spread(self) -> None:
-        """Time-based probabilistic fire spread.
+        """Wind-driven fire spread across three paths."""
+        time_factor = min(1.0, 0.01 + self.step_count / 10000.0)
 
-        Instead of a hard distance threshold, every building has a
-        probability of catching fire each check that increases with:
-          1. Proximity to any burning building (inverse-square)
-          2. Time elapsed since the simulation started
+        # ── A. Vegetation → Vegetation spread ──────────────────────────
+        active_veg = [v for v in self.vegetation_fires if v["active"]]
+        inactive_veg = [v for v in self.vegetation_fires if not v["active"]]
 
-        This ensures fire GRADUALLY spreads everywhere, with nearby
-        buildings catching fire sooner.
-        """
+        for dst_vf in inactive_veg:
+            dst_pos = (float(dst_vf["pos"][0]), float(dst_vf["pos"][1]))
+            for src_vf in active_veg:
+                src_pos = (float(src_vf["pos"][0]), float(src_vf["pos"][1]))
+                dist = math.sqrt((src_pos[0] - dst_pos[0]) ** 2 +
+                                 (src_pos[1] - dst_pos[1]) ** 2)
+                wf = self._wind_factor(src_pos, dst_pos)
+                proximity = (self.spread_radius / max(dist, 1.0)) ** 2
+                p = min(0.8, time_factor * proximity * (0.3 + 1.7 * wf))
+                if random.random() < p:
+                    dst_vf["active"] = True
+                    fp = self.stage.GetPrimAtPath(dst_vf["path"])
+                    if fp and fp.IsValid():
+                        UsdGeom.Imageable(fp).MakeVisible()
+                    print(f"[ResQ-AI] 🔥 Vegetation fire spread → "
+                          f"{dst_vf['path']} (d={dist:.0f}m, p={p:.2f})")
+                    break
+
+        # ── B. Vegetation → Building spread ────────────────────────────
+        for bldg in self.buildings:
+            if bldg.is_burning:
+                continue
+            bpos = (bldg.world_x, bldg.world_y)
+            for src_vf in active_veg:
+                spos = (float(src_vf["pos"][0]), float(src_vf["pos"][1]))
+                dist = math.sqrt((spos[0] - bpos[0]) ** 2 +
+                                 (spos[1] - bpos[1]) ** 2)
+                if dist > 15.0:
+                    continue  # too far for veg→building
+                wf = self._wind_factor(spos, bpos)
+                proximity = (15.0 / max(dist, 1.0)) ** 2
+                p = min(0.8, time_factor * proximity * (0.3 + 1.7 * wf))
+                if random.random() < p:
+                    self._ignite(bldg)
+                    print(f"[ResQ-AI] 🔥 Vegetation→Building: → {bldg.name} "
+                          f"(d={dist:.1f}m, wf={wf:.2f})")
+                    break
+
+        # ── C. Building → Building spread ──────────────────────────────
         burning = [b for b in self.buildings if b.is_burning]
         not_burning = [b for b in self.buildings if not b.is_burning]
 
-        if not not_burning or not burning:
-            return
-
-        # Time factor: increases spread probability over time
-        # At step 0 → factor=0.01, at step 3600 (≈60s) → factor ~0.35
-        time_factor = min(1.0, 0.01 + self.step_count / 10000.0)
-
         for dst in not_burning:
-            dx, dy = self._positions[dst.name]
-
-            # Find minimum distance to any burning building
+            dst_pos = self._positions[dst.name]
             min_dist = float('inf')
             nearest_src = None
             for src in burning:
-                sx, sy = self._positions[src.name]
-                dist = math.sqrt((sx - dx) ** 2 + (sy - dy) ** 2)
+                src_pos = self._positions[src.name]
+                dist = math.sqrt((src_pos[0] - dst_pos[0]) ** 2 +
+                                 (src_pos[1] - dst_pos[1]) ** 2)
                 if dist < min_dist:
                     min_dist = dist
                     nearest_src = src
 
-            # Probability: higher for closer buildings, grows with time
-            # P = time_factor * (spread_radius / max(dist, 1))^2
+            if nearest_src is None:
+                continue
+
+            src_pos = self._positions[nearest_src.name]
+            wf = self._wind_factor(src_pos, dst_pos)
             proximity = (self.spread_radius / max(min_dist, 1.0)) ** 2
-            p_spread = min(0.8, time_factor * proximity)
+            p_spread = min(0.8, time_factor * proximity * (0.3 + 1.7 * wf))
 
             if random.random() < p_spread:
                 self._ignite(dst)
-                print(f"[ResQ-AI] 🔥 Fire spread: {nearest_src.name} → "
-                      f"{dst.name} (d={min_dist:.1f} m, p={p_spread:.2f})")
+                print(f"[ResQ-AI] 🔥 Building spread: {nearest_src.name} → "
+                      f"{dst.name} (d={min_dist:.1f}m, wf={wf:.2f}, "
+                      f"p={p_spread:.2f})")
 
     def _trigger_flee(self, bldg: BuildingInfo) -> None:
-        """PHYSICALLY MOVE pedestrians out of the building so the drone
-        camera can detect them.  For static geometry pedestrians,
-        navigation waypoints have no effect — we *must* relocate the
-        prim's xformOp:translate to place them on the street."""
+        """Initiate flee for all pedestrians in a burning building.
+
+        If HAS_ANIM_PEOPLE: set navigation target.
+        Otherwise: set up lerp state for smooth movement over 120 steps.
+        """
         if not bldg.pedestrian_paths:
             return
 
@@ -1084,9 +1399,7 @@ class FireSpreadManager:
             if not ped_prim or not ped_prim.IsValid():
                 continue
 
-            # Compute a flee destination outside the building:
-            # Move outward along the direction from building centre to world
-            # origin, staggered so multiple victims don't stack on each other.
+            # Compute flee destination
             dx = -bldg.world_x
             dy = -bldg.world_y
             length = math.sqrt(dx * dx + dy * dy)
@@ -1096,36 +1409,156 @@ class FireSpreadManager:
                 dx /= length
                 dy /= length
 
-            # Each victim exits at building edge + 3-10 m into the street,
-            # with a lateral offset so they don't all overlap.
             flee_dist = bldg.half_sx + 3.0 + idx * 2.5 + random.uniform(0, 2)
             lateral = (idx - len(bldg.pedestrian_paths) / 2.0) * 2.0
-
             flee_x = bldg.world_x + dx * flee_dist + (-dy) * lateral
             flee_y = bldg.world_y + dy * flee_dist + dx * lateral
-            flee_z = 0.05  # ground level
+            flee_z = 0.05
 
-            # ── Actually relocate the prim ─────────────────────────────
-            xformable = UsdGeom.Xformable(ped_prim)
-            if xformable:
-                # Find the existing translate op and overwrite it
-                found = False
-                for op in xformable.GetOrderedXformOps():
-                    if op.GetOpName() == "xformOp:translate":
-                        op.Set(Gf.Vec3d(flee_x, flee_y, flee_z))
-                        found = True
-                        break
-                if not found:
-                    # No existing translate op — add one
-                    xformable.AddTranslateOp().Set(
-                        Gf.Vec3d(flee_x, flee_y, flee_z))
+            if HAS_ANIM_PEOPLE:
+                # Set navigation target for animated characters
+                try:
+                    people_mgr = _anim_people.get_people_manager()
+                    if people_mgr is not None:
+                        people_mgr.set_navigation_target(
+                            ped_path, (flee_x, flee_y, flee_z))
+                except Exception:
+                    pass
+                # Also do an immediate move as fallback
+                self._set_prim_translate(ped_prim, flee_x, flee_y, flee_z)
+            else:
+                # Get current position for lerp start
+                xformable = UsdGeom.Xformable(ped_prim)
+                start_pos = (bldg.world_x, bldg.world_y, 0.05)
+                if xformable:
+                    for op in xformable.GetOrderedXformOps():
+                        if op.GetOpName() == "xformOp:translate":
+                            v = op.Get()
+                            if v:
+                                start_pos = (float(v[0]), float(v[1]),
+                                             float(v[2]))
+                            break
 
-            # Mark as fleeing
+                self._flee_state[ped_path] = {
+                    "start": start_pos,
+                    "end": (flee_x, flee_y, flee_z),
+                    "step": 0,
+                    "total": 120,
+                }
+
             ped_prim.CreateAttribute(
                 "resqai:state", Sdf.ValueTypeNames.String).Set("fleeing")
 
         print(f"[ResQ-AI] 🏃 {len(bldg.pedestrian_paths)} victim(s) in "
-              f"{bldg.name} moved outside (visible to drone).")
+              f"{bldg.name} fleeing (visible to drone).")
+
+    def _advance_flee_lerps(self) -> None:
+        """Advance all active flee lerps by one step."""
+        done_keys = []
+        for ped_path, state in self._flee_state.items():
+            state["step"] += 1
+            t = min(1.0, state["step"] / state["total"])
+            # Smooth ease-out
+            t = 1.0 - (1.0 - t) ** 2
+
+            sx, sy, sz = state["start"]
+            ex, ey, ez = state["end"]
+            cx = sx + (ex - sx) * t
+            cy = sy + (ey - sy) * t
+            cz = sz + (ez - sz) * t
+
+            prim = self.stage.GetPrimAtPath(ped_path)
+            if prim and prim.IsValid():
+                self._set_prim_translate(prim, cx, cy, cz)
+
+            if state["step"] >= state["total"]:
+                done_keys.append(ped_path)
+
+        for k in done_keys:
+            del self._flee_state[k]
+
+    @staticmethod
+    def _set_prim_translate(prim: Any, x: float, y: float, z: float) -> None:
+        """Set or update the xformOp:translate on a prim."""
+        xformable = UsdGeom.Xformable(prim)
+        if not xformable:
+            return
+        for op in xformable.GetOrderedXformOps():
+            if op.GetOpName() == "xformOp:translate":
+                op.Set(Gf.Vec3d(x, y, z))
+                return
+        xformable.AddTranslateOp().Set(Gf.Vec3d(x, y, z))
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 7a. Character validation
+# ═══════════════════════════════════════════════════════════════════════════════
+
+
+def validate_characters(stage: Usd.Stage,
+                        buildings: List[BuildingInfo]) -> None:
+    """Check that character references actually loaded geometry.
+
+    For each pedestrian, verify the prim exists and has child meshes.
+    If a reference failed (no children), clear it and create a geometry
+    fallback at the same position.
+    """
+    print("[ResQ-AI] ── Validating character references ──")
+
+    # Scan character USD paths first
+    for i, char_path in enumerate(_CHARACTER_USDS):
+        exists = os.path.isfile(char_path)
+        basename = os.path.basename(char_path)
+        dirname = os.path.dirname(char_path)
+        status = "✅ found" if exists else "❌ NOT FOUND"
+        print(f"  [{i}] {basename}: {status}")
+        if not exists:
+            # Try to find any .usd/.usdc in the parent directory
+            if os.path.isdir(dirname):
+                found = [f for f in os.listdir(dirname)
+                         if f.endswith((".usd", ".usdc", ".usda"))]
+                if found:
+                    print(f"       Available files in {dirname}: {found}")
+
+    # Materials for geometry fallback
+    skin_mat = _mat(stage, "VictimSkinMat",
+                    albedo=(0.72, 0.55, 0.45), roughness=0.85)
+    shirt_mat = _mat(stage, "VictimShirtA",
+                     albedo=(0.1, 0.15, 0.35), roughness=0.75)
+    pants_mat = _mat(stage, "VictimPantsMat",
+                     albedo=(0.15, 0.15, 0.18), roughness=0.8)
+
+    ok_count = 0
+    fixed_count = 0
+    for bldg in buildings:
+        for ped_path in bldg.pedestrian_paths:
+            prim = stage.GetPrimAtPath(ped_path)
+            if not prim.IsValid():
+                print(f"  WARNING: {ped_path} is not valid")
+                continue
+            children = list(prim.GetChildren())
+            if len(children) == 0:
+                print(f"  WARNING: {ped_path} has no children — "
+                      f"reference may have failed. Falling back to geometry.")
+                prim.GetReferences().ClearReferences()
+                # Read current position
+                xformable = UsdGeom.Xformable(prim)
+                x, y, z = 0, 0, 0
+                if xformable:
+                    mtx = xformable.ComputeLocalToWorldTransform(
+                        Usd.TimeCode.Default())
+                    pos = mtx.ExtractTranslation()
+                    x, y, z = float(pos[0]), float(pos[1]), float(pos[2])
+                _spawn_geometry_person(stage, ped_path, x, y, z,
+                                       skin_mat, shirt_mat, pants_mat)
+                fixed_count += 1
+            else:
+                print(f"  OK: {ped_path} loaded with "
+                      f"{len(children)} child prims")
+                ok_count += 1
+
+    print(f"[ResQ-AI] Character validation: {ok_count} OK, "
+          f"{fixed_count} fixed with geometry fallback.")
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -1222,24 +1655,34 @@ def main() -> None:
 
     # ── Task 1c: Generate city trees ──────────────────────────────────────
     print("\n[ResQ-AI] ── Task 1c: City Trees ──")
-    generate_forest(stage, buildings, num_trees=120)
+    tree_positions = generate_forest(stage, buildings, num_trees=120)
 
     # ── Task 2: Spawn fire emitters ───────────────────────────────────────
     print("\n[ResQ-AI] ── Task 2: Fire Emitter Setup ──")
-    spawn_fire_emitters(stage, buildings)
+    wind_dir = Gf.Vec3f(*_args.wind_direction)
+    veg_fires = spawn_fire_emitters(stage, buildings, tree_positions, wind_dir)
 
     # ── Task 3: Spawn indoor pedestrians ──────────────────────────────────
     print("\n[ResQ-AI] ── Task 3: Indoor Victim Placement ──")
     spawn_indoor_pedestrians(stage, buildings,
                              count=_args.num_pedestrians)
 
+    # ── Task 3b: Validate character loading ───────────────────────────────
+    print("\n[ResQ-AI] ── Task 3b: Character Validation ──")
+    validate_characters(stage, buildings)
+
     # ── Task 4: Fire spread manager ───────────────────────────────────────
     print("\n[ResQ-AI] ── Task 4: Fire Spread Logic ──")
-    fire_mgr = FireSpreadManager(stage, buildings,
-                                 spread_radius=_args.fire_spread_radius)
+    fire_mgr = FireSpreadManager(
+        stage, buildings,
+        spread_radius=_args.fire_spread_radius,
+        wind_direction=wind_dir,
+        wind_speed=_args.wind_speed,
+        vegetation_fires=veg_fires,
+        tree_positions=tree_positions)
 
-    # Ignite one random building at the start
-    fire_mgr.ignite_random_building()
+    # Ignite initial vegetation fires (wildfire origin)
+    fire_mgr.ignite_vegetation_fires()
 
     # Register a physics-step callback for fire spreading
     world.add_physics_callback("fire_spread", fire_mgr.on_physics_step)
@@ -1262,9 +1705,7 @@ def main() -> None:
 
             # Periodic status print (every 300 steps ≈ 5 seconds at 60 Hz)
             if step % 300 == 0:
-                burning = sum(1 for b in buildings if b.is_burning)
-                print(f"[ResQ-AI] step={step}  "
-                      f"burning={burning}/{len(buildings)}")
+                fire_mgr.print_status()
 
             if _args.max_steps and step >= _args.max_steps:
                 print(f"[ResQ-AI] Reached --max-steps={_args.max_steps}, "
@@ -1289,7 +1730,12 @@ def main() -> None:
               f"({victims} victim{'s' if victims != 1 else ''})")
 
     total_burning = sum(1 for b in buildings if b.is_burning)
+    active_veg = sum(1 for v in veg_fires if v["active"])
     print(f"\n  Total: {total_burning}/{len(buildings)} buildings on fire.")
+    print(f"  Vegetation fires: {active_veg}/{len(veg_fires)} active.")
+    print(f"  Wind: ({_args.wind_direction[0]:.1f}, "
+          f"{_args.wind_direction[1]:.1f}, "
+          f"{_args.wind_direction[2]:.1f}) at {_args.wind_speed:.1f} m/s")
     print(f"  Simulation ended after {step} physics steps.")
     print("=" * 72)
 
