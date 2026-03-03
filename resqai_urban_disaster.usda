@@ -7,8 +7,8 @@
                 double radius = 5
             }
             dictionary Perspective = {
-                double3 position = (133.72066766651758, -149.61330613096723, 64.02569550585272)
-                double3 target = (36.23129135825171, -2.43347064840259, -5.246972774075218)
+                double3 position = (194.94202459914933, -10.232264306781019, 46.823143919533585)
+                double3 target = (31.467498762481824, -8.682666388675957, -5.986076231538249)
             }
             dictionary Right = {
                 double3 position = (0, -5, 0)
@@ -531,224 +531,2079 @@ def Xform "World"
 
     def Xform "Buildings"
     {
-        def Xform "Bld_0" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+        def Xform "Big_Block" (
+            kind = "group"
         )
         {
-            double xformOp:rotateX = 0
-            double xformOp:rotateY = 0
-            double xformOp:rotateZ = 90
-            double xformOp:rotateZ:city = 90
-            float3 xformOp:scale = (0.01, 0.01, 0.01)
-            double3 xformOp:scale:city = (0.01, 0.01, 0.01)
-            double3 xformOp:translate = (-62.14691334474553, -45.38218530288976, 0.15000000000000005)
-            double3 xformOp:translate:city = (-101.327, -65.033, 0.15)
-            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+            float3 xformOp:rotateXYZ = (0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:translate = (0, 0, 0)
+            float3 xformOp:translate:pivot = (-98.38757, -31.34768, 6.415794)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:translate:pivot", "xformOp:rotateXYZ", "xformOp:scale", "!invert!xformOp:translate:pivot"]
+
+            def Xform "Block" (
+                kind = "group"
+            )
+            {
+                float3 xformOp:rotateXYZ = (0, 0, 0)
+                float3 xformOp:scale = (1, 1, 1)
+                double3 xformOp:translate = (0, 1.6030679565162345, -0.8538177910459375)
+                float3 xformOp:translate:pivot = (-72.012535, -32.782917, 6.930148)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:translate:pivot", "xformOp:rotateXYZ", "xformOp:scale", "!invert!xformOp:translate:pivot"]
+
+                def Xform "Bld_0" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-61.24097865384161, -45.69828498292202, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-101.327, -65.033, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_1" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-75.17615783355467, -39.77499999999994, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-88.967, -39.775, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_2" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 270
+                    double xformOp:rotateZ:city = 270
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-80.91125427327393, -32.231618065753736, 0.14999999999999994)
+                    double3 xformOp:translate:city = (-101.327, -31.033, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_3" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 270
+                    double xformOp:rotateZ:city = 270
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-66.97718586249013, -38.241450907428806, 0.14999999999999994)
+                    double3 xformOp:translate:city = (-88.967, -21.775, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_4" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-63.11380894808766, -26.007054856210228, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-101.327, -2.0330000000000013, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_5" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-78.7229585070084, -7.725411528543496, 0.18352511107117367)
+                    double3 xformOp:translate:city = (-88.967, 23.225, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+            }
+
+            def Xform "Block_01" (
+                kind = "group"
+            )
+            {
+                float3 xformOp:rotateXYZ = (0, 0, -90)
+                float3 xformOp:scale = (1, 1, 1)
+                double3 xformOp:translate = (-30.930383222213905, 12.729191518921017, -0.9361121466349074)
+                float3 xformOp:translate:pivot = (-72.012535, -32.782917, 6.930148)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:translate:pivot", "xformOp:rotateXYZ", "xformOp:scale", "!invert!xformOp:translate:pivot"]
+
+                def Xform "Bld_0" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-61.24097865384161, -45.69828498292202, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-101.327, -65.033, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_1" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-75.17615783355467, -39.77499999999994, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-88.967, -39.775, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_2" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 270
+                    double xformOp:rotateZ:city = 270
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-80.91125427327393, -32.231618065753736, 0.14999999999999994)
+                    double3 xformOp:translate:city = (-101.327, -31.033, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_3" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 270
+                    double xformOp:rotateZ:city = 270
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-66.97718586249013, -38.241450907428806, 0.14999999999999994)
+                    double3 xformOp:translate:city = (-88.967, -21.775, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_4" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-63.11380894808766, -26.007054856210228, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-101.327, -2.0330000000000013, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_5" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-78.7229585070084, -7.725411528543496, 0.18352511107117367)
+                    double3 xformOp:translate:city = (-88.967, 23.225, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+            }
+
+            def Xform "Block_02" (
+                kind = "group"
+            )
+            {
+                float3 xformOp:rotateXYZ = (0, 0, 270)
+                float3 xformOp:scale = (1, 1, 1)
+                double3 xformOp:translate = (-28.757794665436066, -9.858708158809904, -0.09259638565317818)
+                float3 xformOp:translate:pivot = (-72.012535, -32.782917, 6.930148)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:translate:pivot", "xformOp:rotateXYZ", "xformOp:scale", "!invert!xformOp:translate:pivot"]
+
+                def Xform "Bld_0" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-61.24097865384161, -45.69828498292202, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-101.327, -65.033, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_1" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-75.17615783355467, -39.77499999999994, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-88.967, -39.775, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_2" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 270
+                    double xformOp:rotateZ:city = 270
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-80.91125427327393, -32.231618065753736, 0.14999999999999994)
+                    double3 xformOp:translate:city = (-101.327, -31.033, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_3" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 270
+                    double xformOp:rotateZ:city = 270
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-66.97718586249013, -38.241450907428806, 0.14999999999999994)
+                    double3 xformOp:translate:city = (-88.967, -21.775, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_4" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-63.11380894808766, -26.007054856210228, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-101.327, -2.0330000000000013, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_5" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-78.7229585070084, -7.725411528543496, 0.18352511107117367)
+                    double3 xformOp:translate:city = (-88.967, 23.225, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+            }
+
+            def Xform "Block_03" (
+                kind = "group"
+            )
+            {
+                float3 xformOp:rotateXYZ = (0, 0, 180)
+                float3 xformOp:scale = (1, 1, 1)
+                double3 xformOp:translate = (-52.75007996193233, 0.4591235579065511, -0.17176329925173484)
+                float3 xformOp:translate:pivot = (-72.012535, -32.782917, 6.930148)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:translate:pivot", "xformOp:rotateXYZ", "xformOp:scale", "!invert!xformOp:translate:pivot"]
+
+                def Xform "Bld_0" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-61.24097865384161, -45.69828498292202, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-101.327, -65.033, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_1" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-75.17615783355467, -39.77499999999994, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-88.967, -39.775, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_2" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 270
+                    double xformOp:rotateZ:city = 270
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-80.91125427327393, -32.231618065753736, 0.14999999999999994)
+                    double3 xformOp:translate:city = (-101.327, -31.033, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_3" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 270
+                    double xformOp:rotateZ:city = 270
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-66.97718586249013, -38.241450907428806, 0.14999999999999994)
+                    double3 xformOp:translate:city = (-88.967, -21.775, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_4" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-63.11380894808766, -26.007054856210228, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-101.327, -2.0330000000000013, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_5" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-78.7229585070084, -7.725411528543496, 0.18352511107117367)
+                    double3 xformOp:translate:city = (-88.967, 23.225, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+            }
         }
 
-        def Xform "Bld_1" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+        def Xform "Big_Block_01" (
+            kind = "group"
         )
         {
-            double xformOp:rotateX = 0
-            double xformOp:rotateY = 0
-            double xformOp:rotateZ = 90
-            double xformOp:rotateZ:city = 90
-            float3 xformOp:scale = (0.01, 0.01, 0.01)
-            double3 xformOp:scale:city = (0.01, 0.01, 0.01)
-            double3 xformOp:translate = (-75.17615783355467, -39.77499999999994, 0.15000000000000005)
-            double3 xformOp:translate:city = (-88.967, -39.775, 0.15)
-            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+            float3 xformOp:rotateXYZ = (0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:translate = (0, 62.29769758101035, 0)
+            float3 xformOp:translate:pivot = (-98.38757, -31.34768, 6.415794)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:translate:pivot", "xformOp:rotateXYZ", "xformOp:scale", "!invert!xformOp:translate:pivot"]
+
+            def Xform "Block" (
+                kind = "group"
+            )
+            {
+                float3 xformOp:rotateXYZ = (0, 0, 0)
+                float3 xformOp:scale = (1, 1, 1)
+                double3 xformOp:translate = (0, 1.6030679565162345, -0.8538177910459375)
+                float3 xformOp:translate:pivot = (-72.012535, -32.782917, 6.930148)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:translate:pivot", "xformOp:rotateXYZ", "xformOp:scale", "!invert!xformOp:translate:pivot"]
+
+                def Xform "Bld_0" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-61.24097865384161, -45.69828498292202, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-101.327, -65.033, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_1" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-75.17615783355467, -39.77499999999994, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-88.967, -39.775, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_2" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 270
+                    double xformOp:rotateZ:city = 270
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-80.91125427327393, -32.231618065753736, 0.14999999999999994)
+                    double3 xformOp:translate:city = (-101.327, -31.033, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_3" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 270
+                    double xformOp:rotateZ:city = 270
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-66.97718586249013, -38.241450907428806, 0.14999999999999994)
+                    double3 xformOp:translate:city = (-88.967, -21.775, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_4" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-63.11380894808766, -26.007054856210228, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-101.327, -2.0330000000000013, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_5" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-78.7229585070084, -7.725411528543496, 0.18352511107117367)
+                    double3 xformOp:translate:city = (-88.967, 23.225, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+            }
+
+            def Xform "Block_01" (
+                kind = "group"
+            )
+            {
+                float3 xformOp:rotateXYZ = (0, 0, -90)
+                float3 xformOp:scale = (1, 1, 1)
+                double3 xformOp:translate = (-30.930383222213905, 12.729191518921017, -0.9361121466349074)
+                float3 xformOp:translate:pivot = (-72.012535, -32.782917, 6.930148)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:translate:pivot", "xformOp:rotateXYZ", "xformOp:scale", "!invert!xformOp:translate:pivot"]
+
+                def Xform "Bld_0" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-61.24097865384161, -45.69828498292202, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-101.327, -65.033, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_1" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-75.17615783355467, -39.77499999999994, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-88.967, -39.775, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_2" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 270
+                    double xformOp:rotateZ:city = 270
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-80.91125427327393, -32.231618065753736, 0.14999999999999994)
+                    double3 xformOp:translate:city = (-101.327, -31.033, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_3" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 270
+                    double xformOp:rotateZ:city = 270
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-66.97718586249013, -38.241450907428806, 0.14999999999999994)
+                    double3 xformOp:translate:city = (-88.967, -21.775, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_4" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-63.11380894808766, -26.007054856210228, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-101.327, -2.0330000000000013, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_5" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-78.7229585070084, -7.725411528543496, 0.18352511107117367)
+                    double3 xformOp:translate:city = (-88.967, 23.225, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+            }
+
+            def Xform "Block_02" (
+                kind = "group"
+            )
+            {
+                float3 xformOp:rotateXYZ = (0, 0, 270)
+                float3 xformOp:scale = (1, 1, 1)
+                double3 xformOp:translate = (-28.757794665436066, -9.858708158809904, -0.09259638565317818)
+                float3 xformOp:translate:pivot = (-72.012535, -32.782917, 6.930148)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:translate:pivot", "xformOp:rotateXYZ", "xformOp:scale", "!invert!xformOp:translate:pivot"]
+
+                def Xform "Bld_0" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-61.24097865384161, -45.69828498292202, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-101.327, -65.033, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_1" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-75.17615783355467, -39.77499999999994, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-88.967, -39.775, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_2" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 270
+                    double xformOp:rotateZ:city = 270
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-80.91125427327393, -32.231618065753736, 0.14999999999999994)
+                    double3 xformOp:translate:city = (-101.327, -31.033, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_3" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 270
+                    double xformOp:rotateZ:city = 270
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-66.97718586249013, -38.241450907428806, 0.14999999999999994)
+                    double3 xformOp:translate:city = (-88.967, -21.775, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_4" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-63.11380894808766, -26.007054856210228, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-101.327, -2.0330000000000013, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_5" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-78.7229585070084, -7.725411528543496, 0.18352511107117367)
+                    double3 xformOp:translate:city = (-88.967, 23.225, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+            }
+
+            def Xform "Block_03" (
+                kind = "group"
+            )
+            {
+                float3 xformOp:rotateXYZ = (0, 0, 180)
+                float3 xformOp:scale = (1, 1, 1)
+                double3 xformOp:translate = (-52.75007996193233, 0.4591235579065511, -0.17176329925173484)
+                float3 xformOp:translate:pivot = (-72.012535, -32.782917, 6.930148)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:translate:pivot", "xformOp:rotateXYZ", "xformOp:scale", "!invert!xformOp:translate:pivot"]
+
+                def Xform "Bld_0" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-61.24097865384161, -45.69828498292202, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-101.327, -65.033, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_1" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-75.17615783355467, -39.77499999999994, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-88.967, -39.775, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_2" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 270
+                    double xformOp:rotateZ:city = 270
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-80.91125427327393, -32.231618065753736, 0.14999999999999994)
+                    double3 xformOp:translate:city = (-101.327, -31.033, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_3" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 270
+                    double xformOp:rotateZ:city = 270
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-66.97718586249013, -38.241450907428806, 0.14999999999999994)
+                    double3 xformOp:translate:city = (-88.967, -21.775, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_4" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-63.11380894808766, -26.007054856210228, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-101.327, -2.0330000000000013, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_5" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-78.7229585070084, -7.725411528543496, 0.18352511107117367)
+                    double3 xformOp:translate:city = (-88.967, 23.225, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+            }
         }
 
-        def Xform "Bld_2" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+        def Xform "Big_Block_02" (
+            kind = "group"
         )
         {
-            double xformOp:rotateX = 0
-            double xformOp:rotateY = 0
-            double xformOp:rotateZ = 270
-            double xformOp:rotateZ:city = 270
-            float3 xformOp:scale = (0.01, 0.01, 0.01)
-            double3 xformOp:scale:city = (0.01, 0.01, 0.01)
-            double3 xformOp:translate = (-80.91125427327393, -32.054459522155334, 0.14999999999999994)
-            double3 xformOp:translate:city = (-101.327, -31.033, 0.15)
-            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+            float3 xformOp:rotateXYZ = (0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:translate = (98.06220687313827, 62.29769758101035, 0)
+            float3 xformOp:translate:pivot = (-98.38757, -31.34768, 6.415794)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:translate:pivot", "xformOp:rotateXYZ", "xformOp:scale", "!invert!xformOp:translate:pivot"]
+
+            def Xform "Block" (
+                kind = "group"
+            )
+            {
+                float3 xformOp:rotateXYZ = (0, 0, 0)
+                float3 xformOp:scale = (1, 1, 1)
+                double3 xformOp:translate = (0, 1.6030679565162345, -0.8538177910459375)
+                float3 xformOp:translate:pivot = (-72.012535, -32.782917, 6.930148)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:translate:pivot", "xformOp:rotateXYZ", "xformOp:scale", "!invert!xformOp:translate:pivot"]
+
+                def Xform "Bld_0" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-61.24097865384161, -45.69828498292202, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-101.327, -65.033, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_1" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-75.17615783355467, -39.77499999999994, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-88.967, -39.775, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_2" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 270
+                    double xformOp:rotateZ:city = 270
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-80.91125427327393, -32.231618065753736, 0.14999999999999994)
+                    double3 xformOp:translate:city = (-101.327, -31.033, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_3" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 270
+                    double xformOp:rotateZ:city = 270
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-66.97718586249013, -38.241450907428806, 0.14999999999999994)
+                    double3 xformOp:translate:city = (-88.967, -21.775, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_4" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-63.11380894808766, -26.007054856210228, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-101.327, -2.0330000000000013, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_5" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-78.7229585070084, -7.725411528543496, 0.18352511107117367)
+                    double3 xformOp:translate:city = (-88.967, 23.225, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+            }
+
+            def Xform "Block_01" (
+                kind = "group"
+            )
+            {
+                float3 xformOp:rotateXYZ = (0, 0, -90)
+                float3 xformOp:scale = (1, 1, 1)
+                double3 xformOp:translate = (-30.930383222213905, 12.729191518921017, -0.9361121466349074)
+                float3 xformOp:translate:pivot = (-72.012535, -32.782917, 6.930148)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:translate:pivot", "xformOp:rotateXYZ", "xformOp:scale", "!invert!xformOp:translate:pivot"]
+
+                def Xform "Bld_0" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-61.24097865384161, -45.69828498292202, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-101.327, -65.033, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_1" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-75.17615783355467, -39.77499999999994, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-88.967, -39.775, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_2" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 270
+                    double xformOp:rotateZ:city = 270
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-80.91125427327393, -32.231618065753736, 0.14999999999999994)
+                    double3 xformOp:translate:city = (-101.327, -31.033, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_3" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 270
+                    double xformOp:rotateZ:city = 270
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-66.97718586249013, -38.241450907428806, 0.14999999999999994)
+                    double3 xformOp:translate:city = (-88.967, -21.775, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_4" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-63.11380894808766, -26.007054856210228, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-101.327, -2.0330000000000013, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_5" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-78.7229585070084, -7.725411528543496, 0.18352511107117367)
+                    double3 xformOp:translate:city = (-88.967, 23.225, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+            }
+
+            def Xform "Block_02" (
+                kind = "group"
+            )
+            {
+                float3 xformOp:rotateXYZ = (0, 0, 270)
+                float3 xformOp:scale = (1, 1, 1)
+                double3 xformOp:translate = (-28.757794665436066, -9.858708158809904, -0.09259638565317818)
+                float3 xformOp:translate:pivot = (-72.012535, -32.782917, 6.930148)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:translate:pivot", "xformOp:rotateXYZ", "xformOp:scale", "!invert!xformOp:translate:pivot"]
+
+                def Xform "Bld_0" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-61.24097865384161, -45.69828498292202, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-101.327, -65.033, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_1" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-75.17615783355467, -39.77499999999994, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-88.967, -39.775, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_2" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 270
+                    double xformOp:rotateZ:city = 270
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-80.91125427327393, -32.231618065753736, 0.14999999999999994)
+                    double3 xformOp:translate:city = (-101.327, -31.033, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_3" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 270
+                    double xformOp:rotateZ:city = 270
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-66.97718586249013, -38.241450907428806, 0.14999999999999994)
+                    double3 xformOp:translate:city = (-88.967, -21.775, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_4" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-63.11380894808766, -26.007054856210228, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-101.327, -2.0330000000000013, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_5" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-78.7229585070084, -7.725411528543496, 0.18352511107117367)
+                    double3 xformOp:translate:city = (-88.967, 23.225, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+            }
+
+            def Xform "Block_03" (
+                kind = "group"
+            )
+            {
+                float3 xformOp:rotateXYZ = (0, 0, 180)
+                float3 xformOp:scale = (1, 1, 1)
+                double3 xformOp:translate = (-52.75007996193233, 0.4591235579065511, -0.17176329925173484)
+                float3 xformOp:translate:pivot = (-72.012535, -32.782917, 6.930148)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:translate:pivot", "xformOp:rotateXYZ", "xformOp:scale", "!invert!xformOp:translate:pivot"]
+
+                def Xform "Bld_0" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-61.24097865384161, -45.69828498292202, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-101.327, -65.033, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_1" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-75.17615783355467, -39.77499999999994, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-88.967, -39.775, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_2" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 270
+                    double xformOp:rotateZ:city = 270
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-80.91125427327393, -32.231618065753736, 0.14999999999999994)
+                    double3 xformOp:translate:city = (-101.327, -31.033, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_3" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 270
+                    double xformOp:rotateZ:city = 270
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-66.97718586249013, -38.241450907428806, 0.14999999999999994)
+                    double3 xformOp:translate:city = (-88.967, -21.775, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_4" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-63.11380894808766, -26.007054856210228, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-101.327, -2.0330000000000013, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_5" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-78.7229585070084, -7.725411528543496, 0.18352511107117367)
+                    double3 xformOp:translate:city = (-88.967, 23.225, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+            }
         }
 
-        def Xform "Bld_3" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+        def Xform "Big_Block_03" (
+            kind = "group"
         )
         {
-            double xformOp:rotateX = 0
-            double xformOp:rotateY = 0
-            double xformOp:rotateZ = 270
-            double xformOp:rotateZ:city = 270
-            float3 xformOp:scale = (0.01, 0.01, 0.01)
-            double3 xformOp:scale:city = (0.01, 0.01, 0.01)
-            double3 xformOp:translate = (-66.97718586249013, -37.548098051595225, 0.14999999999999994)
-            double3 xformOp:translate:city = (-88.967, -21.775, 0.15)
-            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+            float3 xformOp:rotateXYZ = (0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:translate = (193.91633657227942, 62.29769758101035, 0)
+            float3 xformOp:translate:pivot = (-98.38757, -31.34768, 6.415794)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:translate:pivot", "xformOp:rotateXYZ", "xformOp:scale", "!invert!xformOp:translate:pivot"]
+
+            def Xform "Block" (
+                kind = "group"
+            )
+            {
+                float3 xformOp:rotateXYZ = (0, 0, 0)
+                float3 xformOp:scale = (1, 1, 1)
+                double3 xformOp:translate = (0, 1.6030679565162345, -0.8538177910459375)
+                float3 xformOp:translate:pivot = (-72.012535, -32.782917, 6.930148)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:translate:pivot", "xformOp:rotateXYZ", "xformOp:scale", "!invert!xformOp:translate:pivot"]
+
+                def Xform "Bld_0" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-61.24097865384161, -45.69828498292202, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-101.327, -65.033, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_1" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-75.17615783355467, -39.77499999999994, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-88.967, -39.775, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_2" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 270
+                    double xformOp:rotateZ:city = 270
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-80.91125427327393, -32.231618065753736, 0.14999999999999994)
+                    double3 xformOp:translate:city = (-101.327, -31.033, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_3" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 270
+                    double xformOp:rotateZ:city = 270
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-66.97718586249013, -38.241450907428806, 0.14999999999999994)
+                    double3 xformOp:translate:city = (-88.967, -21.775, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_4" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-63.11380894808766, -26.007054856210228, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-101.327, -2.0330000000000013, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_5" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-78.7229585070084, -7.725411528543496, 0.18352511107117367)
+                    double3 xformOp:translate:city = (-88.967, 23.225, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+            }
+
+            def Xform "Block_01" (
+                kind = "group"
+            )
+            {
+                float3 xformOp:rotateXYZ = (0, 0, -90)
+                float3 xformOp:scale = (1, 1, 1)
+                double3 xformOp:translate = (-30.930383222213905, 12.729191518921017, -0.9361121466349074)
+                float3 xformOp:translate:pivot = (-72.012535, -32.782917, 6.930148)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:translate:pivot", "xformOp:rotateXYZ", "xformOp:scale", "!invert!xformOp:translate:pivot"]
+
+                def Xform "Bld_0" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-61.24097865384161, -45.69828498292202, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-101.327, -65.033, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_1" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-75.17615783355467, -39.77499999999994, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-88.967, -39.775, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_2" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 270
+                    double xformOp:rotateZ:city = 270
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-80.91125427327393, -32.231618065753736, 0.14999999999999994)
+                    double3 xformOp:translate:city = (-101.327, -31.033, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_3" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 270
+                    double xformOp:rotateZ:city = 270
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-66.97718586249013, -38.241450907428806, 0.14999999999999994)
+                    double3 xformOp:translate:city = (-88.967, -21.775, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_4" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-63.11380894808766, -26.007054856210228, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-101.327, -2.0330000000000013, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_5" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-78.7229585070084, -7.725411528543496, 0.18352511107117367)
+                    double3 xformOp:translate:city = (-88.967, 23.225, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+            }
+
+            def Xform "Block_02" (
+                kind = "group"
+            )
+            {
+                float3 xformOp:rotateXYZ = (0, 0, 270)
+                float3 xformOp:scale = (1, 1, 1)
+                double3 xformOp:translate = (-28.757794665436066, -9.858708158809904, -0.09259638565317818)
+                float3 xformOp:translate:pivot = (-72.012535, -32.782917, 6.930148)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:translate:pivot", "xformOp:rotateXYZ", "xformOp:scale", "!invert!xformOp:translate:pivot"]
+
+                def Xform "Bld_0" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-61.24097865384161, -45.69828498292202, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-101.327, -65.033, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_1" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-75.17615783355467, -39.77499999999994, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-88.967, -39.775, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_2" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 270
+                    double xformOp:rotateZ:city = 270
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-80.91125427327393, -32.231618065753736, 0.14999999999999994)
+                    double3 xformOp:translate:city = (-101.327, -31.033, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_3" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 270
+                    double xformOp:rotateZ:city = 270
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-66.97718586249013, -38.241450907428806, 0.14999999999999994)
+                    double3 xformOp:translate:city = (-88.967, -21.775, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_4" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-63.11380894808766, -26.007054856210228, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-101.327, -2.0330000000000013, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_5" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-78.7229585070084, -7.725411528543496, 0.18352511107117367)
+                    double3 xformOp:translate:city = (-88.967, 23.225, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+            }
+
+            def Xform "Block_03" (
+                kind = "group"
+            )
+            {
+                float3 xformOp:rotateXYZ = (0, 0, 180)
+                float3 xformOp:scale = (1, 1, 1)
+                double3 xformOp:translate = (-52.75007996193233, 0.4591235579065511, -0.17176329925173484)
+                float3 xformOp:translate:pivot = (-72.012535, -32.782917, 6.930148)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:translate:pivot", "xformOp:rotateXYZ", "xformOp:scale", "!invert!xformOp:translate:pivot"]
+
+                def Xform "Bld_0" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-61.24097865384161, -45.69828498292202, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-101.327, -65.033, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_1" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-75.17615783355467, -39.77499999999994, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-88.967, -39.775, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_2" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 270
+                    double xformOp:rotateZ:city = 270
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-80.91125427327393, -32.231618065753736, 0.14999999999999994)
+                    double3 xformOp:translate:city = (-101.327, -31.033, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_3" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 270
+                    double xformOp:rotateZ:city = 270
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-66.97718586249013, -38.241450907428806, 0.14999999999999994)
+                    double3 xformOp:translate:city = (-88.967, -21.775, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_4" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-63.11380894808766, -26.007054856210228, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-101.327, -2.0330000000000013, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_5" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-78.7229585070084, -7.725411528543496, 0.18352511107117367)
+                    double3 xformOp:translate:city = (-88.967, 23.225, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+            }
         }
 
-        def Xform "Bld_4" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+        def Xform "Big_Block_04" (
+            kind = "group"
         )
         {
-            double xformOp:rotateZ:city = 90
-            double3 xformOp:scale:city = (0.01, 0.01, 0.01)
-            double3 xformOp:translate:city = (-101.327, -2.0330000000000013, 0.15)
-            uniform token[] xformOpOrder = ["xformOp:translate:city", "xformOp:rotateZ:city", "xformOp:scale:city"]
-        }
+            float3 xformOp:rotateXYZ = (0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:translate = (193.91633657227942, -0.5729730422459056, 0)
+            float3 xformOp:translate:pivot = (-98.38757, -31.34768, 6.415794)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:translate:pivot", "xformOp:rotateXYZ", "xformOp:scale", "!invert!xformOp:translate:pivot"]
 
-        def Xform "Bld_5" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
-        )
-        {
-            double xformOp:rotateZ:city = 90
-            double3 xformOp:scale:city = (0.01, 0.01, 0.01)
-            double3 xformOp:translate:city = (-88.967, 23.225, 0.15)
-            uniform token[] xformOpOrder = ["xformOp:translate:city", "xformOp:rotateZ:city", "xformOp:scale:city"]
-        }
+            def Xform "Block" (
+                kind = "group"
+            )
+            {
+                float3 xformOp:rotateXYZ = (0, 0, 0)
+                float3 xformOp:scale = (1, 1, 1)
+                double3 xformOp:translate = (0, 1.6030679565162345, -0.8538177910459375)
+                float3 xformOp:translate:pivot = (-72.012535, -32.782917, 6.930148)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:translate:pivot", "xformOp:rotateXYZ", "xformOp:scale", "!invert!xformOp:translate:pivot"]
 
-        def Xform "Bld_6" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
-        )
-        {
-            double xformOp:rotateZ:city = 270
-            double3 xformOp:scale:city = (0.01, 0.01, 0.01)
-            double3 xformOp:translate:city = (-101.327, 31.967, 0.15)
-            uniform token[] xformOpOrder = ["xformOp:translate:city", "xformOp:rotateZ:city", "xformOp:scale:city"]
-        }
+                def Xform "Bld_0" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-61.24097865384161, -45.69828498292202, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-101.327, -65.033, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
 
-        def Xform "Bld_7" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
-        )
-        {
-            double xformOp:rotateZ:city = 270
-            double3 xformOp:scale:city = (0.01, 0.01, 0.01)
-            double3 xformOp:translate:city = (-88.967, 41.225, 0.15)
-            uniform token[] xformOpOrder = ["xformOp:translate:city", "xformOp:rotateZ:city", "xformOp:scale:city"]
-        }
+                def Xform "Bld_1" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-75.17615783355467, -39.77499999999994, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-88.967, -39.775, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
 
-        def Xform "Bld_8" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
-        )
-        {
-            double xformOp:rotateZ:city = 90
-            double3 xformOp:scale:city = (0.01, 0.01, 0.01)
-            double3 xformOp:translate:city = (-3.327, -2.0330000000000013, 0.15)
-            uniform token[] xformOpOrder = ["xformOp:translate:city", "xformOp:rotateZ:city", "xformOp:scale:city"]
-        }
+                def Xform "Bld_2" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 270
+                    double xformOp:rotateZ:city = 270
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-80.91125427327393, -32.231618065753736, 0.14999999999999994)
+                    double3 xformOp:translate:city = (-101.327, -31.033, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
 
-        def Xform "Bld_9" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
-        )
-        {
-            double xformOp:rotateZ:city = 90
-            double3 xformOp:scale:city = (0.01, 0.01, 0.01)
-            double3 xformOp:translate:city = (9.033, 23.225, 0.15)
-            uniform token[] xformOpOrder = ["xformOp:translate:city", "xformOp:rotateZ:city", "xformOp:scale:city"]
-        }
+                def Xform "Bld_3" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 270
+                    double xformOp:rotateZ:city = 270
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-66.97718586249013, -38.241450907428806, 0.14999999999999994)
+                    double3 xformOp:translate:city = (-88.967, -21.775, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
 
-        def Xform "Bld_10" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
-        )
-        {
-            double xformOp:rotateZ:city = 270
-            double3 xformOp:scale:city = (0.01, 0.01, 0.01)
-            double3 xformOp:translate:city = (-3.327, 31.967, 0.15)
-            uniform token[] xformOpOrder = ["xformOp:translate:city", "xformOp:rotateZ:city", "xformOp:scale:city"]
-        }
+                def Xform "Bld_4" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-63.11380894808766, -26.007054856210228, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-101.327, -2.0330000000000013, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
 
-        def Xform "Bld_11" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
-        )
-        {
-            double xformOp:rotateZ:city = 270
-            double3 xformOp:scale:city = (0.01, 0.01, 0.01)
-            double3 xformOp:translate:city = (9.033, 41.225, 0.15)
-            uniform token[] xformOpOrder = ["xformOp:translate:city", "xformOp:rotateZ:city", "xformOp:scale:city"]
-        }
+                def Xform "Bld_5" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-78.7229585070084, -7.725411528543496, 0.18352511107117367)
+                    double3 xformOp:translate:city = (-88.967, 23.225, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+            }
 
-        def Xform "Bld_12" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
-        )
-        {
-            double xformOp:rotateZ:city = 90
-            double3 xformOp:scale:city = (0.01, 0.01, 0.01)
-            double3 xformOp:translate:city = (94.673, -65.033, 0.15)
-            uniform token[] xformOpOrder = ["xformOp:translate:city", "xformOp:rotateZ:city", "xformOp:scale:city"]
-        }
+            def Xform "Block_01" (
+                kind = "group"
+            )
+            {
+                float3 xformOp:rotateXYZ = (0, 0, -90)
+                float3 xformOp:scale = (1, 1, 1)
+                double3 xformOp:translate = (-30.930383222213905, 12.729191518921017, -0.9361121466349074)
+                float3 xformOp:translate:pivot = (-72.012535, -32.782917, 6.930148)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:translate:pivot", "xformOp:rotateXYZ", "xformOp:scale", "!invert!xformOp:translate:pivot"]
 
-        def Xform "Bld_13" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
-        )
-        {
-            double xformOp:rotateZ:city = 90
-            double3 xformOp:scale:city = (0.01, 0.01, 0.01)
-            double3 xformOp:translate:city = (107.033, -39.775, 0.15)
-            uniform token[] xformOpOrder = ["xformOp:translate:city", "xformOp:rotateZ:city", "xformOp:scale:city"]
-        }
+                def Xform "Bld_0" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-61.24097865384161, -45.69828498292202, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-101.327, -65.033, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
 
-        def Xform "Bld_14" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
-        )
-        {
-            double xformOp:rotateZ:city = 270
-            double3 xformOp:scale:city = (0.01, 0.01, 0.01)
-            double3 xformOp:translate:city = (94.673, -31.033, 0.15)
-            uniform token[] xformOpOrder = ["xformOp:translate:city", "xformOp:rotateZ:city", "xformOp:scale:city"]
-        }
+                def Xform "Bld_1" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-75.17615783355467, -39.77499999999994, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-88.967, -39.775, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
 
-        def Xform "Bld_15" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
-        )
-        {
-            double xformOp:rotateZ:city = 270
-            double3 xformOp:scale:city = (0.01, 0.01, 0.01)
-            double3 xformOp:translate:city = (107.033, -21.775, 0.15)
-            uniform token[] xformOpOrder = ["xformOp:translate:city", "xformOp:rotateZ:city", "xformOp:scale:city"]
-        }
+                def Xform "Bld_2" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 270
+                    double xformOp:rotateZ:city = 270
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-80.91125427327393, -32.231618065753736, 0.14999999999999994)
+                    double3 xformOp:translate:city = (-101.327, -31.033, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
 
-        def Xform "Bld_16" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
-        )
-        {
-            double xformOp:rotateZ:city = 90
-            double3 xformOp:scale:city = (0.01, 0.01, 0.01)
-            double3 xformOp:translate:city = (94.673, -2.0330000000000013, 0.15)
-            uniform token[] xformOpOrder = ["xformOp:translate:city", "xformOp:rotateZ:city", "xformOp:scale:city"]
-        }
+                def Xform "Bld_3" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 270
+                    double xformOp:rotateZ:city = 270
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-66.97718586249013, -38.241450907428806, 0.14999999999999994)
+                    double3 xformOp:translate:city = (-88.967, -21.775, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
 
-        def Xform "Bld_17" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
-        )
-        {
-            double xformOp:rotateZ:city = 90
-            double3 xformOp:scale:city = (0.01, 0.01, 0.01)
-            double3 xformOp:translate:city = (107.033, 23.225, 0.15)
-            uniform token[] xformOpOrder = ["xformOp:translate:city", "xformOp:rotateZ:city", "xformOp:scale:city"]
-        }
+                def Xform "Bld_4" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-63.11380894808766, -26.007054856210228, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-101.327, -2.0330000000000013, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
 
-        def Xform "Bld_18" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
-        )
-        {
-            double xformOp:rotateZ:city = 270
-            double3 xformOp:scale:city = (0.01, 0.01, 0.01)
-            double3 xformOp:translate:city = (94.673, 31.967, 0.15)
-            uniform token[] xformOpOrder = ["xformOp:translate:city", "xformOp:rotateZ:city", "xformOp:scale:city"]
-        }
+                def Xform "Bld_5" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-78.7229585070084, -7.725411528543496, 0.18352511107117367)
+                    double3 xformOp:translate:city = (-88.967, 23.225, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+            }
 
-        def Xform "Bld_19" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
-        )
-        {
-            double xformOp:rotateZ:city = 270
-            double3 xformOp:scale:city = (0.01, 0.01, 0.01)
-            double3 xformOp:translate:city = (107.033, 41.225, 0.15)
-            uniform token[] xformOpOrder = ["xformOp:translate:city", "xformOp:rotateZ:city", "xformOp:scale:city"]
+            def Xform "Block_02" (
+                kind = "group"
+            )
+            {
+                float3 xformOp:rotateXYZ = (0, 0, 270)
+                float3 xformOp:scale = (1, 1, 1)
+                double3 xformOp:translate = (-28.757794665436066, -9.858708158809904, -0.09259638565317818)
+                float3 xformOp:translate:pivot = (-72.012535, -32.782917, 6.930148)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:translate:pivot", "xformOp:rotateXYZ", "xformOp:scale", "!invert!xformOp:translate:pivot"]
+
+                def Xform "Bld_0" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-61.24097865384161, -45.69828498292202, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-101.327, -65.033, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_1" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-75.17615783355467, -39.77499999999994, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-88.967, -39.775, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_2" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 270
+                    double xformOp:rotateZ:city = 270
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-80.91125427327393, -32.231618065753736, 0.14999999999999994)
+                    double3 xformOp:translate:city = (-101.327, -31.033, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_3" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 270
+                    double xformOp:rotateZ:city = 270
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-66.97718586249013, -38.241450907428806, 0.14999999999999994)
+                    double3 xformOp:translate:city = (-88.967, -21.775, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_4" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-63.11380894808766, -26.007054856210228, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-101.327, -2.0330000000000013, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_5" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-78.7229585070084, -7.725411528543496, 0.18352511107117367)
+                    double3 xformOp:translate:city = (-88.967, 23.225, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+            }
+
+            def Xform "Block_03" (
+                kind = "group"
+            )
+            {
+                float3 xformOp:rotateXYZ = (0, 0, 180)
+                float3 xformOp:scale = (1, 1, 1)
+                double3 xformOp:translate = (-52.75007996193233, 0.4591235579065511, -0.17176329925173484)
+                float3 xformOp:translate:pivot = (-72.012535, -32.782917, 6.930148)
+                uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:translate:pivot", "xformOp:rotateXYZ", "xformOp:scale", "!invert!xformOp:translate:pivot"]
+
+                def Xform "Bld_0" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-61.24097865384161, -45.69828498292202, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-101.327, -65.033, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_1" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-75.17615783355467, -39.77499999999994, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-88.967, -39.775, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_2" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 270
+                    double xformOp:rotateZ:city = 270
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-80.91125427327393, -32.231618065753736, 0.14999999999999994)
+                    double3 xformOp:translate:city = (-101.327, -31.033, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_3" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 270
+                    double xformOp:rotateZ:city = 270
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-66.97718586249013, -38.241450907428806, 0.14999999999999994)
+                    double3 xformOp:translate:city = (-88.967, -21.775, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_4" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-63.11380894808766, -26.007054856210228, 0.15000000000000005)
+                    double3 xformOp:translate:city = (-101.327, -2.0330000000000013, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+
+                def Xform "Bld_5" (
+                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                )
+                {
+                    double xformOp:rotateX = 0
+                    double xformOp:rotateY = 0
+                    double xformOp:rotateZ = 90
+                    double xformOp:rotateZ:city = 90
+                    float3 xformOp:scale = (0.01, 0.01, 0.01)
+                    double3 xformOp:scale:city = (0.01, 0.01, 0.01)
+                    double3 xformOp:translate = (-78.7229585070084, -7.725411528543496, 0.18352511107117367)
+                    double3 xformOp:translate:city = (-88.967, 23.225, 0.15)
+                    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateY", "xformOp:rotateX", "xformOp:rotateZ", "xformOp:scale"]
+                }
+            }
         }
     }
 
@@ -3233,7 +5088,7 @@ def "Render" (
                 rel camera = </OmniverseKit_Persp>
                 token omni:rtx:background:source:texture:textureMode = "repeatMirrored"
                 token omni:rtx:background:source:type = "domeLight"
-                bool omni:rtx:dlss:frameGeneration = 0
+                bool omni:rtx:dlss:frameGeneration = 1
                 bool omni:rtx:material:db:nonVisualMaterialCSV:enabled = 0
                 bool omni:rtx:material:db:syncLoads = 1
                 token omni:rtx:post:dlss:execMode = "performance"
@@ -3242,6 +5097,7 @@ def "Render" (
                 bool omni:rtx:pt:lightcache:cached:dontResolveConflicts = 1
                 int omni:rtx:pt:maxSamplesPerLaunch = 2073600
                 int omni:rtx:pt:mgpu:maxPixelsPerRegionExponent = 12
+                token omni:rtx:rendermode
                 color3f omni:rtx:rt:ambientLight:color = (0.1, 0.1, 0.1)
                 bool omni:rtx:rt:demoire = 0
                 bool omni:rtx:rt:lightcache:spatialCache:dontResolveConflicts = 1
