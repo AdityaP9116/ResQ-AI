@@ -7,8 +7,8 @@
                 double radius = 5
             }
             dictionary Perspective = {
-                double3 position = (194.94202459914933, -10.232264306781019, 46.823143919533585)
-                double3 target = (31.467498762481824, -8.682666388675957, -5.986076231538249)
+                double3 position = (255.79720644527873, -2.6231966007969847, 114.83591263741425)
+                double3 target = (37.06248379436926, -6.316440706725379, -13.941722459485845)
             }
             dictionary Right = {
                 double3 position = (0, -5, 0)
@@ -24,6 +24,9 @@
             string authoring_layer = "./resqai_urban_disaster.usda"
         }
         dictionary renderSettings = {
+            bool "rtx:reflections:enabled" = 0
+            double "rtx:resourcemanager:texturestreaming:gpuBudgetPriority" = 0.5199999883770943
+            bool "rtx:translucency:enabled" = 0
         }
     }
     defaultPrim = "World"
@@ -5088,7 +5091,7 @@ def "Render" (
                 rel camera = </OmniverseKit_Persp>
                 token omni:rtx:background:source:texture:textureMode = "repeatMirrored"
                 token omni:rtx:background:source:type = "domeLight"
-                bool omni:rtx:dlss:frameGeneration = 1
+                bool omni:rtx:dlss:frameGeneration
                 bool omni:rtx:material:db:nonVisualMaterialCSV:enabled = 0
                 bool omni:rtx:material:db:syncLoads = 1
                 token omni:rtx:post:dlss:execMode = "performance"
@@ -5100,11 +5103,16 @@ def "Render" (
                 token omni:rtx:rendermode
                 color3f omni:rtx:rt:ambientLight:color = (0.1, 0.1, 0.1)
                 bool omni:rtx:rt:demoire = 0
+                bool omni:rtx:rt:directLighting:enabled
+                bool omni:rtx:rt:ecoMode:enabled
                 bool omni:rtx:rt:lightcache:spatialCache:dontResolveConflicts = 1
+                bool omni:rtx:rt:reflections:enabled = 0
+                bool omni:rtx:rt:refractions:enabled = 0
                 bool omni:rtx:scene:hydra:materialSyncLoads = 1
                 bool omni:rtx:scene:hydra:mdlMaterialWarmup = 1
                 bool omni:rtx:scene:useViewLightingMode
                 uint omni:rtx:viewTile:limit = 4294967295
+                token omni:rtx:wireframe:mode
                 rel orderedVars = </Render/Vars/LdrColor>
                 custom bool overrideClipRange = 0
                 uniform int2 resolution = (1280, 720)
