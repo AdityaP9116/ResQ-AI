@@ -1,0 +1,214 @@
+# ResQ-AI — Project Workflow Rundown
+
+## High-Level Architecture
+
+ResQ-AI is an **autonomous disaster-response drone agent** built on NVIDIA Isaac Sim. The project follows a three-phase pipeline:
+
+```mermaid
+graph LR
+    A["Phase 1<br/>Situational Awareness<br/>(YOLO Detection)"] --> B["Phase 2<br/>Structural Segmentation<br/>(Pixel-level Masks)"]
+    B --> C["Phase 3<br/>Autonomous Flight<br/>(Cosmos Reason 2 VLM)"]
+```
+
+---
+
+## End-to-End Data Flow
+
+This is the real-time **Sense → Think → Act** loop that runs during a demo flight:
+
+```mermaid
+flowchart TD
+    subgraph SIM["Simulation Layer (sim_bridge/)"]
+        S1["generate_urban_scene.py<br/>Build USD city + disasters"] --> S2["spawn_drone.py<br/>Pegasus Iris + 3 cameras + IMU"]
+        S2 --> S3["main_sim_loop.py / demo_flight.py<br/>Tick physics, extract frames"]
+    end
+
+    subgraph SENSE["Sense (Perception)"]
+        S3 -->|RGB frame| Y["YOLO v8<br/>Hazard Detection"]
+        S3 -->|Semantic seg| T["thermal_sim.py<br/>Synthetic Thermal IR"]
+        S3 -->|Depth map| P["projection_utils.py<br/>2D pixel → 3D world"]
+    end
+
+    subgraph THINK["Think (Reasoning)"]
+        Y -->|bboxes + class IDs| LG["logic_gates.py<br/>HazardTracker (IoU + debounce)"]
+        LG --> OB["orchestrator_bridge.py<br/>OrchestratorBridge.process_frame()"]
+        P -->|3D coords| OB
+        T -->|thermal frame| OB
+        OB -->|Cosmos prompt JSON| VLM["vlm_server.py<br/>Cosmos Reason 2 / NIM / mock"]
+    end
+
+    subgraph ACT["Act (Control)"]
+        VLM -->|waypoint + reasoning| FSM["demo_flight.py<br/>FlightState machine<br/>SURVEY → INVESTIGATE → RETURN"]
+        FSM -->|lerp position| S2
+    end
+
+    subgraph OUTPUT["Outputs"]
+        FSM --> RPT["Flight_Report.json"]
+        RPT --> MAP["generate_map.py<br/>Folium Hazard Map (HTML)"]
+        FSM --> VID["Annotated MP4 video"]
+    end
+```
+
+---
+
+## Module-by-Module Breakdown
+
+### 1. Scene Generation — [generate_urban_scene.py](file:///c:/Users/anshu/College/CosmosCookoff/ResQ-AI/sim_bridge/generate_urban_scene.py)
+
+| What it does | Details |
+|---|---|
+| Writes a [.usda](file:///c:/Users/anshu/College/CosmosCookoff/ResQ-AI/resqai_preview.usda) file with a procedural city | Grid of city blocks, roads, sidewalks, parks |
+| Places Brownstone assets | CityEngine buildings from `assets/Architecture/` |
+| Vegetation & props | Trees, shrubs, benches, hydrants, dumpsters |
+| Civilians | Reallusion character references placed on sidewalks |
+| **Disaster zones** | Fire (omni.flow) + smoke, collapsed rubble piles |
+| Drone ops | Spawn point Xform + camera waypoint markers |
+| Semantic labels | Every prim class-labeled for segmentation camera |
+
+**Key config**: `BLOCK_W`, `ROAD_W`, `NUM_COLS/ROWS`, asset centering offsets. All CityEngine assets are in cm so they need `scale=0.01`.
+
+> [!IMPORTANT]
+> There is also a **root-level** [orchestrator.py](file:///c:/Users/anshu/College/CosmosCookoff/ResQ-AI/orchestrator.py) (1745 lines) that is an older, monolithic standalone version. It builds the scene + runs the sim + does detection all in one file. The **modular** approach in `sim_bridge/` + `orchestrator/` is the current direction.
+
+---
+
+### 2. Drone Spawning — [spawn_drone.py](file:///c:/Users/anshu/College/CosmosCookoff/ResQ-AI/sim_bridge/spawn_drone.py)
+
+Spawns a **Pegasus Iris multirotor** with three Replicator camera sensors mounted at 45° downward pitch:
+
+| Sensor | Class | Resolution | Purpose |
+|---|---|---|---|
+| RGB | `ReplicatorCamera` | 640×480 @ 30Hz | YOLO hazard detection |
+| Semantic Seg | `SemanticSegmentationCamera` | 640×480 | Per-pixel class IDs → thermal |
+| Depth | `DepthCamera` | 640×480 | 2D→3D projection |
+
+Also attaches an `IMUStreamBackend` for accelerometer / gyroscope / orientation (body FRD frame) — intended for RL flight stabilization.
+
+---
+
+### 3. Simulation Loop — [main_sim_loop.py](file:///c:/Users/anshu/College/CosmosCookoff/ResQ-AI/sim_bridge/main_sim_loop.py) / [demo_flight.py](file:///c:/Users/anshu/College/CosmosCookoff/ResQ-AI/sim_bridge/demo_flight.py)
+
+Two variants exist:
+
+| Script | Purpose |
+|---|---|
+| `main_sim_loop.py` | Generic loop: loads scene, spawns drone, ticks physics, calls `OrchestratorBridge.process_frame()` each tick |
+| `demo_flight.py` | **Full demo**: adds a `FlightState` machine (`SURVEY → INVESTIGATE → RETURN`), records annotated video, writes `Flight_Report.json` |
+
+**`demo_flight.py` FlightState machine:**
+1. **SURVEY** — fly to an observation altitude (45m), run YOLO + thermal + depth
+2. **INVESTIGATE** — VLM returns a waypoint; drone lerps toward it, hovers 3s for analysis
+3. **RETURN** — after `MAX_INVESTIGATIONS` (5), return to base
+
+Each frame extracts RGB/depth/semantic via `_extract_*()` helpers, feeds them to the `OrchestratorBridge`.
+
+---
+
+### 4. Perception Pipeline
+
+#### 4a. YOLO Detection (Phase 1)
+- **Model**: YOLOv8-Small, trained on AIDER dataset
+- **Classes**: `Collapsed Building`, `Fire`, `Flood`, `Traffic Incident`
+- **Weights**: [best.pt](file:///c:/Users/anshu/College/CosmosCookoff/ResQ-AI/Phase1_SituationalAwareness/best.pt) / `best.onnx` / `best.engine` (TensorRT)
+- Loaded by `OrchestratorBridge.__init__()` from `orchestrator_bridge.py`
+
+#### 4b. 2D → 3D Projection — [projection_utils.py](file:///c:/Users/anshu/College/CosmosCookoff/ResQ-AI/sim_bridge/projection_utils.py)
+- `pixel_to_3d_world()`: pinhole inverse-projection using depth map + camera intrinsics + camera-to-world transform
+- `batch_pixel_to_3d_world()`: one call for all YOLO bbox centers
+- `make_intrinsics_from_fov()`: builds K matrix matching Pegasus MonocularCamera defaults
+
+#### 4c. Synthetic Thermal — [thermal_sim.py](file:///c:/Users/anshu/College/CosmosCookoff/ResQ-AI/sim_bridge/thermal_sim.py)
+- Converts semantic segmentation class IDs → grayscale thermal-IR image
+- Uses a lookup table: `fire` → hottest (255), `person` → warm, `vegetation` → cool, etc.
+- Adds Gaussian noise for realism
+
+---
+
+### 5. Decision & Reasoning Pipeline (`orchestrator/`)
+
+#### 5a. Hazard Tracking — [logic_gates.py](file:///c:/Users/anshu/College/CosmosCookoff/ResQ-AI/orchestrator/logic_gates.py)
+- `HazardTracker`: temporal debounce + spatial IoU filtering
+- A detection must persist ≥ `debounce_frames` (5) consecutive frames before becoming "active"
+- Prevents false-positive flicker
+
+#### 5b. Orchestrator Bridge — [orchestrator_bridge.py](file:///c:/Users/anshu/College/CosmosCookoff/ResQ-AI/orchestrator/orchestrator_bridge.py)
+- `OrchestratorBridge.process_frame()` is the **central hub**:
+  1. Run YOLO on RGB frame
+  2. Feed boxes to `HazardTracker`
+  3. Project active hazard centers to 3D via `batch_pixel_to_3d_world()`
+  4. Build a Cosmos Reason 2 JSON prompt with `build_cosmos_prompt()`
+  5. Async-send crop + prompt to VLM server via `_query_vlm_async()`
+  6. Return frame results (boxes, labels, 3D coords, waypoint if available)
+
+#### 5c. VLM Server — [vlm_server.py](file:///c:/Users/anshu/College/CosmosCookoff/ResQ-AI/orchestrator/vlm_server.py)
+FastAPI server with three backends:
+
+| Backend | Flag | Description |
+|---|---|---|
+| **Mock** | `--backend mock` | Deterministic priority-based waypoint (no GPU) |
+| **NIM Cloud** | `--backend nim` | NVIDIA NIM API (needs `NVIDIA_API_KEY`) |
+| **vLLM Local** | `--backend vllm` | Self-hosted Cosmos Reason 2 via vLLM |
+
+Endpoint: `POST /analyze` — accepts `{image_base64, context}`, returns waypoint + reasoning JSON.
+
+---
+
+### 6. Outputs
+
+#### Flight Report
+`demo_flight.py` writes `Flight_Report.json` containing each detected hazard with:
+- Class name, hazard ID, frame index
+- 3D world coordinates
+- VLM analysis text
+- Image crop path
+
+#### Hazard Map — [generate_map.py](file:///c:/Users/anshu/College/CosmosCookoff/ResQ-AI/orchestrator/generate_map.py)
+- Reads `Flight_Report.json`
+- Converts sim world XYZ → approximate lat/lon
+- Generates interactive **Folium** HTML map with clickable markers (image popups + VLM analysis)
+
+---
+
+## Phase Status & Integration Points
+
+| Phase | Status | Key Integration Point |
+|---|---|---|
+| **Phase 1** (YOLO Detection) | ✅ Complete | Weights loaded by `OrchestratorBridge` |
+| **Phase 2** (Segmentation) | 🚧 In Progress | Colab notebooks ready; needs training → export → plug into pipeline alongside YOLO |
+| **Phase 3** (Cosmos Reasoning) | 🔧 Setup Done | `setup_cosmos.py` loads model; `vlm_server.py` wraps it; `orchestrator_bridge.py` sends prompts |
+
+---
+
+## How to Run the Full Demo
+
+```bash
+# 1. Start the VLM server (in a separate terminal)
+cd orchestrator
+python vlm_server.py --backend mock   # or --backend nim / --backend vllm
+
+# 2. Run the full demo flight (requires Isaac Sim 5.1)
+cd sim_bridge
+python demo_flight.py --vlm-url http://localhost:8000/analyze
+
+# 3. Generate the hazard map from the flight report
+cd orchestrator
+python generate_map.py --report ../Flight_Report.json
+```
+
+---
+
+## Key Files Quick Reference
+
+| File | Role |
+|---|---|
+| [generate_urban_scene.py](file:///c:/Users/anshu/College/CosmosCookoff/ResQ-AI/sim_bridge/generate_urban_scene.py) | Build the USD disaster city |
+| [spawn_drone.py](file:///c:/Users/anshu/College/CosmosCookoff/ResQ-AI/sim_bridge/spawn_drone.py) | Pegasus drone + 3 cameras + IMU |
+| [demo_flight.py](file:///c:/Users/anshu/College/CosmosCookoff/ResQ-AI/sim_bridge/demo_flight.py) | Full Sense-Think-Act demo loop |
+| [main_sim_loop.py](file:///c:/Users/anshu/College/CosmosCookoff/ResQ-AI/sim_bridge/main_sim_loop.py) | Generic sim tick loop |
+| [projection_utils.py](file:///c:/Users/anshu/College/CosmosCookoff/ResQ-AI/sim_bridge/projection_utils.py) | Pixel → 3D world projection |
+| [thermal_sim.py](file:///c:/Users/anshu/College/CosmosCookoff/ResQ-AI/sim_bridge/thermal_sim.py) | Semantic seg → synthetic thermal |
+| [orchestrator_bridge.py](file:///c:/Users/anshu/College/CosmosCookoff/ResQ-AI/orchestrator/orchestrator_bridge.py) | Central YOLO→3D→VLM pipeline |
+| [vlm_server.py](file:///c:/Users/anshu/College/CosmosCookoff/ResQ-AI/orchestrator/vlm_server.py) | Cosmos Reason 2 FastAPI server |
+| [logic_gates.py](file:///c:/Users/anshu/College/CosmosCookoff/ResQ-AI/orchestrator/logic_gates.py) | Hazard debounce + IoU tracking |
+| [generate_map.py](file:///c:/Users/anshu/College/CosmosCookoff/ResQ-AI/orchestrator/generate_map.py) | Folium hazard map from report |
+| [orchestrator.py](file:///c:/Users/anshu/College/CosmosCookoff/ResQ-AI/orchestrator.py) | Legacy monolithic version (1745 lines) |
