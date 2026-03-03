@@ -31,11 +31,8 @@ import time
 from enum import Enum
 from typing import Any
 
-import cv2
-import numpy as np
-
 # ---------------------------------------------------------------------------
-# Isaac Sim bootstrap (must precede all Omniverse imports)
+# Isaac Sim bootstrap (must precede ALL third-party / Omniverse imports)
 # ---------------------------------------------------------------------------
 from isaacsim import SimulationApp
 
@@ -46,8 +43,8 @@ def _parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--scene",
         type=str,
-        default=None,
-        help="Path to .usda scene. If omitted, generates on-the-fly.",
+        default=os.path.join(os.path.dirname(__file__), "..", "resqai_urban_disaster.usda"),
+        help="Path to .usda scene (default: resqai_urban_disaster.usda).",
     )
     parser.add_argument(
         "--vlm-url",
@@ -77,15 +74,23 @@ def _parse_args() -> argparse.Namespace:
         default=45.0,
         help="Survey altitude (m).",
     )
-    return parser.parse_args()
+    args, _remaining = parser.parse_known_args()
+    return args, _remaining
 
 
-_args = _parse_args()
+_args, _remaining_argv = _parse_args()
+sys.argv = [sys.argv[0]] + _remaining_argv
 simulation_app = SimulationApp({"headless": _args.headless})
 
 # ---------------------------------------------------------------------------
-# Omniverse / Pegasus imports
+# Third-party + Omniverse imports (valid only AFTER SimulationApp)
 # ---------------------------------------------------------------------------
+from dotenv import load_dotenv
+load_dotenv(os.path.join(os.path.dirname(__file__), "..", ".env"))
+
+import cv2
+import numpy as np
+
 import carb
 import omni.timeline
 import omni.usd
@@ -94,7 +99,7 @@ from pxr import Gf, UsdGeom
 
 from pegasus.simulator.logic.interface.pegasus_interface import PegasusInterface
 
-from sim_bridge.generate_urban_scene import generate_scene
+from sim_bridge.generate_urban_scene import main as generate_scene
 from sim_bridge.spawn_drone import spawn_resqai_drone
 from sim_bridge.thermal_sim import generate_synthetic_thermal
 from sim_bridge.projection_utils import make_intrinsics_from_fov

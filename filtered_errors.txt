@@ -1,0 +1,44 @@
+﻿[20,355ms] [Error] [isaacs
++ FullyQualifiedError
+[33,625ms] [Error]
+stderr]: Traceback (most
+[33,626ms] [Error]
+stderr]:   File "C:\Users\
+[33,626ms] [Error]
+stderr]:     main()
+[33,626ms] [Error]
+stderr]:   File "C:\Users\
+[33,627ms] [Error]
+stderr]:     drone,
+[33,627ms] [Error]
+stderr]:
+[33,627ms] [Error]
+stderr]:   File "C:\Users\
+_drone.py", line 405, in
+[33,628ms] [Error]
+stderr]:     drone =
+[33,628ms] [Error]
+stderr]:
+[33,628ms] [Error]
+stderr]:   File "C:\Users\
+line 84, in __init__
+[33,628ms] [Error]
+stderr]:     super().__ini
+[33,628ms] [Error]
+stderr]:   File "C:\Users\
+line 101, in __init__
+[33,629ms] [Error]
+stderr]:     self._world.s
+[33,629ms] [Error]
+stderr]:
+[33,629ms] [Error]
+stderr]:   File "c:/isaacs
+rld.py", line 164, in
+[33,630ms] [Error]
+stderr]:     return
+self._scene
+[33,630ms] [Error]
+stderr]:
+[33,630ms] [Error]
+stderr]: AttributeError:
+attribute '_scene'. Did

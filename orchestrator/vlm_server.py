@@ -36,6 +36,10 @@ import os
 import time
 from typing import Any
 
+# Auto-load .env from project root (so NVIDIA_API_KEY etc. are available)
+from dotenv import load_dotenv
+load_dotenv(os.path.join(os.path.dirname(__file__), "..", ".env"))
+
 from fastapi import FastAPI
 from pydantic import BaseModel
 

@@ -18,8 +18,8 @@ This standalone script drives an NVIDIA Isaac Sim 5.1 simulation end-to-end:
 
 Usage (from the Isaac Sim Python environment)::
 
-    /isaac-sim/python.sh orchestrator.py                # GUI mode
-    /isaac-sim/python.sh orchestrator.py --headless      # headless mode
+    /isaac-sim/python.sh run_orchestrator.py                # GUI mode
+    /isaac-sim/python.sh run_orchestrator.py --headless      # headless mode
 
 Important constraints satisfied:
   • No building fracture / collapse logic.
@@ -74,7 +74,13 @@ _args.num_pedestrians = max(15, min(30, _args.num_pedestrians))
 
 from isaacsim import SimulationApp  # noqa: E402
 
-simulation_app = SimulationApp({"headless": _args.headless})
+# Only create SimulationApp when run as standalone script. When imported (e.g. by
+# headless_e2e_test via orchestrator.orchestrator_bridge), the caller has already
+# created SimulationApp — creating a second one causes an access violation.
+if __name__ == "__main__":
+    simulation_app = SimulationApp({"headless": _args.headless})
+else:
+    simulation_app = None
 
 # ---------------------------------------------------------------------------
 # Now safe to import Omniverse / pxr modules

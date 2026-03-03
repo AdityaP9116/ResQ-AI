@@ -25,6 +25,7 @@ Usage from the simulation loop::
 from __future__ import annotations
 
 import base64
+import importlib.util
 import json
 import os
 import sys
@@ -39,12 +40,26 @@ import torch
 from ultralytics import YOLO
 
 # Hazard tracker lives next to this file
-sys.path.insert(0, os.path.dirname(__file__))
+_THIS_DIR = os.path.abspath(os.path.dirname(__file__))
+_PROJECT_ROOT = os.path.abspath(os.path.join(_THIS_DIR, ".."))
+sys.path.insert(0, _THIS_DIR)
 from logic_gates import HazardTracker
 
 # Projection utility
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
+if _PROJECT_ROOT not in sys.path:
+    sys.path.insert(0, _PROJECT_ROOT)
 from sim_bridge.projection_utils import batch_pixel_to_3d_world
+
+# HuggingFace weight auto-download
+# NOTE: Isaac Sim ships its own `utils` package which shadows our project's
+# `utils` module.  Load model_downloader.py directly by file path to avoid
+# the namespace collision.
+_md_path = os.path.join(_PROJECT_ROOT, "utils", "model_downloader.py")
+_md_spec = importlib.util.spec_from_file_location("resqai_model_downloader", _md_path)
+_md_mod = importlib.util.module_from_spec(_md_spec)
+_md_spec.loader.exec_module(_md_mod)
+get_phase1_weights = _md_mod.get_phase1_weights
+get_phase2_weights = _md_mod.get_phase2_weights
 
 
 # ──────────────────────────────────────────────────────────────────────────
@@ -132,6 +147,8 @@ _vlm_lock = threading.Lock()
 # Latest waypoint + reasoning from any VLM response (for flight controller)
 _latest_vlm_waypoint: list[float] | None = None
 _latest_vlm_reasoning: str = ""
+# Module-level debug dir (set by OrchestratorBridge.__init__ so _query_vlm_async can use it)
+_debug_dir: str | None = None
 
 
 def _query_vlm_async(vlm_url: str, hazard_id: int, image_crop: np.ndarray, cosmos_prompt: str) -> None:
@@ -154,6 +171,14 @@ def _query_vlm_async(vlm_url: str, hazard_id: int, image_crop: np.ndarray, cosmo
                 if wp is not None and isinstance(wp, (list, tuple)) and len(wp) >= 3:
                     _latest_vlm_waypoint = [float(wp[0]), float(wp[1]), float(wp[2])]
                     _latest_vlm_reasoning = data.get("reasoning", "")
+            # ---- DEBUG: save raw VLM response ---------------------------------
+            if _debug_dir:
+                vlm_path = os.path.join(_debug_dir, "frames", f"vlm_response_hazard_{hazard_id:04d}.json")
+                try:
+                    with open(vlm_path, "w") as f:
+                        json.dump(data, f, indent=2)
+                except Exception:
+                    pass
             print(f"[Cosmos] Hazard {hazard_id} → {data.get('advice', '(no advice)')[:120]}")
         else:
             print(f"[Cosmos] Hazard {hazard_id}: server returned {resp.status_code}")
@@ -176,24 +201,45 @@ class OrchestratorBridge:
     def __init__(
         self,
         yolo_weights: str | None = None,
+        seg_weights: str | None = None,
         vlm_url: str = "http://localhost:8000/analyze",
         iou_threshold: float = 0.5,
         debounce_frames: int = 5,
+        debug_dir: str | None = None,
     ):
+        global _debug_dir
         self.vlm_url = vlm_url
 
-        # ---- YOLO model ---------------------------------------------------
+        # ---- Debug output dir ---------------------------------------------
+        self._debug_dir = debug_dir
+        _debug_dir = debug_dir  # expose to module-level for _query_vlm_async
+        if debug_dir:
+            os.makedirs(os.path.join(debug_dir, "frames"), exist_ok=True)
+            print(f"[Orchestrator] Debug mode ON → {debug_dir}/frames/")
+
+        self.device = "cuda" if torch.cuda.is_available() else "cpu"
+
+        # ---- Phase 1: YOLO detection model --------------------------------
         if yolo_weights and os.path.exists(yolo_weights):
             self._yolo_path = yolo_weights
         else:
-            default_path = os.path.join(
-                os.path.dirname(__file__), "..", "Phase1_SituationalAwareness", "best.pt"
-            )
-            self._yolo_path = default_path if os.path.exists(default_path) else "yolov8n.pt"
+            self._yolo_path = get_phase1_weights()
 
-        self.device = "cuda" if torch.cuda.is_available() else "cpu"
-        print(f"[Orchestrator] Loading YOLO from {self._yolo_path}  (device={self.device})")
+        print(f"[Orchestrator] Loading Phase 1 YOLO (detect) from {self._yolo_path}  (device={self.device})")
         self.yolo = YOLO(self._yolo_path)
+
+        # ---- Phase 2: YOLO segmentation model -----------------------------
+        if seg_weights and os.path.exists(seg_weights):
+            self._seg_path = seg_weights
+        else:
+            self._seg_path = get_phase2_weights()
+
+        self.yolo_seg = None
+        if os.path.isfile(self._seg_path):
+            print(f"[Orchestrator] Loading Phase 2 YOLO (segment) from {self._seg_path}")
+            self.yolo_seg = YOLO(self._seg_path, task="segment")
+        else:
+            print(f"[Orchestrator] Phase 2 weights not found at {self._seg_path} — segmentation disabled")
 
         # ---- Hazard tracker (logic gates) ---------------------------------
         self.tracker = HazardTracker(
@@ -233,11 +279,18 @@ class OrchestratorBridge:
             ``cosmos_prompt`` (JSON string), or ``None`` if nothing detected.
         """
         self._frame_count += 1
+        _fidx = f"{frame_idx:06d}"  # zero-padded for filenames
 
         # ---- Phase 1: YOLO detection on RGB (or thermal) ------------------
         inference_input = rgb_frame
         if thermal_frame is not None and thermal_frame.size > 0:
             inference_input = cv2.cvtColor(thermal_frame, cv2.COLOR_GRAY2BGR)
+
+        # ---- DEBUG: save RGB fed into YOLO --------------------------------
+        if self._debug_dir:
+            cv2.imwrite(os.path.join(self._debug_dir, "frames", f"frame_{_fidx}_rgb.jpg"), rgb_frame)
+            if thermal_frame is not None and thermal_frame.size > 0:
+                cv2.imwrite(os.path.join(self._debug_dir, "frames", f"frame_{_fidx}_thermal.jpg"), thermal_frame)
 
         results = self.yolo.predict(rgb_frame, device=self.device, verbose=False)
 
@@ -251,6 +304,20 @@ class OrchestratorBridge:
                 detected_boxes.append(b)
                 class_ids.append(int(box.cls[0].item()))
                 confidences.append(float(box.conf[0].item()))
+
+        # ---- DEBUG: save YOLO raw outputs ---------------------------------
+        if self._debug_dir:
+            class_names = [self.yolo.names.get(cid, f"class_{cid}") for cid in class_ids]
+            yolo_log = {
+                "frame_idx": frame_idx,
+                "num_detections": len(detected_boxes),
+                "boxes": detected_boxes,
+                "class_ids": class_ids,
+                "class_names": class_names,
+                "confidences": confidences,
+            }
+            with open(os.path.join(self._debug_dir, "frames", f"frame_{_fidx}_yolo.json"), "w") as f:
+                json.dump(yolo_log, f, indent=2)
 
         if not detected_boxes:
             return None
@@ -300,6 +367,53 @@ class OrchestratorBridge:
         # ---- Build Cosmos Reason 2 JSON prompt ----------------------------
         cosmos_prompt = build_cosmos_prompt(hazards_3d, drone_position, frame_idx)
 
+        # ---- DEBUG: save Cosmos prompt ------------------------------------
+        if self._debug_dir:
+            prompt_path = os.path.join(self._debug_dir, "frames", f"frame_{_fidx}_cosmos_prompt.json")
+            with open(prompt_path, "w") as f:
+                f.write(cosmos_prompt)
+
+        # ---- Phase 2: Segmentation ----------------------------------------
+        seg_result = None
+        if self.yolo_seg is not None:
+            try:
+                seg_results = self.yolo_seg.predict(
+                    rgb_frame, device=self.device, verbose=False, retina_masks=True,
+                )
+                seg_classes: list[dict] = []
+                for sr in seg_results:
+                    if sr.masks is not None:
+                        for i, mask in enumerate(sr.masks.data):
+                            mask_np = mask.cpu().numpy().astype(np.uint8)
+                            cid = int(sr.boxes.cls[i].item()) if sr.boxes is not None else -1
+                            cls_name = self.yolo_seg.names.get(cid, f"class_{cid}")
+                            pixel_area = int(mask_np.sum())
+                            seg_classes.append({
+                                "class_id": cid,
+                                "class_name": cls_name,
+                                "pixel_area": pixel_area,
+                                "confidence": float(sr.boxes.conf[i].item()) if sr.boxes is not None else 0.0,
+                            })
+
+                seg_result = {
+                    "num_masks": len(seg_classes),
+                    "classes": seg_classes,
+                }
+
+                # DEBUG: save segmentation overlay
+                if self._debug_dir and seg_results:
+                    seg_overlay = seg_results[0].plot()
+                    cv2.imwrite(
+                        os.path.join(self._debug_dir, "frames", f"frame_{_fidx}_seg.jpg"),
+                        seg_overlay,
+                    )
+                    seg_json_path = os.path.join(self._debug_dir, "frames", f"frame_{_fidx}_seg.json")
+                    with open(seg_json_path, "w") as f:
+                        json.dump(seg_result, f, indent=2)
+
+            except Exception as exc:
+                print(f"[Orchestrator] Phase 2 segmentation error: {exc}")
+
         # ---- Fire async VLM request for new hazards -----------------------
         for idx, hazard in enumerate(active_hazards):
             hid = hazard["id"]
@@ -328,6 +442,7 @@ class OrchestratorBridge:
         return {
             "hazards": hazards_3d,
             "cosmos_prompt": cosmos_prompt,
+            "segmentation": seg_result,
             "target_waypoint": _latest_vlm_waypoint,
             "reasoning": _latest_vlm_reasoning,
         }

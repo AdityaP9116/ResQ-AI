@@ -53,8 +53,15 @@ def _parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-_args = _parse_args()
-simulation_app = SimulationApp({"headless": _args.headless})
+# Only create SimulationApp when run as standalone script. When imported (e.g. by
+# headless_e2e_test.py), the caller has already created SimulationApp — creating
+# a second one causes an access violation during extension shutdown.
+if __name__ == "__main__":
+    _args = _parse_args()
+    simulation_app = SimulationApp({"headless": _args.headless})
+else:
+    _args = None
+    simulation_app = None
 
 # ---------------------------------------------------------------------------
 # Omniverse / Pegasus imports (only valid after SimulationApp is created)
@@ -69,7 +76,6 @@ from pxr import Gf, Sdf, Usd, UsdGeom
 from pegasus.simulator.params import ROBOTS
 from pegasus.simulator.logic.interface.pegasus_interface import PegasusInterface
 from pegasus.simulator.logic.vehicles.multirotor import Multirotor, MultirotorConfig
-from pegasus.simulator.logic.graphical_sensors.monocular_camera import MonocularCamera
 from pegasus.simulator.logic.graphical_sensors.graphical_sensor import GraphicalSensor
 from pegasus.simulator.logic.sensors import Barometer, IMU, Magnetometer, GPS
 from pegasus.simulator.logic.sensors.sensor import Sensor
@@ -167,7 +173,6 @@ class ReplicatorCamera(GraphicalSensor):
     def state(self):
         return self._state
 
-    @GraphicalSensor.update_at_rate
     def update(self, state: State, dt: float):
         self._warmup_counter += 1
         if self._warmup_counter < self._warmup_frames or not self._ready:
@@ -189,6 +194,21 @@ class ReplicatorCamera(GraphicalSensor):
                 self._state[name] = None
 
         return self._state
+
+
+class RGBCamera(ReplicatorCamera):
+    """Replicator-based RGB camera.
+    
+    Produces standard RGB images using the replicator annotator pipeline.
+    """
+
+    def _sensor_type_name(self) -> str:
+        return "RGBCamera"
+
+    def _register_annotators(self, render_product_path: str):
+        rgb = rep.AnnotatorRegistry.get_annotator("rgb")
+        rgb.attach([render_product_path])
+        return {"rgba": rgb}
 
 
 class SemanticSegmentationCamera(ReplicatorCamera):
@@ -356,16 +376,13 @@ def spawn_resqai_drone(
 
     imu = IMU(config={"update_rate": 250.0})
 
-    rgb_cam = MonocularCamera(
+    rgb_cam = RGBCamera(
         "rgb_cam",
-        config={
-            "depth": False,
-            "resolution": (640, 480),
-            "frequency": 30.0,
-            "position": _SENSOR_POSITION,
-            "orientation": _SENSOR_ORIENTATION,
-            "clipping_range": (0.1, 200.0),
-        },
+        resolution=(640, 480),
+        frequency=30.0,
+        position=_SENSOR_POSITION,
+        orientation_euler_deg=_SENSOR_ORIENTATION,
+        clipping_range=(0.1, 200.0),
     )
 
     seg_cam = SemanticSegmentationCamera(

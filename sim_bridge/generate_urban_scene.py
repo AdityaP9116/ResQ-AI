@@ -791,4 +791,5 @@ def main():
     print("Open in Isaac Sim, press F to frame all, and zoom out to see the city.")
 
 
-main()
+if __name__ == "__main__":
+    main()
