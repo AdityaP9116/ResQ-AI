@@ -1,0 +1,211 @@
+version: '3.8'
+
+# ============================================================================
+# ResQ-AI Docker Compose Configuration
+#
+# Orchestrates the ResQ-AI simulation with Isaac Sim
+#
+# Usage:
+#   # Build and start
+#   docker-compose up -d --build
+#
+#   # Enter container shell
+#   docker-compose exec resq-ai bash
+#
+#   # Run headless with WebRTC streaming (open http://localhost:8211/streaming/webrtc-demo/)
+#   docker-compose exec resq-ai bash scripts/run_headless.sh --stream
+#
+#   # Run headless and record to video
+#   docker-compose exec resq-ai bash scripts/run_headless.sh --record
+#
+#   # Run full demo with both streaming + recording
+#   docker-compose exec resq-ai bash scripts/run_headless.sh --stream --record
+#
+#   # Run tests
+#   docker-compose exec resq-ai python test_isaacsim_minimal.py
+#
+#   # Run full demo
+#   docker-compose exec resq-ai python sim_bridge/demo_flight.py --headless
+#
+#   # Stop services
+#   docker-compose down
+#
+#   # View logs
+#   docker-compose logs -f resq-ai
+# ============================================================================
+
+services:
+
+  # ========================================================================
+  # Main ResQ-AI Simulation Environment
+  # ========================================================================
+  resq-ai:
+    image: resq-ai:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        BUILD_DATE: ${BUILD_DATE:-$(date -u +'%Y-%m-%dT%H:%M:%SZ')}
+        VCS_REF: ${VCS_REF:-latest}
+        VERSION: ${VERSION:-5.1}
+    
+    container_name: resq-ai-sim
+    
+    # GPU Support (requires nvidia-docker)
+    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    
+    # Environment Variables
+    environment:
+      # NVIDIA GPU Access
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility,graphics
+      
+      # Display (for X11 forwarding if using GUI)
+      - DISPLAY=${DISPLAY:-:0}
+      - XAUTHORITY=${XAUTHORITY:-~/.Xauthority}
+      
+      # Python Configuration
+      - PYTHONUNBUFFERED=1
+      - PYTHONDONTWRITEBYTECODE=1
+      
+      # Isaac Sim Configuration
+      - HEADLESS_MODE=${HEADLESS_MODE:-true}
+      - ISAAC_SIM_HEADLESS=true
+      
+      # ResQ-AI Configuration
+      - VLM_BACKEND=${VLM_BACKEND:-mock}
+      - OUTPUT_DIR=/workspace/outputs
+      
+      # Optional: NVIDIA API Key (for NIM backend)
+      - NVIDIA_API_KEY=${NVIDIA_API_KEY:-}
+    
+    # Volume Mounts
+    volumes:
+      # Main codebase
+      - .:/workspace/resq-ai
+      - ./outputs:/workspace/outputs
+      
+      # Persistent model cache
+      - resq-ai-cache:/opt/isaac_env/.cache
+      - resq-ai-models:/workspace/models
+      
+      # Optional: X11 socket for GUI (if not using --headless)
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - ${XAUTHORITY}:${XAUTHORITY}:rw
+      
+      # Optional: Omniverse assets (if you have them locally)
+      # - ~/.local/share/ov:/root/.local/share/ov
+    
+    # Port Mappings
+    ports:
+      - "8000:8000"  # VLM Server (FastAPI)
+      - "8001:8001"  # Optional monitoring dashboard
+      - "8211:8211"  # Isaac Sim WebRTC livestream → http://localhost:8211/streaming/webrtc-demo/
+      - "6006:6006"  # TensorBoard (optional)
+    
+    # Standard streams (interactive mode)
+    stdin_open: true
+    tty: true
+    
+    # Shared network namespace
+    networks:
+      - resq-ai-network
+    
+    # Health check (optional)
+    healthcheck:
+      test: ["CMD", "python", "-c", "from isaacsim import SimulationApp; print('OK')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    
+    # Resource Limits (optional, adjust based on your hardware)
+    # deploy:
+    #   resources:
+    #     limits:
+    #       cpus: '8'
+    #       memory: 32G
+    #     reservations:
+    #       memory: 16G
+
+  # ========================================================================
+  # Optional: VLM Server Service (for external access)
+  # ========================================================================
+  vlm-server:
+    image: resq-ai:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    
+    container_name: resq-ai-vlm
+    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+      - PYTHONUNBUFFERED=1
+      - VLM_BACKEND=${VLM_BACKEND:-mock}
+      - NVIDIA_API_KEY=${NVIDIA_API_KEY:-}
+    
+    volumes:
+      - .:/workspace/resq-ai
+      - resq-ai-models:/workspace/models
+    
+    ports:
+      - "8000:8000"
+    
+    networks:
+      - resq-ai-network
+    
+    # Run the VLM server
+    command: >
+      python -c "
+      import sys; sys.path.insert(0, '/workspace/resq-ai')
+      from orchestrator.vlm_server import app
+      import uvicorn
+      uvicorn.run(app, host='0.0.0.0', port=8000)
+      "
+    
+    depends_on:
+      - resq-ai
+    
+    # Only start if needed
+    profiles:
+      - with-vlm
+    
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/docs"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+# ============================================================================
+# Named Volumes (persists data across container restarts)
+# ============================================================================
+volumes:
+  resq-ai-cache:
+    driver: local
+  resq-ai-models:
+    driver: local
+
+# ============================================================================
+# Custom Network
+# ============================================================================
+networks:
+  resq-ai-network:
+    driver: bridge

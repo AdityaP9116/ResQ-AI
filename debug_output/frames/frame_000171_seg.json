@@ -1,0 +1,35 @@
+{
+  "num_masks": 5,
+  "classes": [
+    {
+      "class_id": 9,
+      "class_name": "Class_9",
+      "pixel_area": 2314,
+      "confidence": 0.6531802415847778
+    },
+    {
+      "class_id": 2,
+      "class_name": "Class_2",
+      "pixel_area": 4962,
+      "confidence": 0.512661874294281
+    },
+    {
+      "class_id": 1,
+      "class_name": "Class_1",
+      "pixel_area": 107558,
+      "confidence": 0.40782928466796875
+    },
+    {
+      "class_id": 2,
+      "class_name": "Class_2",
+      "pixel_area": 2302,
+      "confidence": 0.28441059589385986
+    },
+    {
+      "class_id": 2,
+      "class_name": "Class_2",
+      "pixel_area": 12454,
+      "confidence": 0.2785581648349762
+    }
+  ]
+}

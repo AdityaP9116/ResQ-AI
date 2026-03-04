@@ -32,6 +32,15 @@ from enum import Enum
 from typing import Any
 
 # ---------------------------------------------------------------------------
+# Ensure project root is on sys.path so orchestrator/sim_bridge are importable
+# regardless of how this script is invoked (python3, python.bat, pytest, etc.)
+# ---------------------------------------------------------------------------
+import os as _os, sys as _sys
+_PROJECT_ROOT_EARLY = _os.path.abspath(_os.path.join(_os.path.dirname(__file__), ".."))
+if _PROJECT_ROOT_EARLY not in _sys.path:
+    _sys.path.insert(0, _PROJECT_ROOT_EARLY)
+
+# ---------------------------------------------------------------------------
 # Isaac Sim bootstrap (must precede ALL third-party / Omniverse imports)
 # ---------------------------------------------------------------------------
 from isaacsim import SimulationApp
@@ -74,13 +83,23 @@ def _parse_args() -> argparse.Namespace:
         default=45.0,
         help="Survey altitude (m).",
     )
+    parser.add_argument(
+        "--livestream",
+        type=int,
+        default=0,
+        choices=[0, 1, 2],
+        help="Livestream mode: 0=off, 1=native (Omni Streaming), 2=WebRTC (browser at :8211/streaming/webrtc-demo/)",
+    )
     args, _remaining = parser.parse_known_args()
     return args, _remaining
 
 
 _args, _remaining_argv = _parse_args()
 sys.argv = [sys.argv[0]] + _remaining_argv
-simulation_app = SimulationApp({"headless": _args.headless})
+simulation_app = SimulationApp({
+    "headless": _args.headless,
+    "livestream": _args.livestream,
+})
 
 # ---------------------------------------------------------------------------
 # Third-party + Omniverse imports (valid only AFTER SimulationApp)

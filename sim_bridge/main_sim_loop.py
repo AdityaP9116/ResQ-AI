@@ -26,6 +26,14 @@ import time
 import numpy as np
 
 # ---------------------------------------------------------------------------
+# Ensure project root is on sys.path so orchestrator/sim_bridge are importable
+# regardless of how this script is invoked (python3, python.bat, pytest, etc.)
+# ---------------------------------------------------------------------------
+_PROJECT_ROOT_EARLY = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+if _PROJECT_ROOT_EARLY not in sys.path:
+    sys.path.insert(0, _PROJECT_ROOT_EARLY)
+
+# ---------------------------------------------------------------------------
 # Isaac Sim bootstrap (must precede all Omniverse imports)
 # ---------------------------------------------------------------------------
 from isaacsim import SimulationApp
@@ -58,11 +66,21 @@ def _parse_args() -> argparse.Namespace:
         default=0,
         help="Stop after N physics steps (0 = run until window closes / Ctrl-C).",
     )
+    parser.add_argument(
+        "--livestream",
+        type=int,
+        default=0,
+        choices=[0, 1, 2],
+        help="Livestream mode: 0=off, 1=native (Omni Streaming), 2=WebRTC (browser at :8211/streaming/webrtc-demo/)",
+    )
     return parser.parse_args()
 
 
 _args = _parse_args()
-simulation_app = SimulationApp({"headless": _args.headless})
+simulation_app = SimulationApp({
+    "headless": _args.headless,
+    "livestream": _args.livestream,
+})
 
 # ---------------------------------------------------------------------------
 # Omniverse / Pegasus imports (valid only after SimulationApp)

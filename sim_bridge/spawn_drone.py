@@ -122,7 +122,7 @@ class ReplicatorCamera(GraphicalSensor):
 
         # Skip a few warm-up frames before reading data
         self._warmup_counter = 0
-        self._warmup_frames = 60
+        self._warmup_frames = 5   # reduced from 60 – RTX warmup already done externally
 
     # Subclasses must implement:
     def _sensor_type_name(self) -> str:
@@ -158,7 +158,7 @@ class ReplicatorCamera(GraphicalSensor):
 
     def start(self):
         self._camera.initialize()
-        self._camera.set_resolution(self._resolution, maintain_square_pixels=True)
+        self._camera.set_resolution(self._resolution)
         self._camera.set_clipping_range(*self._clipping_range)
         self._camera.set_frequency(self._frequency)
 
@@ -341,14 +341,22 @@ class IMUStreamBackend(Backend):
 # Drone Spawning
 # ═══════════════════════════════════════════════════════════════════════════
 
-# 45-degree downward pitch:  ZYX Euler = (180, -45, 0)
-# The 180° yaw flips the camera so that "forward" on the image aligns with the
-# drone's forward axis.  The -45° pitch tilts the optical axis 45° below
-# the horizon.
-_SENSOR_ORIENTATION = np.array([180.0, -45.0, 0.0])
+# Iris drone body forward (body +X) aligns with world +Y when yaw=0
+# (confirmed by camera world-pose diagnostic).
+#
+# Camera orientation in ZYX Euler (applied as Rz×Ry×Rx in body frame).
+# [90, 0, -110] gives 70° forward-and-down along the drone's forward
+# direction (world +Y), with camera "up" having a +Z world component.
+#
+# Derivation with R_B (yaw=0): bodyX=worldY, bodyY=worldX, bodyZ=world-Z
+#   The Rx angle = -90 - (tilt_from_nadir).
+#   70° from horizontal = 20° from nadir → Rx = -90 - 20 = -110
+#   optical axis = -Z_cam ≈ (0, 0.342, -0.940) = 70° forward-down ✓
+#   (Runtime code in headless_e2e_test.py overrides this precisely.)
+_SENSOR_ORIENTATION = np.array([90.0, 0.0, -110.0])
 
-# Mount point: slightly forward and below the body CG
-_SENSOR_POSITION = np.array([0.10, 0.0, -0.05])
+# Mount point: at body CG (no offset to avoid FRD sign confusion)
+_SENSOR_POSITION = np.array([0.0, 0.0, 0.0])
 
 
 def spawn_resqai_drone(
@@ -425,7 +433,7 @@ def spawn_resqai_drone(
     print(f"          Position : {init_pos}")
     print(f"          Sensors  : RGB (640×480), Semantic Seg (640×480), Depth (640×480)")
     print(f"          IMU      : 250 Hz (accel + gyro) → IMUStreamBackend")
-    print(f"          Cameras tilted 45° downward")
+    print(f"          Camera orientation ZYX: {list(_SENSOR_ORIENTATION)} (70° forward-down)")
 
     return drone, imu_backend
 

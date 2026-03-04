@@ -555,7 +555,7 @@ def Xform "World"
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:translate:pivot", "xformOp:rotateXYZ", "xformOp:scale", "!invert!xformOp:translate:pivot"]
 
                 def Xform "Bld_0" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -570,7 +570,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_1" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -585,7 +585,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_2" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -600,7 +600,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_3" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -615,7 +615,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_4" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -630,7 +630,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_5" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -656,7 +656,7 @@ def Xform "World"
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:translate:pivot", "xformOp:rotateXYZ", "xformOp:scale", "!invert!xformOp:translate:pivot"]
 
                 def Xform "Bld_0" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -671,7 +671,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_1" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -686,7 +686,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_2" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -701,7 +701,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_3" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -716,7 +716,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_4" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -731,7 +731,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_5" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -757,7 +757,7 @@ def Xform "World"
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:translate:pivot", "xformOp:rotateXYZ", "xformOp:scale", "!invert!xformOp:translate:pivot"]
 
                 def Xform "Bld_0" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -772,7 +772,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_1" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -787,7 +787,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_2" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -802,7 +802,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_3" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -817,7 +817,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_4" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -832,7 +832,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_5" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -858,7 +858,7 @@ def Xform "World"
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:translate:pivot", "xformOp:rotateXYZ", "xformOp:scale", "!invert!xformOp:translate:pivot"]
 
                 def Xform "Bld_0" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -873,7 +873,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_1" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -888,7 +888,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_2" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -903,7 +903,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_3" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -918,7 +918,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_4" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -933,7 +933,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_5" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -970,7 +970,7 @@ def Xform "World"
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:translate:pivot", "xformOp:rotateXYZ", "xformOp:scale", "!invert!xformOp:translate:pivot"]
 
                 def Xform "Bld_0" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -985,7 +985,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_1" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1000,7 +1000,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_2" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1015,7 +1015,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_3" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1030,7 +1030,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_4" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1045,7 +1045,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_5" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1071,7 +1071,7 @@ def Xform "World"
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:translate:pivot", "xformOp:rotateXYZ", "xformOp:scale", "!invert!xformOp:translate:pivot"]
 
                 def Xform "Bld_0" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1086,7 +1086,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_1" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1101,7 +1101,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_2" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1116,7 +1116,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_3" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1131,7 +1131,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_4" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1146,7 +1146,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_5" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1172,7 +1172,7 @@ def Xform "World"
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:translate:pivot", "xformOp:rotateXYZ", "xformOp:scale", "!invert!xformOp:translate:pivot"]
 
                 def Xform "Bld_0" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1187,7 +1187,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_1" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1202,7 +1202,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_2" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1217,7 +1217,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_3" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1232,7 +1232,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_4" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1247,7 +1247,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_5" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1273,7 +1273,7 @@ def Xform "World"
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:translate:pivot", "xformOp:rotateXYZ", "xformOp:scale", "!invert!xformOp:translate:pivot"]
 
                 def Xform "Bld_0" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1288,7 +1288,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_1" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1303,7 +1303,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_2" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1318,7 +1318,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_3" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1333,7 +1333,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_4" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1348,7 +1348,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_5" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1385,7 +1385,7 @@ def Xform "World"
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:translate:pivot", "xformOp:rotateXYZ", "xformOp:scale", "!invert!xformOp:translate:pivot"]
 
                 def Xform "Bld_0" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1400,7 +1400,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_1" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1415,7 +1415,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_2" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1430,7 +1430,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_3" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1445,7 +1445,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_4" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1460,7 +1460,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_5" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1486,7 +1486,7 @@ def Xform "World"
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:translate:pivot", "xformOp:rotateXYZ", "xformOp:scale", "!invert!xformOp:translate:pivot"]
 
                 def Xform "Bld_0" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1501,7 +1501,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_1" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1516,7 +1516,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_2" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1531,7 +1531,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_3" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1546,7 +1546,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_4" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1561,7 +1561,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_5" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1587,7 +1587,7 @@ def Xform "World"
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:translate:pivot", "xformOp:rotateXYZ", "xformOp:scale", "!invert!xformOp:translate:pivot"]
 
                 def Xform "Bld_0" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1602,7 +1602,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_1" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1617,7 +1617,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_2" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1632,7 +1632,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_3" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1647,7 +1647,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_4" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1662,7 +1662,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_5" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1688,7 +1688,7 @@ def Xform "World"
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:translate:pivot", "xformOp:rotateXYZ", "xformOp:scale", "!invert!xformOp:translate:pivot"]
 
                 def Xform "Bld_0" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1703,7 +1703,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_1" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1718,7 +1718,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_2" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1733,7 +1733,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_3" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1748,7 +1748,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_4" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1763,7 +1763,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_5" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1800,7 +1800,7 @@ def Xform "World"
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:translate:pivot", "xformOp:rotateXYZ", "xformOp:scale", "!invert!xformOp:translate:pivot"]
 
                 def Xform "Bld_0" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1815,7 +1815,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_1" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1830,7 +1830,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_2" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1845,7 +1845,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_3" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1860,7 +1860,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_4" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1875,7 +1875,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_5" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1901,7 +1901,7 @@ def Xform "World"
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:translate:pivot", "xformOp:rotateXYZ", "xformOp:scale", "!invert!xformOp:translate:pivot"]
 
                 def Xform "Bld_0" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1916,7 +1916,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_1" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1931,7 +1931,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_2" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1946,7 +1946,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_3" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1961,7 +1961,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_4" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -1976,7 +1976,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_5" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -2002,7 +2002,7 @@ def Xform "World"
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:translate:pivot", "xformOp:rotateXYZ", "xformOp:scale", "!invert!xformOp:translate:pivot"]
 
                 def Xform "Bld_0" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -2017,7 +2017,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_1" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -2032,7 +2032,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_2" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -2047,7 +2047,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_3" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -2062,7 +2062,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_4" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -2077,7 +2077,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_5" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -2103,7 +2103,7 @@ def Xform "World"
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:translate:pivot", "xformOp:rotateXYZ", "xformOp:scale", "!invert!xformOp:translate:pivot"]
 
                 def Xform "Bld_0" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -2118,7 +2118,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_1" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -2133,7 +2133,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_2" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -2148,7 +2148,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_3" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -2163,7 +2163,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_4" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -2178,7 +2178,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_5" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -2215,7 +2215,7 @@ def Xform "World"
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:translate:pivot", "xformOp:rotateXYZ", "xformOp:scale", "!invert!xformOp:translate:pivot"]
 
                 def Xform "Bld_0" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -2230,7 +2230,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_1" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -2245,7 +2245,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_2" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -2260,7 +2260,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_3" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -2275,7 +2275,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_4" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -2290,7 +2290,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_5" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -2316,7 +2316,7 @@ def Xform "World"
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:translate:pivot", "xformOp:rotateXYZ", "xformOp:scale", "!invert!xformOp:translate:pivot"]
 
                 def Xform "Bld_0" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -2331,7 +2331,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_1" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -2346,7 +2346,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_2" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -2361,7 +2361,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_3" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -2376,7 +2376,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_4" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -2391,7 +2391,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_5" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -2417,7 +2417,7 @@ def Xform "World"
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:translate:pivot", "xformOp:rotateXYZ", "xformOp:scale", "!invert!xformOp:translate:pivot"]
 
                 def Xform "Bld_0" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -2432,7 +2432,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_1" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -2447,7 +2447,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_2" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -2462,7 +2462,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_3" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -2477,7 +2477,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_4" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -2492,7 +2492,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_5" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -2518,7 +2518,7 @@ def Xform "World"
                 uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:translate:pivot", "xformOp:rotateXYZ", "xformOp:scale", "!invert!xformOp:translate:pivot"]
 
                 def Xform "Bld_0" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -2533,7 +2533,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_1" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -2548,7 +2548,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_2" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -2563,7 +2563,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_3" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -2578,7 +2578,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_4" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone02/Revit_Brownstone02_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -2593,7 +2593,7 @@ def Xform "World"
                 }
 
                 def Xform "Bld_5" (
-                    prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
+                    prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Revit_Brownstone03/Revit_Brownstone03_Exterior.usd@</World>
                 )
                 {
                     double xformOp:rotateX = 0
@@ -2613,7 +2613,7 @@ def Xform "World"
     def Xform "Vegetation"
     {
         def Xform "ST_0" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/White_Ash.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/White_Ash.usd@
         )
         {
             double xformOp:rotateZ:city = 266.9581799135398
@@ -2623,7 +2623,7 @@ def Xform "World"
         }
 
         def Xform "ST_1" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Douglas_Fir.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Douglas_Fir.usd@
         )
         {
             double xformOp:rotateZ:city = 321.18464437374433
@@ -2633,7 +2633,7 @@ def Xform "World"
         }
 
         def Xform "ST_2" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Douglas_Fir.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Douglas_Fir.usd@
         )
         {
             double xformOp:rotateZ:city = 83.75792162066625
@@ -2643,7 +2643,7 @@ def Xform "World"
         }
 
         def Xform "ST_3" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/White_Ash.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/White_Ash.usd@
         )
         {
             double xformOp:rotateZ:city = 196.17893301715802
@@ -2653,7 +2653,7 @@ def Xform "World"
         }
 
         def Xform "ST_4" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Douglas_Fir.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Douglas_Fir.usd@
         )
         {
             double xformOp:rotateZ:city = 57.477353895680444
@@ -2663,7 +2663,7 @@ def Xform "World"
         }
 
         def Xform "ST_5" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Hawthorn.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Hawthorn.usd@
         )
         {
             double xformOp:rotateZ:city = 121.17403624054563
@@ -2673,7 +2673,7 @@ def Xform "World"
         }
 
         def Xform "ST_6" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Honey_Locust.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Honey_Locust.usd@
         )
         {
             double xformOp:rotateZ:city = 290.5661783787769
@@ -2683,7 +2683,7 @@ def Xform "World"
         }
 
         def Xform "ST_7" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Largetooth_Aspen.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Largetooth_Aspen.usd@
         )
         {
             double xformOp:rotateZ:city = 105.54418130655344
@@ -2693,7 +2693,7 @@ def Xform "World"
         }
 
         def Xform "ST_8" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Honey_Locust.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Honey_Locust.usd@
         )
         {
             double xformOp:rotateZ:city = 253.64586103737244
@@ -2703,7 +2703,7 @@ def Xform "World"
         }
 
         def Xform "ST_9" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Honey_Locust.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Honey_Locust.usd@
         )
         {
             double xformOp:rotateZ:city = 307.91437956545286
@@ -2713,7 +2713,7 @@ def Xform "World"
         }
 
         def Xform "ST_10" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Largetooth_Aspen.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Largetooth_Aspen.usd@
         )
         {
             double xformOp:rotateZ:city = 131.3395844292303
@@ -2723,7 +2723,7 @@ def Xform "World"
         }
 
         def Xform "ST_11" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Honey_Locust.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Honey_Locust.usd@
         )
         {
             double xformOp:rotateZ:city = 246.0771595932002
@@ -2733,7 +2733,7 @@ def Xform "World"
         }
 
         def Xform "ST_12" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Scarlet_Oak_fall.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Scarlet_Oak_fall.usd@
         )
         {
             double xformOp:rotateZ:city = 58.82489775429422
@@ -2743,7 +2743,7 @@ def Xform "World"
         }
 
         def Xform "ST_13" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/White_Ash.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/White_Ash.usd@
         )
         {
             double xformOp:rotateZ:city = 79.06146262929683
@@ -2753,7 +2753,7 @@ def Xform "World"
         }
 
         def Xform "ST_14" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Douglas_Fir.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Douglas_Fir.usd@
         )
         {
             double xformOp:rotateZ:city = 11.556087805453593
@@ -2763,7 +2763,7 @@ def Xform "World"
         }
 
         def Xform "ST_15" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Hawthorn.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Hawthorn.usd@
         )
         {
             double xformOp:rotateZ:city = 204.1848185322608
@@ -2773,7 +2773,7 @@ def Xform "World"
         }
 
         def Xform "ST_16" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Largetooth_Aspen.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Largetooth_Aspen.usd@
         )
         {
             double xformOp:rotateZ:city = 329.23713230659564
@@ -2783,7 +2783,7 @@ def Xform "World"
         }
 
         def Xform "ST_17" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Hawthorn.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Hawthorn.usd@
         )
         {
             double xformOp:rotateZ:city = 194.03182428022455
@@ -2793,7 +2793,7 @@ def Xform "World"
         }
 
         def Xform "ST_18" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Scarlet_Oak_fall.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Scarlet_Oak_fall.usd@
         )
         {
             double xformOp:rotateZ:city = 78.955473296622
@@ -2803,7 +2803,7 @@ def Xform "World"
         }
 
         def Xform "ST_19" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Douglas_Fir.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Douglas_Fir.usd@
         )
         {
             double xformOp:rotateZ:city = 309.9970474799997
@@ -2813,7 +2813,7 @@ def Xform "World"
         }
 
         def Xform "ST_20" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/White_Ash.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/White_Ash.usd@
         )
         {
             double xformOp:rotateZ:city = 22.869974214704566
@@ -2823,7 +2823,7 @@ def Xform "World"
         }
 
         def Xform "ST_21" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Scarlet_Oak_fall.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Scarlet_Oak_fall.usd@
         )
         {
             double xformOp:rotateZ:city = 199.1613226375035
@@ -2833,7 +2833,7 @@ def Xform "World"
         }
 
         def Xform "ST_22" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Douglas_Fir.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Douglas_Fir.usd@
         )
         {
             double xformOp:rotateZ:city = 193.30931894716625
@@ -2843,7 +2843,7 @@ def Xform "World"
         }
 
         def Xform "ST_23" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Douglas_Fir.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Douglas_Fir.usd@
         )
         {
             double xformOp:rotateZ:city = 56.9367915640811
@@ -2853,7 +2853,7 @@ def Xform "World"
         }
 
         def Xform "ST_24" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/White_Ash.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/White_Ash.usd@
         )
         {
             double xformOp:rotateZ:city = 180.2110006981074
@@ -2863,7 +2863,7 @@ def Xform "World"
         }
 
         def Xform "ST_25" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/White_Ash.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/White_Ash.usd@
         )
         {
             double xformOp:rotateZ:city = 230.02181815176186
@@ -2873,7 +2873,7 @@ def Xform "World"
         }
 
         def Xform "ST_26" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Hawthorn.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Hawthorn.usd@
         )
         {
             double xformOp:rotateZ:city = 280.305532307001
@@ -2883,7 +2883,7 @@ def Xform "World"
         }
 
         def Xform "ST_27" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Honey_Locust.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Honey_Locust.usd@
         )
         {
             double xformOp:rotateZ:city = 40.27238111552222
@@ -2893,7 +2893,7 @@ def Xform "World"
         }
 
         def Xform "ST_28" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Honey_Locust.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Honey_Locust.usd@
         )
         {
             double xformOp:rotateZ:city = 86.71377328100392
@@ -2903,7 +2903,7 @@ def Xform "World"
         }
 
         def Xform "ST_29" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/White_Ash.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/White_Ash.usd@
         )
         {
             double xformOp:rotateZ:city = 24.9165066486181
@@ -2913,7 +2913,7 @@ def Xform "World"
         }
 
         def Xform "ST_30" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Hawthorn.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Hawthorn.usd@
         )
         {
             double xformOp:rotateZ:city = 340.8655246937967
@@ -2923,7 +2923,7 @@ def Xform "World"
         }
 
         def Xform "ST_31" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Scarlet_Oak_fall.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Scarlet_Oak_fall.usd@
         )
         {
             double xformOp:rotateZ:city = 76.24735395914954
@@ -2933,7 +2933,7 @@ def Xform "World"
         }
 
         def Xform "ST_32" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Hawthorn.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Hawthorn.usd@
         )
         {
             double xformOp:rotateZ:city = 143.6372279990745
@@ -2943,7 +2943,7 @@ def Xform "World"
         }
 
         def Xform "ST_33" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Scarlet_Oak_fall.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Scarlet_Oak_fall.usd@
         )
         {
             double xformOp:rotateZ:city = 89.24602091976286
@@ -2953,7 +2953,7 @@ def Xform "World"
         }
 
         def Xform "ST_34" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Scarlet_Oak_fall.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Scarlet_Oak_fall.usd@
         )
         {
             double xformOp:rotateZ:city = 79.2782584025614
@@ -2963,7 +2963,7 @@ def Xform "World"
         }
 
         def Xform "ST_35" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Hawthorn.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Hawthorn.usd@
         )
         {
             double xformOp:rotateZ:city = 11.30866489908653
@@ -2973,7 +2973,7 @@ def Xform "World"
         }
 
         def Xform "ST_36" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Honey_Locust.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Honey_Locust.usd@
         )
         {
             double xformOp:rotateZ:city = 77.1252506533579
@@ -2983,7 +2983,7 @@ def Xform "World"
         }
 
         def Xform "ST_37" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Scarlet_Oak_fall.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Scarlet_Oak_fall.usd@
         )
         {
             double xformOp:rotateZ:city = 87.47900726246083
@@ -2993,7 +2993,7 @@ def Xform "World"
         }
 
         def Xform "ST_38" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Douglas_Fir.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Douglas_Fir.usd@
         )
         {
             double xformOp:rotateZ:city = 155.1784256662959
@@ -3003,7 +3003,7 @@ def Xform "World"
         }
 
         def Xform "ST_39" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/White_Ash.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/White_Ash.usd@
         )
         {
             double xformOp:rotateZ:city = 235.24397577568496
@@ -3013,7 +3013,7 @@ def Xform "World"
         }
 
         def Xform "ST_40" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/White_Ash.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/White_Ash.usd@
         )
         {
             double xformOp:rotateZ:city = 310.20211308700476
@@ -3023,7 +3023,7 @@ def Xform "World"
         }
 
         def Xform "ST_41" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Largetooth_Aspen.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Largetooth_Aspen.usd@
         )
         {
             double xformOp:rotateZ:city = 66.05569288340398
@@ -3033,7 +3033,7 @@ def Xform "World"
         }
 
         def Xform "ST_42" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Douglas_Fir.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Douglas_Fir.usd@
         )
         {
             double xformOp:rotateZ:city = 310.085677714259
@@ -3043,7 +3043,7 @@ def Xform "World"
         }
 
         def Xform "ST_43" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Scarlet_Oak_fall.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Scarlet_Oak_fall.usd@
         )
         {
             double xformOp:rotateZ:city = 348.83865262251044
@@ -3053,7 +3053,7 @@ def Xform "World"
         }
 
         def Xform "ST_44" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Hawthorn.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Hawthorn.usd@
         )
         {
             double xformOp:rotateZ:city = 173.28903046957421
@@ -3063,7 +3063,7 @@ def Xform "World"
         }
 
         def Xform "ST_45" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Hawthorn.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Hawthorn.usd@
         )
         {
             double xformOp:rotateZ:city = 354.7111837607013
@@ -3073,7 +3073,7 @@ def Xform "World"
         }
 
         def Xform "ST_46" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Largetooth_Aspen.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Largetooth_Aspen.usd@
         )
         {
             double xformOp:rotateZ:city = 250.77294129605852
@@ -3083,7 +3083,7 @@ def Xform "World"
         }
 
         def Xform "ST_47" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/White_Ash.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/White_Ash.usd@
         )
         {
             double xformOp:rotateZ:city = 55.72685709866309
@@ -3093,7 +3093,7 @@ def Xform "World"
         }
 
         def Xform "ST_48" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Scarlet_Oak_fall.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Scarlet_Oak_fall.usd@
         )
         {
             double xformOp:rotateZ:city = 21.944725731545695
@@ -3103,7 +3103,7 @@ def Xform "World"
         }
 
         def Xform "ST_49" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Largetooth_Aspen.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Largetooth_Aspen.usd@
         )
         {
             double xformOp:rotateZ:city = 306.97916113738273
@@ -3113,7 +3113,7 @@ def Xform "World"
         }
 
         def Xform "ST_50" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Douglas_Fir.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Douglas_Fir.usd@
         )
         {
             double xformOp:rotateZ:city = 24.667679773365244
@@ -3123,7 +3123,7 @@ def Xform "World"
         }
 
         def Xform "ST_51" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Largetooth_Aspen.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Largetooth_Aspen.usd@
         )
         {
             double xformOp:rotateZ:city = 320.5034330865975
@@ -3133,7 +3133,7 @@ def Xform "World"
         }
 
         def Xform "ST_52" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Scarlet_Oak_fall.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Scarlet_Oak_fall.usd@
         )
         {
             double xformOp:rotateZ:city = 236.6543392101081
@@ -3143,7 +3143,7 @@ def Xform "World"
         }
 
         def Xform "ST_53" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Honey_Locust.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Honey_Locust.usd@
         )
         {
             double xformOp:rotateZ:city = 257.82904828418935
@@ -3153,7 +3153,7 @@ def Xform "World"
         }
 
         def Xform "ST_54" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/White_Ash.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/White_Ash.usd@
         )
         {
             double xformOp:rotateZ:city = 164.60084612536272
@@ -3163,7 +3163,7 @@ def Xform "World"
         }
 
         def Xform "ST_55" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Douglas_Fir.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Douglas_Fir.usd@
         )
         {
             double xformOp:rotateZ:city = 359.4435987075992
@@ -3173,7 +3173,7 @@ def Xform "World"
         }
 
         def Xform "ST_56" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Hawthorn.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Hawthorn.usd@
         )
         {
             double xformOp:rotateZ:city = 47.68436533192823
@@ -3183,7 +3183,7 @@ def Xform "World"
         }
 
         def Xform "ST_57" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Hawthorn.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Hawthorn.usd@
         )
         {
             double xformOp:rotateZ:city = 56.788859648603506
@@ -3193,7 +3193,7 @@ def Xform "World"
         }
 
         def Xform "ST_58" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Scarlet_Oak_fall.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Scarlet_Oak_fall.usd@
         )
         {
             double xformOp:rotateZ:city = 290.55597957545126
@@ -3203,7 +3203,7 @@ def Xform "World"
         }
 
         def Xform "ST_59" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Scarlet_Oak_fall.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Scarlet_Oak_fall.usd@
         )
         {
             double xformOp:rotateZ:city = 238.81993738778783
@@ -3213,7 +3213,7 @@ def Xform "World"
         }
 
         def Xform "PT_60" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Douglas_Fir.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Douglas_Fir.usd@
         )
         {
             double xformOp:rotateZ:city = 101.43225772484195
@@ -3223,7 +3223,7 @@ def Xform "World"
         }
 
         def Xform "PT_61" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Hawthorn.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Hawthorn.usd@
         )
         {
             double xformOp:rotateZ:city = 181.9472609152754
@@ -3233,7 +3233,7 @@ def Xform "World"
         }
 
         def Xform "PT_62" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Douglas_Fir.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Douglas_Fir.usd@
         )
         {
             double xformOp:rotateZ:city = 99.6048806300106
@@ -3243,7 +3243,7 @@ def Xform "World"
         }
 
         def Xform "PT_63" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Hawthorn.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Hawthorn.usd@
         )
         {
             double xformOp:rotateZ:city = 266.8431270052551
@@ -3253,7 +3253,7 @@ def Xform "World"
         }
 
         def Xform "PT_64" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Scarlet_Oak_fall.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Scarlet_Oak_fall.usd@
         )
         {
             double xformOp:rotateZ:city = 317.91830158805146
@@ -3263,7 +3263,7 @@ def Xform "World"
         }
 
         def Xform "PT_65" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Douglas_Fir.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Douglas_Fir.usd@
         )
         {
             double xformOp:rotateZ:city = 53.31376280429375
@@ -3273,7 +3273,7 @@ def Xform "World"
         }
 
         def Xform "PT_66" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Honey_Locust.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Honey_Locust.usd@
         )
         {
             double xformOp:rotateZ:city = 309.852929520325
@@ -3283,7 +3283,7 @@ def Xform "World"
         }
 
         def Xform "PT_67" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/White_Ash.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/White_Ash.usd@
         )
         {
             double xformOp:rotateZ:city = 280.84184707371935
@@ -3293,7 +3293,7 @@ def Xform "World"
         }
 
         def Xform "PT_68" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Scarlet_Oak_fall.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Scarlet_Oak_fall.usd@
         )
         {
             double xformOp:rotateZ:city = 85.22543960256912
@@ -3303,7 +3303,7 @@ def Xform "World"
         }
 
         def Xform "PT_69" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Hawthorn.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/Hawthorn.usd@
         )
         {
             double xformOp:rotateZ:city = 265.16320983182953
@@ -3313,7 +3313,7 @@ def Xform "World"
         }
 
         def Xform "PT_70" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/White_Ash.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Trees/White_Ash.usd@
         )
         {
             double xformOp:rotateZ:city = 96.05005545400994
@@ -3323,7 +3323,7 @@ def Xform "World"
         }
 
         def Xform "PS_0" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Shrub/Forsythia.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Shrub/Forsythia.usd@
         )
         {
             double xformOp:rotateZ:city = 293.9711780148944
@@ -3333,7 +3333,7 @@ def Xform "World"
         }
 
         def Xform "PS_1" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Shrub/Hibiscus.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Shrub/Hibiscus.usd@
         )
         {
             double xformOp:rotateZ:city = 143.44775228332205
@@ -3343,7 +3343,7 @@ def Xform "World"
         }
 
         def Xform "PS_2" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Shrub/Hydrangea.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Shrub/Hydrangea.usd@
         )
         {
             double xformOp:rotateZ:city = 244.62652260969492
@@ -3353,7 +3353,7 @@ def Xform "World"
         }
 
         def Xform "PS_3" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Shrub/Forsythia.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Shrub/Forsythia.usd@
         )
         {
             double xformOp:rotateZ:city = 64.28441382208692
@@ -3363,7 +3363,7 @@ def Xform "World"
         }
 
         def Xform "PS_4" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Shrub/Forsythia.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Shrub/Forsythia.usd@
         )
         {
             double xformOp:rotateZ:city = 262.27622183497357
@@ -3373,7 +3373,7 @@ def Xform "World"
         }
 
         def Xform "PS_5" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Shrub/Sweet_Mock_Orange.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Shrub/Sweet_Mock_Orange.usd@
         )
         {
             double xformOp:rotateZ:city = 68.42835882082657
@@ -3383,7 +3383,7 @@ def Xform "World"
         }
 
         def Xform "PS_6" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Shrub/Forsythia.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Shrub/Forsythia.usd@
         )
         {
             double xformOp:rotateZ:city = 247.2685728892296
@@ -3393,7 +3393,7 @@ def Xform "World"
         }
 
         def Xform "PS_7" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Shrub/Hibiscus.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Shrub/Hibiscus.usd@
         )
         {
             double xformOp:rotateZ:city = 239.12556656805805
@@ -3403,7 +3403,7 @@ def Xform "World"
         }
 
         def Xform "PS_8" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Shrub/Forsythia.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Shrub/Forsythia.usd@
         )
         {
             double xformOp:rotateZ:city = 111.34247839511517
@@ -3413,7 +3413,7 @@ def Xform "World"
         }
 
         def Xform "PS_9" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Shrub/Hydrangea.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Shrub/Hydrangea.usd@
         )
         {
             double xformOp:rotateZ:city = 239.37459631659775
@@ -3423,7 +3423,7 @@ def Xform "World"
         }
 
         def Xform "PS_10" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Shrub/Sweet_Mock_Orange.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Shrub/Sweet_Mock_Orange.usd@
         )
         {
             double xformOp:rotateZ:city = 300.1410609494607
@@ -3433,7 +3433,7 @@ def Xform "World"
         }
 
         def Xform "PS_11" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Shrub/Lupin.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Shrub/Lupin.usd@
         )
         {
             double xformOp:rotateZ:city = 116.00972270515373
@@ -3443,7 +3443,7 @@ def Xform "World"
         }
 
         def Xform "PS_12" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Shrub/Hibiscus.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Shrub/Hibiscus.usd@
         )
         {
             double xformOp:rotateZ:city = 345.539521325893
@@ -3453,7 +3453,7 @@ def Xform "World"
         }
 
         def Xform "PS_13" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Shrub/Forsythia.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Shrub/Forsythia.usd@
         )
         {
             double xformOp:rotateZ:city = 222.93388993045517
@@ -3463,7 +3463,7 @@ def Xform "World"
         }
 
         def Xform "PS_14" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Shrub/Hydrangea.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Shrub/Hydrangea.usd@
         )
         {
             double xformOp:rotateZ:city = 8.793139581657483
@@ -3473,7 +3473,7 @@ def Xform "World"
         }
 
         def Xform "PS_15" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Shrub/Sweet_Mock_Orange.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Shrub/Sweet_Mock_Orange.usd@
         )
         {
             double xformOp:rotateZ:city = 149.19876395917896
@@ -3483,7 +3483,7 @@ def Xform "World"
         }
 
         def Xform "PS_16" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Shrub/Lupin.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Assets/Vegetation/Shrub/Lupin.usd@
         )
         {
             double xformOp:rotateZ:city = 236.18088400024226
@@ -3496,7 +3496,7 @@ def Xform "World"
     def Xform "StreetProps"
     {
         def Xform "Lamp_0" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
         )
         {
             double3 xformOp:scale:city = (0.01, 0.01, 0.01)
@@ -3505,7 +3505,7 @@ def Xform "World"
         }
 
         def Xform "Lamp_1" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
         )
         {
             double3 xformOp:scale:city = (0.01, 0.01, 0.01)
@@ -3514,7 +3514,7 @@ def Xform "World"
         }
 
         def Xform "Lamp_2" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
         )
         {
             double3 xformOp:scale:city = (0.01, 0.01, 0.01)
@@ -3523,7 +3523,7 @@ def Xform "World"
         }
 
         def Xform "Lamp_3" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
         )
         {
             double3 xformOp:scale:city = (0.01, 0.01, 0.01)
@@ -3532,7 +3532,7 @@ def Xform "World"
         }
 
         def Xform "Lamp_4" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
         )
         {
             double3 xformOp:scale:city = (0.01, 0.01, 0.01)
@@ -3541,7 +3541,7 @@ def Xform "World"
         }
 
         def Xform "Lamp_5" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
         )
         {
             double3 xformOp:scale:city = (0.01, 0.01, 0.01)
@@ -3550,7 +3550,7 @@ def Xform "World"
         }
 
         def Xform "Lamp_6" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
         )
         {
             double3 xformOp:scale:city = (0.01, 0.01, 0.01)
@@ -3559,7 +3559,7 @@ def Xform "World"
         }
 
         def Xform "Lamp_7" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
         )
         {
             double3 xformOp:scale:city = (0.01, 0.01, 0.01)
@@ -3568,7 +3568,7 @@ def Xform "World"
         }
 
         def Xform "Lamp_8" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
         )
         {
             double3 xformOp:scale:city = (0.01, 0.01, 0.01)
@@ -3577,7 +3577,7 @@ def Xform "World"
         }
 
         def Xform "Lamp_9" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
         )
         {
             double3 xformOp:scale:city = (0.01, 0.01, 0.01)
@@ -3586,7 +3586,7 @@ def Xform "World"
         }
 
         def Xform "Lamp_10" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
         )
         {
             double3 xformOp:scale:city = (0.01, 0.01, 0.01)
@@ -3595,7 +3595,7 @@ def Xform "World"
         }
 
         def Xform "Lamp_11" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
         )
         {
             double3 xformOp:scale:city = (0.01, 0.01, 0.01)
@@ -3604,7 +3604,7 @@ def Xform "World"
         }
 
         def Xform "Lamp_12" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
         )
         {
             double3 xformOp:scale:city = (0.01, 0.01, 0.01)
@@ -3613,7 +3613,7 @@ def Xform "World"
         }
 
         def Xform "Lamp_13" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
         )
         {
             double3 xformOp:scale:city = (0.01, 0.01, 0.01)
@@ -3622,7 +3622,7 @@ def Xform "World"
         }
 
         def Xform "Lamp_14" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
         )
         {
             double3 xformOp:scale:city = (0.01, 0.01, 0.01)
@@ -3631,7 +3631,7 @@ def Xform "World"
         }
 
         def Xform "Lamp_15" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
         )
         {
             double3 xformOp:scale:city = (0.01, 0.01, 0.01)
@@ -3640,7 +3640,7 @@ def Xform "World"
         }
 
         def Xform "Lamp_16" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
         )
         {
             double3 xformOp:scale:city = (0.01, 0.01, 0.01)
@@ -3649,7 +3649,7 @@ def Xform "World"
         }
 
         def Xform "Lamp_17" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
         )
         {
             double3 xformOp:scale:city = (0.01, 0.01, 0.01)
@@ -3658,7 +3658,7 @@ def Xform "World"
         }
 
         def Xform "Lamp_18" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
         )
         {
             double3 xformOp:scale:city = (0.01, 0.01, 0.01)
@@ -3667,7 +3667,7 @@ def Xform "World"
         }
 
         def Xform "Lamp_19" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
         )
         {
             double3 xformOp:scale:city = (0.01, 0.01, 0.01)
@@ -3676,7 +3676,7 @@ def Xform "World"
         }
 
         def Xform "Lamp_20" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
         )
         {
             double3 xformOp:scale:city = (0.01, 0.01, 0.01)
@@ -3685,7 +3685,7 @@ def Xform "World"
         }
 
         def Xform "Lamp_21" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
         )
         {
             double3 xformOp:scale:city = (0.01, 0.01, 0.01)
@@ -3694,7 +3694,7 @@ def Xform "World"
         }
 
         def Xform "Lamp_22" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
         )
         {
             double3 xformOp:scale:city = (0.01, 0.01, 0.01)
@@ -3703,7 +3703,7 @@ def Xform "World"
         }
 
         def Xform "Lamp_23" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
         )
         {
             double3 xformOp:scale:city = (0.01, 0.01, 0.01)
@@ -3712,7 +3712,7 @@ def Xform "World"
         }
 
         def Xform "Lamp_24" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
         )
         {
             double3 xformOp:scale:city = (0.01, 0.01, 0.01)
@@ -3721,7 +3721,7 @@ def Xform "World"
         }
 
         def Xform "Lamp_25" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
         )
         {
             double3 xformOp:scale:city = (0.01, 0.01, 0.01)
@@ -3730,7 +3730,7 @@ def Xform "World"
         }
 
         def Xform "Lamp_26" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
         )
         {
             double3 xformOp:scale:city = (0.01, 0.01, 0.01)
@@ -3739,7 +3739,7 @@ def Xform "World"
         }
 
         def Xform "Lamp_27" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
         )
         {
             double3 xformOp:scale:city = (0.01, 0.01, 0.01)
@@ -3748,7 +3748,7 @@ def Xform "World"
         }
 
         def Xform "Lamp_28" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
         )
         {
             double3 xformOp:scale:city = (0.01, 0.01, 0.01)
@@ -3757,7 +3757,7 @@ def Xform "World"
         }
 
         def Xform "Lamp_29" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
         )
         {
             double3 xformOp:scale:city = (0.01, 0.01, 0.01)
@@ -3766,7 +3766,7 @@ def Xform "World"
         }
 
         def Xform "Lamp_30" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
         )
         {
             double3 xformOp:scale:city = (0.01, 0.01, 0.01)
@@ -3775,7 +3775,7 @@ def Xform "World"
         }
 
         def Xform "Lamp_31" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
         )
         {
             double3 xformOp:scale:city = (0.01, 0.01, 0.01)
@@ -3784,7 +3784,7 @@ def Xform "World"
         }
 
         def Xform "Lamp_32" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
         )
         {
             double3 xformOp:scale:city = (0.01, 0.01, 0.01)
@@ -3793,7 +3793,7 @@ def Xform "World"
         }
 
         def Xform "Lamp_33" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
         )
         {
             double3 xformOp:scale:city = (0.01, 0.01, 0.01)
@@ -3802,7 +3802,7 @@ def Xform "World"
         }
 
         def Xform "Lamp_34" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
         )
         {
             double3 xformOp:scale:city = (0.01, 0.01, 0.01)
@@ -3811,7 +3811,7 @@ def Xform "World"
         }
 
         def Xform "Lamp_35" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
         )
         {
             double3 xformOp:scale:city = (0.01, 0.01, 0.01)
@@ -3820,7 +3820,7 @@ def Xform "World"
         }
 
         def Xform "Lamp_36" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
         )
         {
             double3 xformOp:scale:city = (0.01, 0.01, 0.01)
@@ -3829,7 +3829,7 @@ def Xform "World"
         }
 
         def Xform "Lamp_37" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
         )
         {
             double3 xformOp:scale:city = (0.01, 0.01, 0.01)
@@ -3838,7 +3838,7 @@ def Xform "World"
         }
 
         def Xform "Lamp_38" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
         )
         {
             double3 xformOp:scale:city = (0.01, 0.01, 0.01)
@@ -3847,7 +3847,7 @@ def Xform "World"
         }
 
         def Xform "Lamp_39" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
         )
         {
             double3 xformOp:scale:city = (0.01, 0.01, 0.01)
@@ -3856,7 +3856,7 @@ def Xform "World"
         }
 
         def Xform "Lamp_40" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
         )
         {
             double3 xformOp:scale:city = (0.01, 0.01, 0.01)
@@ -3865,7 +3865,7 @@ def Xform "World"
         }
 
         def Xform "Lamp_41" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
         )
         {
             double3 xformOp:scale:city = (0.01, 0.01, 0.01)
@@ -3874,7 +3874,7 @@ def Xform "World"
         }
 
         def Xform "Lamp_42" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
         )
         {
             double3 xformOp:scale:city = (0.01, 0.01, 0.01)
@@ -3883,7 +3883,7 @@ def Xform "World"
         }
 
         def Xform "Lamp_43" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
         )
         {
             double3 xformOp:scale:city = (0.01, 0.01, 0.01)
@@ -3892,7 +3892,7 @@ def Xform "World"
         }
 
         def Xform "Lamp_44" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
         )
         {
             double3 xformOp:scale:city = (0.01, 0.01, 0.01)
@@ -3901,7 +3901,7 @@ def Xform "World"
         }
 
         def Xform "Lamp_45" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
         )
         {
             double3 xformOp:scale:city = (0.01, 0.01, 0.01)
@@ -3910,7 +3910,7 @@ def Xform "World"
         }
 
         def Xform "Lamp_46" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
         )
         {
             double3 xformOp:scale:city = (0.01, 0.01, 0.01)
@@ -3919,7 +3919,7 @@ def Xform "World"
         }
 
         def Xform "Lamp_47" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/StreetLamp/StreetLamp.usd@
         )
         {
             double3 xformOp:scale:city = (0.01, 0.01, 0.01)
@@ -3928,7 +3928,7 @@ def Xform "World"
         }
 
         def Xform "Hydrant_48" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/Hydrant/Hydrant.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/Hydrant/Hydrant.usd@
         )
         {
             double xformOp:rotateZ:city = 43.689095708178385
@@ -3938,7 +3938,7 @@ def Xform "World"
         }
 
         def Xform "Hydrant_49" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/Hydrant/Hydrant.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/Hydrant/Hydrant.usd@
         )
         {
             double xformOp:rotateZ:city = 355.6412831039213
@@ -3948,7 +3948,7 @@ def Xform "World"
         }
 
         def Xform "ParkBench_50" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/ParkBench01/ParkBench01.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/ParkBench01/ParkBench01.usd@
         )
         {
             double xformOp:rotateZ:city = 220.5548361942346
@@ -3958,7 +3958,7 @@ def Xform "World"
         }
 
         def Xform "ParkBench_51" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/ParkBench01/ParkBench01.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/ParkBench01/ParkBench01.usd@
         )
         {
             double xformOp:rotateZ:city = 322.9949171639744
@@ -3968,7 +3968,7 @@ def Xform "World"
         }
 
         def Xform "TrashCan_52" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/TrashCan/TrashCan.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/TrashCan/TrashCan.usd@
         )
         {
             double xformOp:rotateZ:city = 302.35063962309147
@@ -3978,7 +3978,7 @@ def Xform "World"
         }
 
         def Xform "Mailbox01_53" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/Mailbox/MailboxType01.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/Mailbox/MailboxType01.usd@
         )
         {
             double xformOp:rotateZ:city = 225.62943731344126
@@ -3988,7 +3988,7 @@ def Xform "World"
         }
 
         def Xform "OutdoorTrash_54" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/OutdoorTrash01/OutdoorTrash01.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/OutdoorTrash01/OutdoorTrash01.usd@
         )
         {
             double xformOp:rotateZ:city = 84.41768808526872
@@ -3998,7 +3998,7 @@ def Xform "World"
         }
 
         def Xform "OutdoorTrash_55" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/OutdoorTrash01/OutdoorTrash01.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/OutdoorTrash01/OutdoorTrash01.usd@
         )
         {
             double xformOp:rotateZ:city = 49.81466214581606
@@ -4008,7 +4008,7 @@ def Xform "World"
         }
 
         def Xform "Hydrant_56" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/Hydrant/Hydrant.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/Hydrant/Hydrant.usd@
         )
         {
             double xformOp:rotateZ:city = 195.34001058140953
@@ -4018,7 +4018,7 @@ def Xform "World"
         }
 
         def Xform "ParkBench_57" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/ParkBench01/ParkBench01.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/ParkBench01/ParkBench01.usd@
         )
         {
             double xformOp:rotateZ:city = 140.21165256009886
@@ -4028,7 +4028,7 @@ def Xform "World"
         }
 
         def Xform "ParkBench_58" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/ParkBench01/ParkBench01.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/ParkBench01/ParkBench01.usd@
         )
         {
             double xformOp:rotateZ:city = 136.9371704139762
@@ -4038,7 +4038,7 @@ def Xform "World"
         }
 
         def Xform "ParkBench_59" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/ParkBench01/ParkBench01.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/ParkBench01/ParkBench01.usd@
         )
         {
             double xformOp:rotateZ:city = 140.3951933029388
@@ -4048,7 +4048,7 @@ def Xform "World"
         }
 
         def Xform "TrashCan_60" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/TrashCan/TrashCan.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/TrashCan/TrashCan.usd@
         )
         {
             double xformOp:rotateZ:city = 287.9525415388564
@@ -4058,7 +4058,7 @@ def Xform "World"
         }
 
         def Xform "TrashCan_61" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/TrashCan/TrashCan.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/TrashCan/TrashCan.usd@
         )
         {
             double xformOp:rotateZ:city = 174.83111776746014
@@ -4068,7 +4068,7 @@ def Xform "World"
         }
 
         def Xform "TrashCan_62" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/TrashCan/TrashCan.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/TrashCan/TrashCan.usd@
         )
         {
             double xformOp:rotateZ:city = 145.55400088954934
@@ -4078,7 +4078,7 @@ def Xform "World"
         }
 
         def Xform "Mailbox01_63" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/Mailbox/MailboxType01.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/Mailbox/MailboxType01.usd@
         )
         {
             double xformOp:rotateZ:city = 353.0599119068124
@@ -4088,7 +4088,7 @@ def Xform "World"
         }
 
         def Xform "OutdoorTrash_64" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/OutdoorTrash01/OutdoorTrash01.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/OutdoorTrash01/OutdoorTrash01.usd@
         )
         {
             double xformOp:rotateZ:city = 238.67991246101806
@@ -4098,7 +4098,7 @@ def Xform "World"
         }
 
         def Xform "Hydrant_65" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/Hydrant/Hydrant.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/Hydrant/Hydrant.usd@
         )
         {
             double xformOp:rotateZ:city = 117.84696009902433
@@ -4108,7 +4108,7 @@ def Xform "World"
         }
 
         def Xform "ParkBench_66" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/ParkBench01/ParkBench01.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/ParkBench01/ParkBench01.usd@
         )
         {
             double xformOp:rotateZ:city = 136.48543760308905
@@ -4118,7 +4118,7 @@ def Xform "World"
         }
 
         def Xform "ParkBench_67" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/ParkBench01/ParkBench01.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/ParkBench01/ParkBench01.usd@
         )
         {
             double xformOp:rotateZ:city = 6.977983338003848
@@ -4128,7 +4128,7 @@ def Xform "World"
         }
 
         def Xform "ParkBench_68" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/ParkBench01/ParkBench01.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/ParkBench01/ParkBench01.usd@
         )
         {
             double xformOp:rotateZ:city = 234.051873569955
@@ -4138,7 +4138,7 @@ def Xform "World"
         }
 
         def Xform "ParkBench_69" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/ParkBench01/ParkBench01.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/ParkBench01/ParkBench01.usd@
         )
         {
             double xformOp:rotateZ:city = 71.76984565051184
@@ -4148,7 +4148,7 @@ def Xform "World"
         }
 
         def Xform "TrashCan_70" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/TrashCan/TrashCan.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/TrashCan/TrashCan.usd@
         )
         {
             double xformOp:rotateZ:city = 170.4819819406061
@@ -4158,7 +4158,7 @@ def Xform "World"
         }
 
         def Xform "TrashCan_71" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/TrashCan/TrashCan.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/TrashCan/TrashCan.usd@
         )
         {
             double xformOp:rotateZ:city = 251.8073896486143
@@ -4168,7 +4168,7 @@ def Xform "World"
         }
 
         def Xform "Mailbox01_72" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/Mailbox/MailboxType01.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/Mailbox/MailboxType01.usd@
         )
         {
             double xformOp:rotateZ:city = 269.2532347039029
@@ -4178,7 +4178,7 @@ def Xform "World"
         }
 
         def Xform "OutdoorTrash_73" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/OutdoorTrash01/OutdoorTrash01.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/OutdoorTrash01/OutdoorTrash01.usd@
         )
         {
             double xformOp:rotateZ:city = 111.97401105549595
@@ -4188,7 +4188,7 @@ def Xform "World"
         }
 
         def Xform "Hydrant_74" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/Hydrant/Hydrant.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/Hydrant/Hydrant.usd@
         )
         {
             double xformOp:rotateZ:city = 213.1552300499468
@@ -4198,7 +4198,7 @@ def Xform "World"
         }
 
         def Xform "ParkBench_75" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/ParkBench01/ParkBench01.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/ParkBench01/ParkBench01.usd@
         )
         {
             double xformOp:rotateZ:city = 306.1055660719667
@@ -4208,7 +4208,7 @@ def Xform "World"
         }
 
         def Xform "ParkBench_76" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/ParkBench01/ParkBench01.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/ParkBench01/ParkBench01.usd@
         )
         {
             double xformOp:rotateZ:city = 14.784886874209002
@@ -4218,7 +4218,7 @@ def Xform "World"
         }
 
         def Xform "ParkBench_77" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/ParkBench01/ParkBench01.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/ParkBench01/ParkBench01.usd@
         )
         {
             double xformOp:rotateZ:city = 233.11557146044984
@@ -4228,7 +4228,7 @@ def Xform "World"
         }
 
         def Xform "TrashCan_78" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/TrashCan/TrashCan.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/TrashCan/TrashCan.usd@
         )
         {
             double xformOp:rotateZ:city = 37.99399343183949
@@ -4238,7 +4238,7 @@ def Xform "World"
         }
 
         def Xform "TrashCan_79" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/TrashCan/TrashCan.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/TrashCan/TrashCan.usd@
         )
         {
             double xformOp:rotateZ:city = 254.6311117341877
@@ -4248,7 +4248,7 @@ def Xform "World"
         }
 
         def Xform "TrashCan_80" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/TrashCan/TrashCan.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/TrashCan/TrashCan.usd@
         )
         {
             double xformOp:rotateZ:city = 234.16466904602692
@@ -4258,7 +4258,7 @@ def Xform "World"
         }
 
         def Xform "Mailbox01_81" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/Mailbox/MailboxType01.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/Mailbox/MailboxType01.usd@
         )
         {
             double xformOp:rotateZ:city = 213.2908628629326
@@ -4268,7 +4268,7 @@ def Xform "World"
         }
 
         def Xform "OutdoorTrash_82" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/OutdoorTrash01/OutdoorTrash01.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/OutdoorTrash01/OutdoorTrash01.usd@
         )
         {
             double xformOp:rotateZ:city = 31.198643300042782
@@ -4278,7 +4278,7 @@ def Xform "World"
         }
 
         def Xform "OutdoorTrash_83" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/OutdoorTrash01/OutdoorTrash01.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/OutdoorTrash01/OutdoorTrash01.usd@
         )
         {
             double xformOp:rotateZ:city = 219.71941352298742
@@ -4288,7 +4288,7 @@ def Xform "World"
         }
 
         def Xform "Hydrant_84" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/Hydrant/Hydrant.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/Hydrant/Hydrant.usd@
         )
         {
             double xformOp:rotateZ:city = 287.21964845811476
@@ -4298,7 +4298,7 @@ def Xform "World"
         }
 
         def Xform "Hydrant_85" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/Hydrant/Hydrant.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/Hydrant/Hydrant.usd@
         )
         {
             double xformOp:rotateZ:city = 316.8386442918829
@@ -4308,7 +4308,7 @@ def Xform "World"
         }
 
         def Xform "ParkBench_86" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/ParkBench01/ParkBench01.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/ParkBench01/ParkBench01.usd@
         )
         {
             double xformOp:rotateZ:city = 86.88817813416478
@@ -4318,7 +4318,7 @@ def Xform "World"
         }
 
         def Xform "ParkBench_87" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/ParkBench01/ParkBench01.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/ParkBench01/ParkBench01.usd@
         )
         {
             double xformOp:rotateZ:city = 248.6193622007483
@@ -4328,7 +4328,7 @@ def Xform "World"
         }
 
         def Xform "ParkBench_88" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/ParkBench01/ParkBench01.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/ParkBench01/ParkBench01.usd@
         )
         {
             double xformOp:rotateZ:city = 105.92480927537903
@@ -4338,7 +4338,7 @@ def Xform "World"
         }
 
         def Xform "TrashCan_89" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/TrashCan/TrashCan.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/TrashCan/TrashCan.usd@
         )
         {
             double xformOp:rotateZ:city = 209.3600107196522
@@ -4348,7 +4348,7 @@ def Xform "World"
         }
 
         def Xform "Mailbox01_90" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/Mailbox/MailboxType01.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/Mailbox/MailboxType01.usd@
         )
         {
             double xformOp:rotateZ:city = 358.7873270253595
@@ -4358,7 +4358,7 @@ def Xform "World"
         }
 
         def Xform "OutdoorTrash_91" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/OutdoorTrash01/OutdoorTrash01.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/OutdoorTrash01/OutdoorTrash01.usd@
         )
         {
             double xformOp:rotateZ:city = 110.38427688557896
@@ -4368,7 +4368,7 @@ def Xform "World"
         }
 
         def Xform "OutdoorTrash_92" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/OutdoorTrash01/OutdoorTrash01.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/OutdoorTrash01/OutdoorTrash01.usd@
         )
         {
             double xformOp:rotateZ:city = 43.03970685181902
@@ -4378,7 +4378,7 @@ def Xform "World"
         }
 
         def Xform "Hydrant_93" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/Hydrant/Hydrant.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/Hydrant/Hydrant.usd@
         )
         {
             double xformOp:rotateZ:city = 188.86927287909882
@@ -4388,7 +4388,7 @@ def Xform "World"
         }
 
         def Xform "ParkBench_94" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/ParkBench01/ParkBench01.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/ParkBench01/ParkBench01.usd@
         )
         {
             double xformOp:rotateZ:city = 106.64872677545202
@@ -4398,7 +4398,7 @@ def Xform "World"
         }
 
         def Xform "ParkBench_95" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/ParkBench01/ParkBench01.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/ParkBench01/ParkBench01.usd@
         )
         {
             double xformOp:rotateZ:city = 192.28863213635879
@@ -4408,7 +4408,7 @@ def Xform "World"
         }
 
         def Xform "TrashCan_96" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/TrashCan/TrashCan.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/TrashCan/TrashCan.usd@
         )
         {
             double xformOp:rotateZ:city = 105.16919203899991
@@ -4418,7 +4418,7 @@ def Xform "World"
         }
 
         def Xform "Mailbox01_97" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/Mailbox/MailboxType01.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/Mailbox/MailboxType01.usd@
         )
         {
             double xformOp:rotateZ:city = 36.93155284359384
@@ -4428,7 +4428,7 @@ def Xform "World"
         }
 
         def Xform "OutdoorTrash_98" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/OutdoorTrash01/OutdoorTrash01.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/OutdoorTrash01/OutdoorTrash01.usd@
         )
         {
             double xformOp:rotateZ:city = 158.5687673289637
@@ -4438,7 +4438,7 @@ def Xform "World"
         }
 
         def Xform "OutdoorTrash_99" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Architecture/Demos/AEC/BrownstoneDemo/Props/OutdoorTrash01/OutdoorTrash01.usd@
+            prepend references = @./assets/Architecture/Demos/AEC/BrownstoneDemo/Props/OutdoorTrash01/OutdoorTrash01.usd@
         )
         {
             double xformOp:rotateZ:city = 310.22026726590474
@@ -4451,7 +4451,7 @@ def Xform "World"
     def Xform "Civilians"
     {
         def Xform "Civ_000" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Characters/Assets/Characters/Reallusion/Worker/Worker.usd@
+            prepend references = @./assets/Characters/Assets/Characters/Reallusion/Worker/Worker.usd@
         )
         {
             custom int resqai:civilian_id = 0
@@ -4465,7 +4465,7 @@ def Xform "World"
         }
 
         def Xform "Civ_001" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Characters/Assets/Characters/Reallusion/Debra/Debra.usd@
+            prepend references = @./assets/Characters/Assets/Characters/Reallusion/Debra/Debra.usd@
         )
         {
             custom int resqai:civilian_id = 1
@@ -4479,7 +4479,7 @@ def Xform "World"
         }
 
         def Xform "Civ_002" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Characters/Assets/Characters/Reallusion/Worker/Worker.usd@
+            prepend references = @./assets/Characters/Assets/Characters/Reallusion/Worker/Worker.usd@
         )
         {
             custom int resqai:civilian_id = 2
@@ -4493,7 +4493,7 @@ def Xform "World"
         }
 
         def Xform "Civ_003" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Characters/Assets/Characters/Reallusion/Debra/Debra.usd@
+            prepend references = @./assets/Characters/Assets/Characters/Reallusion/Debra/Debra.usd@
         )
         {
             custom int resqai:civilian_id = 3
@@ -4507,7 +4507,7 @@ def Xform "World"
         }
 
         def Xform "Civ_004" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Characters/Assets/Characters/Reallusion/Worker/Worker.usd@
+            prepend references = @./assets/Characters/Assets/Characters/Reallusion/Worker/Worker.usd@
         )
         {
             custom int resqai:civilian_id = 4
@@ -4521,7 +4521,7 @@ def Xform "World"
         }
 
         def Xform "Civ_005" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Characters/Assets/Characters/Reallusion/Worker/Worker.usd@
+            prepend references = @./assets/Characters/Assets/Characters/Reallusion/Worker/Worker.usd@
         )
         {
             custom int resqai:civilian_id = 5
@@ -4535,7 +4535,7 @@ def Xform "World"
         }
 
         def Xform "Civ_006" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Characters/Assets/Characters/Reallusion/Debra/Debra.usd@
+            prepend references = @./assets/Characters/Assets/Characters/Reallusion/Debra/Debra.usd@
         )
         {
             custom int resqai:civilian_id = 6
@@ -4549,7 +4549,7 @@ def Xform "World"
         }
 
         def Xform "Civ_007" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Characters/Assets/Characters/Reallusion/Debra/Debra.usd@
+            prepend references = @./assets/Characters/Assets/Characters/Reallusion/Debra/Debra.usd@
         )
         {
             custom int resqai:civilian_id = 7
@@ -4563,7 +4563,7 @@ def Xform "World"
         }
 
         def Xform "Civ_008" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Characters/Assets/Characters/Reallusion/Worker/Worker.usd@
+            prepend references = @./assets/Characters/Assets/Characters/Reallusion/Worker/Worker.usd@
         )
         {
             custom int resqai:civilian_id = 8
@@ -4577,7 +4577,7 @@ def Xform "World"
         }
 
         def Xform "Civ_009" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Characters/Assets/Characters/Reallusion/Worker/Worker.usd@
+            prepend references = @./assets/Characters/Assets/Characters/Reallusion/Worker/Worker.usd@
         )
         {
             custom int resqai:civilian_id = 9
@@ -4591,7 +4591,7 @@ def Xform "World"
         }
 
         def Xform "Civ_010" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Characters/Assets/Characters/Reallusion/Debra/Debra.usd@
+            prepend references = @./assets/Characters/Assets/Characters/Reallusion/Debra/Debra.usd@
         )
         {
             custom int resqai:civilian_id = 10
@@ -4605,7 +4605,7 @@ def Xform "World"
         }
 
         def Xform "Civ_011" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Characters/Assets/Characters/Reallusion/Debra/Debra.usd@
+            prepend references = @./assets/Characters/Assets/Characters/Reallusion/Debra/Debra.usd@
         )
         {
             custom int resqai:civilian_id = 11
@@ -4619,7 +4619,7 @@ def Xform "World"
         }
 
         def Xform "Civ_012" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Characters/Assets/Characters/Reallusion/Debra/Debra.usd@
+            prepend references = @./assets/Characters/Assets/Characters/Reallusion/Debra/Debra.usd@
         )
         {
             custom int resqai:civilian_id = 12
@@ -4633,7 +4633,7 @@ def Xform "World"
         }
 
         def Xform "Civ_013" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Characters/Assets/Characters/Reallusion/Worker/Worker.usd@
+            prepend references = @./assets/Characters/Assets/Characters/Reallusion/Worker/Worker.usd@
         )
         {
             custom int resqai:civilian_id = 13
@@ -4647,7 +4647,7 @@ def Xform "World"
         }
 
         def Xform "Civ_014" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Characters/Assets/Characters/Reallusion/Worker/Worker.usd@
+            prepend references = @./assets/Characters/Assets/Characters/Reallusion/Worker/Worker.usd@
         )
         {
             custom int resqai:civilian_id = 14
@@ -4661,7 +4661,7 @@ def Xform "World"
         }
 
         def Xform "Civ_015" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Characters/Assets/Characters/Reallusion/Debra/Debra.usd@
+            prepend references = @./assets/Characters/Assets/Characters/Reallusion/Debra/Debra.usd@
         )
         {
             custom int resqai:civilian_id = 15
@@ -4675,7 +4675,7 @@ def Xform "World"
         }
 
         def Xform "Civ_016" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Characters/Assets/Characters/Reallusion/Debra/Debra.usd@
+            prepend references = @./assets/Characters/Assets/Characters/Reallusion/Debra/Debra.usd@
         )
         {
             custom int resqai:civilian_id = 16
@@ -4689,7 +4689,7 @@ def Xform "World"
         }
 
         def Xform "Civ_017" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Characters/Assets/Characters/Reallusion/Debra/Debra.usd@
+            prepend references = @./assets/Characters/Assets/Characters/Reallusion/Debra/Debra.usd@
         )
         {
             custom int resqai:civilian_id = 17
@@ -4703,7 +4703,7 @@ def Xform "World"
         }
 
         def Xform "Civ_018" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Characters/Assets/Characters/Reallusion/Debra/Debra.usd@
+            prepend references = @./assets/Characters/Assets/Characters/Reallusion/Debra/Debra.usd@
         )
         {
             custom int resqai:civilian_id = 18
@@ -4717,7 +4717,7 @@ def Xform "World"
         }
 
         def Xform "Civ_019" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Characters/Assets/Characters/Reallusion/Debra/Debra.usd@
+            prepend references = @./assets/Characters/Assets/Characters/Reallusion/Debra/Debra.usd@
         )
         {
             custom int resqai:civilian_id = 19
@@ -4731,7 +4731,7 @@ def Xform "World"
         }
 
         def Xform "Civ_020" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Characters/Assets/Characters/Reallusion/Debra/Debra.usd@
+            prepend references = @./assets/Characters/Assets/Characters/Reallusion/Debra/Debra.usd@
         )
         {
             custom int resqai:civilian_id = 20
@@ -4745,7 +4745,7 @@ def Xform "World"
         }
 
         def Xform "Civ_021" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Characters/Assets/Characters/Reallusion/Debra/Debra.usd@
+            prepend references = @./assets/Characters/Assets/Characters/Reallusion/Debra/Debra.usd@
         )
         {
             custom int resqai:civilian_id = 21
@@ -4759,7 +4759,7 @@ def Xform "World"
         }
 
         def Xform "Civ_022" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Characters/Assets/Characters/Reallusion/Debra/Debra.usd@
+            prepend references = @./assets/Characters/Assets/Characters/Reallusion/Debra/Debra.usd@
         )
         {
             custom int resqai:civilian_id = 22
@@ -4773,7 +4773,7 @@ def Xform "World"
         }
 
         def Xform "Civ_023" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Characters/Assets/Characters/Reallusion/Worker/Worker.usd@
+            prepend references = @./assets/Characters/Assets/Characters/Reallusion/Worker/Worker.usd@
         )
         {
             custom int resqai:civilian_id = 23
@@ -4787,7 +4787,7 @@ def Xform "World"
         }
 
         def Xform "Civ_024" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Characters/Assets/Characters/Reallusion/Worker/Worker.usd@
+            prepend references = @./assets/Characters/Assets/Characters/Reallusion/Worker/Worker.usd@
         )
         {
             custom int resqai:civilian_id = 24
@@ -4801,7 +4801,7 @@ def Xform "World"
         }
 
         def Xform "Civ_025" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Characters/Assets/Characters/Reallusion/Worker/Worker.usd@
+            prepend references = @./assets/Characters/Assets/Characters/Reallusion/Worker/Worker.usd@
         )
         {
             custom int resqai:civilian_id = 25
@@ -4815,7 +4815,7 @@ def Xform "World"
         }
 
         def Xform "Civ_026" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Characters/Assets/Characters/Reallusion/Debra/Debra.usd@
+            prepend references = @./assets/Characters/Assets/Characters/Reallusion/Debra/Debra.usd@
         )
         {
             custom int resqai:civilian_id = 26
@@ -4829,7 +4829,7 @@ def Xform "World"
         }
 
         def Xform "Civ_027" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Characters/Assets/Characters/Reallusion/Worker/Worker.usd@
+            prepend references = @./assets/Characters/Assets/Characters/Reallusion/Worker/Worker.usd@
         )
         {
             custom int resqai:civilian_id = 27
@@ -4843,7 +4843,7 @@ def Xform "World"
         }
 
         def Xform "Civ_028" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Characters/Assets/Characters/Reallusion/Debra/Debra.usd@
+            prepend references = @./assets/Characters/Assets/Characters/Reallusion/Debra/Debra.usd@
         )
         {
             custom int resqai:civilian_id = 28
@@ -4857,7 +4857,7 @@ def Xform "World"
         }
 
         def Xform "Civ_029" (
-            prepend references = @C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Characters/Assets/Characters/Reallusion/Debra/Debra.usd@
+            prepend references = @./assets/Characters/Assets/Characters/Reallusion/Debra/Debra.usd@
         )
         {
             custom int resqai:civilian_id = 29
@@ -4885,13 +4885,13 @@ def Xform "World"
             def Xform "FlowFireEmitter"
             {
                 custom string resqai:emitter_type = "fire"
-                custom string resqai:flow_preset_path = "C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Particles/Assets/Extensions/Samples/Flow/presets/Fire/Fire.usda"
+                custom string resqai:flow_preset_path = "./assets/Particles/Assets/Extensions/Samples/Flow/presets/Fire/Fire.usda"
             }
 
             def Xform "FlowSmokeEmitter"
             {
                 custom string resqai:emitter_type = "smoke"
-                custom string resqai:flow_preset_path = "C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Particles/Assets/Extensions/Samples/Flow/presets/Smoke/DarkSmoke.usda"
+                custom string resqai:flow_preset_path = "./assets/Particles/Assets/Extensions/Samples/Flow/presets/Smoke/DarkSmoke.usda"
             }
         }
 
@@ -4907,13 +4907,13 @@ def Xform "World"
             def Xform "FlowFireEmitter"
             {
                 custom string resqai:emitter_type = "fire"
-                custom string resqai:flow_preset_path = "C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Particles/Assets/Extensions/Samples/Flow/presets/Fire/Fire.usda"
+                custom string resqai:flow_preset_path = "./assets/Particles/Assets/Extensions/Samples/Flow/presets/Fire/Fire.usda"
             }
 
             def Xform "FlowSmokeEmitter"
             {
                 custom string resqai:emitter_type = "smoke"
-                custom string resqai:flow_preset_path = "C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Particles/Assets/Extensions/Samples/Flow/presets/Smoke/DarkSmoke.usda"
+                custom string resqai:flow_preset_path = "./assets/Particles/Assets/Extensions/Samples/Flow/presets/Smoke/DarkSmoke.usda"
             }
         }
 
@@ -4929,13 +4929,13 @@ def Xform "World"
             def Xform "FlowFireEmitter"
             {
                 custom string resqai:emitter_type = "fire"
-                custom string resqai:flow_preset_path = "C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Particles/Assets/Extensions/Samples/Flow/presets/Fire/Fire.usda"
+                custom string resqai:flow_preset_path = "./assets/Particles/Assets/Extensions/Samples/Flow/presets/Fire/Fire.usda"
             }
 
             def Xform "FlowSmokeEmitter"
             {
                 custom string resqai:emitter_type = "smoke"
-                custom string resqai:flow_preset_path = "C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Particles/Assets/Extensions/Samples/Flow/presets/Smoke/DarkSmoke.usda"
+                custom string resqai:flow_preset_path = "./assets/Particles/Assets/Extensions/Samples/Flow/presets/Smoke/DarkSmoke.usda"
             }
         }
 
@@ -4951,13 +4951,13 @@ def Xform "World"
             def Xform "FlowFireEmitter"
             {
                 custom string resqai:emitter_type = "fire"
-                custom string resqai:flow_preset_path = "C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Particles/Assets/Extensions/Samples/Flow/presets/Fire/Fire.usda"
+                custom string resqai:flow_preset_path = "./assets/Particles/Assets/Extensions/Samples/Flow/presets/Fire/Fire.usda"
             }
 
             def Xform "FlowSmokeEmitter"
             {
                 custom string resqai:emitter_type = "smoke"
-                custom string resqai:flow_preset_path = "C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Particles/Assets/Extensions/Samples/Flow/presets/Smoke/DarkSmoke.usda"
+                custom string resqai:flow_preset_path = "./assets/Particles/Assets/Extensions/Samples/Flow/presets/Smoke/DarkSmoke.usda"
             }
         }
 
@@ -4973,13 +4973,13 @@ def Xform "World"
             def Xform "FlowFireEmitter"
             {
                 custom string resqai:emitter_type = "fire"
-                custom string resqai:flow_preset_path = "C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Particles/Assets/Extensions/Samples/Flow/presets/Fire/Fire.usda"
+                custom string resqai:flow_preset_path = "./assets/Particles/Assets/Extensions/Samples/Flow/presets/Fire/Fire.usda"
             }
 
             def Xform "FlowSmokeEmitter"
             {
                 custom string resqai:emitter_type = "smoke"
-                custom string resqai:flow_preset_path = "C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets/Particles/Assets/Extensions/Samples/Flow/presets/Smoke/DarkSmoke.usda"
+                custom string resqai:flow_preset_path = "./assets/Particles/Assets/Extensions/Samples/Flow/presets/Smoke/DarkSmoke.usda"
             }
         }
     }
