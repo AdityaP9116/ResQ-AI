@@ -51,7 +51,7 @@ app = FastAPI(title="ResQ-AI VLM Server")
 _BACKEND: str = "mock"
 _NVIDIA_API_KEY: str = ""
 _VLLM_URL: str = "http://localhost:8001"
-_COSMOS_MODEL: str = "nvidia/cosmos-reason2-2b"
+_COSMOS_MODEL: str = "nvidia/cosmos-reason2-8b"
 
 # ---------------------------------------------------------------------------
 # Hazard priority for mock backend
@@ -314,7 +314,7 @@ def _parse_server_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--model",
-        default=os.environ.get("RESQAI_COSMOS_MODEL", "nvidia/cosmos-reason2-2b"),
+        default=os.environ.get("RESQAI_COSMOS_MODEL", "nvidia/cosmos-reason2-8b"),
         help="Model name for chat completions",
     )
     parser.add_argument("--port", type=int, default=8000)

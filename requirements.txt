@@ -1,0 +1,80 @@
+# ============================================================================
+# ResQ-AI Python Dependencies
+#
+# Install with: pip install -r requirements.txt
+# ============================================================================
+
+# ============================================================================
+# Core ML/CV Stack
+# ============================================================================
+ultralytics==8.0.202          # YOLOv8 for object detection
+opencv-python==4.8.1.78       # Computer vision library
+torch==2.0.1                  # Deep learning framework
+torchvision==0.15.2           # Vision models and utilities
+torchaudio==2.0.2             # Audio processing (for VLM integration)
+
+# ============================================================================
+# Scientific Computing & Data Processing
+# ============================================================================
+numpy==1.24.3                 # Numerical computing
+scipy==1.11.4                 # Scientific algorithms
+pandas==2.0.3                 # Data manipulation
+matplotlib==3.8.2             # Plotting library
+pillow==10.1.0                # Image processing
+
+# ============================================================================
+# Web/API Framework
+# ============================================================================
+fastapi==0.104.1              # Modern API framework
+uvicorn==0.24.0               # ASGI server for FastAPI
+requests==2.31.0              # HTTP client library
+flask==3.0.0                  # Alternative web framework
+werkzeug==3.0.1               # WSGI utilities
+
+# ============================================================================
+# Data & Visualization
+# ============================================================================
+folium==0.14.0                # Interactive maps (for hazard visualization)
+plotly==5.18.0                # Interactive plotting
+
+# ============================================================================
+# Environment & Configuration
+# ============================================================================
+python-dotenv==1.0.0          # .env file support
+pyyaml==6.0.1                 # YAML parsing
+configparser==6.0.0           # Config file parsing
+
+# ============================================================================
+# Development & Debugging
+# ============================================================================
+ipython==8.17.2               # Interactive Python shell
+jupyter==1.0.0                # Jupyter notebook support
+pytest==7.4.3                 # Testing framework
+black==23.12.0                # Code formatter
+flake8==6.1.0                 # Linter
+mypy==1.7.1                   # Type checker
+
+# ============================================================================
+# Optional: LLM/VLM Support
+# ============================================================================
+# Uncomment if using NVIDIA NIM backend for Cosmos Reason 2
+# vllm==0.2.6                    # vLLM for local LLM inference
+# transformers==4.35.2           # HuggingFace transformers
+# accelerate==0.25.0             # Multi-GPU acceleration
+
+# ============================================================================
+# PegasusSimulator (drone physics + MAVLink backend)
+# Install with: pip install -e PegasusSimulator/extensions/pegasus.simulator
+# (requires ISAACSIM_PATH to be set — see setup_isaac_sim.sh)
+# ============================================================================
+pymavlink>=2.4.40           # MAVLink protocol (required by Pegasus)
+# Install with:
+#   pip install isaacsim==4.5.0.0 isaacsim-core==4.5.0.0 \
+#     isaacsim-extscache-physics==4.5.0.0 \
+#     isaacsim-extscache-kit==4.5.0.0 \
+#     isaacsim-extscache-kit-sdk==4.5.0.0 \
+#     --extra-index-url https://pypi.nvidia.com
+# ============================================================================
+# NOTE: isaacsim and its extscache packages are NOT listed here because
+# they require --extra-index-url https://pypi.nvidia.com. Install them
+# separately using the command above (~4 GB download).

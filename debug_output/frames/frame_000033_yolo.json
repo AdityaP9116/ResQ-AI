@@ -1,0 +1,21 @@
+{
+  "frame_idx": 33,
+  "num_detections": 1,
+  "boxes": [
+    [
+      0.0,
+      5.014404296875,
+      325.03271484375,
+      467.34979248046875
+    ]
+  ],
+  "class_ids": [
+    2
+  ],
+  "class_names": [
+    "flooded_areas"
+  ],
+  "confidences": [
+    0.4109605848789215
+  ]
+}

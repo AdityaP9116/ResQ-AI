@@ -1,0 +1,15 @@
+{
+  "status": "critical",
+  "advice": "[Cosmos unavailable: Error code: 403 - {'status': 403, 'title': 'Forbidden', 'detail': 'Authorization failed'}] Prioritizing building at [-79.1, -20.6, 15.2]. Building requires investigation. Approaching [-79.1, -20.6, 33.2] from 18.0m altitude.",
+  "decision": "investigate",
+  "target_waypoint": [
+    -79.1,
+    -20.602,
+    33.209
+  ],
+  "reasoning": "Building requires investigation. Approaching [-79.1, -20.6, 33.2] from 18.0m altitude.",
+  "action": "ROUTE_OVERRIDE",
+  "vector_x": -79.1,
+  "vector_y": -20.602,
+  "altitude_adjustment": 18.0
+}

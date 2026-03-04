@@ -1,0 +1,15 @@
+{
+  "status": "critical",
+  "advice": "[Cosmos unavailable: Error code: 403 - {'status': 403, 'title': 'Forbidden', 'detail': 'Authorization failed'}] Prioritizing fire at [104.7, 11.2, 8.0]. Fire is highest priority \u2014 active and poses immediate danger. Approaching [104.7, 11.2, 26.0] from 18.0m altitude.",
+  "decision": "investigate",
+  "target_waypoint": [
+    104.676,
+    11.157,
+    26.003
+  ],
+  "reasoning": "Fire is highest priority \u2014 active and poses immediate danger. Approaching [104.7, 11.2, 26.0] from 18.0m altitude.",
+  "action": "ROUTE_OVERRIDE",
+  "vector_x": 104.676,
+  "vector_y": 11.157,
+  "altitude_adjustment": 18.0
+}

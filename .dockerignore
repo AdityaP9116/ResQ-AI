@@ -1,0 +1,100 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Virtual environments
+isaac_env/
+venv/
+.venv/
+env/
+ENV/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# IDE/Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-*
+.DS_Store
+Thumbs.db
+
+# Large model files (will be downloaded/cached inside container)
+*.pt
+*.engine
+*.onnx
+best.pt
+best.engine
+best.onnx
+
+# Large datasets
+Datasets/
+dataset.zip
+*.zip
+*.tar.gz
+
+# Generated outputs (will be created in container)
+outputs/
+Flight_Report.json
+Flight_Report.html
+Hazard_Map.html
+runs/
+
+# Media files
+*.mp4
+*.avi
+*.mov
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Testing
+.pytest_cache/
+.coverage/
+htmlcov/
+
+# Logs
+*.log
+logs/
+
+# Node (if using any JS tools)
+node_modules/
+npm-debug.log
+
+# Docker files (not needed in image)
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Documentation
+*.md
+DIAG*.txt
+*output.txt
+*stdout.txt
+*stderr*.txt
+
+# Asset packs (downloaded separately)
+assets/Architecture/
+assets/Characters/
+assets/Particles/
+assets/Environments/
+assets/BaseMaterials/
+
+# Temporary files
+*.tmp
+*.temp
+.tmp/
+
+# OS specific
+.env.local
+.env.*.local

@@ -1,0 +1,39 @@
+{
+  "task": "navigation_waypoint",
+  "frame": 189,
+  "drone_state": {
+    "position": [
+      -85.0,
+      -28.065,
+      34.156
+    ]
+  },
+  "observations": [
+    {
+      "class": "flooded_areas",
+      "pixel": [
+        446.58734130859375,
+        235.959228515625
+      ],
+      "world_xyz": [
+        -79.077,
+        -19.605,
+        15.212
+      ],
+      "confidence": 0.733
+    },
+    {
+      "class": "flooded_areas",
+      "pixel": [
+        235.1197509765625,
+        231.80691528320312
+      ],
+      "world_xyz": [
+        -88.976,
+        -19.415,
+        15.259
+      ]
+    }
+  ],
+  "instruction": "You are a search-and-rescue navigation agent.  Given the drone's current position and the 3-D world coordinates of detected hazards, output the next waypoint [x, y, z] the drone should fly to in order to investigate the highest-priority hazard while maintaining a safe stand-off distance.  Respond with JSON: {\"waypoint\": [x, y, z], \"reasoning\": \"...\"}."
+}

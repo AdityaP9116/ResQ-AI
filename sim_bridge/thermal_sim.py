@@ -58,6 +58,69 @@ _DEFAULT_NOISE_SIGMA: float = 4.0
 # Public API
 # ──────────────────────────────────────────────────────────────────────────
 
+def generate_thermal_from_rgb(
+    rgb_bgr: np.ndarray,
+    *,
+    noise_sigma: float = _DEFAULT_NOISE_SIGMA,
+    rng: np.random.Generator | None = None,
+) -> np.ndarray:
+    """Generate a synthetic thermal image from an RGB (BGR-ordered) frame.
+
+    Uses colour-temperature heuristics when semantic segmentation is
+    unavailable or produces only ``unlabeled`` pixels:
+
+    - **Red/orange** (fire)       → 230-255  (white-hot)
+    - **Dark** (buildings/rubble) → 120-160  (solar absorption / warm)
+    - **Green** (vegetation)      → 55-70    (cool)
+    - **Blue** (water/flood)      → 25-40    (cold)
+    - **Bright/grey** (concrete)  → 85-100   (ambient)
+    - **Other / medium**          → 90-110   (baseline)
+
+    Returns:
+        ``uint8`` array of shape **(H, W)** with thermal intensities.
+    """
+    import cv2
+
+    if rng is None:
+        rng = np.random.default_rng()
+
+    if rgb_bgr.ndim == 3 and rgb_bgr.shape[2] == 4:
+        rgb_bgr = rgb_bgr[:, :, :3]
+
+    hsv = cv2.cvtColor(rgb_bgr.astype(np.uint8), cv2.COLOR_BGR2HSV)
+    h, s, v = hsv[:, :, 0], hsv[:, :, 1], hsv[:, :, 2]
+
+    # Start with a baseline proportional to brightness
+    thermal = (v.astype(np.float32) * 0.35 + 70).clip(60, 130)
+
+    # ---- Fire: red/orange hues, high saturation, high value ----
+    fire_mask = ((h < 18) | (h > 160)) & (s > 70) & (v > 80)
+    thermal[fire_mask] = 240 + rng.uniform(-10, 15, size=fire_mask.sum())
+
+    # ---- Vegetation: green hues ----
+    green_mask = (h > 28) & (h < 85) & (s > 35) & (v > 30)
+    thermal[green_mask] = 60 + (v[green_mask].astype(np.float32) - 80) * 0.1
+
+    # ---- Water / flood: blue hues ----
+    blue_mask = (h > 85) & (h < 135) & (s > 30)
+    thermal[blue_mask] = 30 + (v[blue_mask].astype(np.float32) * 0.05)
+
+    # ---- Dark surfaces (buildings, rubble, asphalt) – solar absorption ----
+    dark_mask = (v < 90) & (s < 70) & ~green_mask & ~blue_mask & ~fire_mask
+    thermal[dark_mask] = 130 + (90 - v[dark_mask].astype(np.float32)) * 0.4
+
+    # ---- Bright / light concrete / sidewalk ----
+    bright_mask = (v > 190) & (s < 35) & ~fire_mask
+    thermal[bright_mask] = 90
+
+    # ---- Add sensor noise ----
+    if noise_sigma > 0:
+        noise = rng.normal(0.0, noise_sigma, thermal.shape)
+        thermal = thermal + noise
+
+    return np.clip(thermal, 0, 255).astype(np.uint8)
+
+
 def generate_synthetic_thermal(
     semantic_input: np.ndarray | dict,
     *,

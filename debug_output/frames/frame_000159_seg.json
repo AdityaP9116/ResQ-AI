@@ -1,0 +1,11 @@
+{
+  "num_masks": 1,
+  "classes": [
+    {
+      "class_id": 1,
+      "class_name": "Class_1",
+      "pixel_area": 295320,
+      "confidence": 0.5356478095054626
+    }
+  ]
+}

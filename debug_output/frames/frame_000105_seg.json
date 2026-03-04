@@ -1,0 +1,29 @@
+{
+  "num_masks": 4,
+  "classes": [
+    {
+      "class_id": 9,
+      "class_name": "Class_9",
+      "pixel_area": 2907,
+      "confidence": 0.8869891166687012
+    },
+    {
+      "class_id": 8,
+      "class_name": "Class_8",
+      "pixel_area": 18835,
+      "confidence": 0.7866993546485901
+    },
+    {
+      "class_id": 1,
+      "class_name": "Class_1",
+      "pixel_area": 10543,
+      "confidence": 0.6230447888374329
+    },
+    {
+      "class_id": 7,
+      "class_name": "Class_7",
+      "pixel_area": 48999,
+      "confidence": 0.4040246605873108
+    }
+  ]
+}
