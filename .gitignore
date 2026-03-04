@@ -65,3 +65,10 @@ Thumbs.db
 Flight_Report.json
 Hazard_Map.html
 hazards/
+
+# NVIDIA Omniverse asset packs (too large for Git)
+assets/Architecture/
+assets/Characters/
+assets/Particles/
+assets/Environments/
+assets/BaseMaterials/
