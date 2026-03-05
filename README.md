@@ -129,7 +129,7 @@ ResQ-AI/
 ### ResQ-AI Asset Dependencies
 
 Download these packs from https://docs.omniverse.nvidia.com/usd/latest/usd_content_samples/downloadable_packs.html
-and unzip them into this folder:
+and unzip them into the following folders:
 
 1. **Rigged Characters Asset Pack** (891 MB) → `assets/Characters/`
 2. **Extensions Sample Asset Pack** (159 MB) → `assets/Particles/`
