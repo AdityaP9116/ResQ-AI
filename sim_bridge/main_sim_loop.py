@@ -203,6 +203,17 @@ def main() -> None:
     # ---- Camera intrinsics (matches MonocularCamera / ReplicatorCamera) ---
     K = make_intrinsics_from_fov(640, 480, hfov_deg=70.0)
 
+    # ---- Make the drone body kinematic so we can precisely control its translation ---
+    from pxr import UsdPhysics, Gf
+    stage = omni.usd.get_context().get_stage()
+    body_prim = stage.GetPrimAtPath("/World/ResQDrone/body")
+    if body_prim.IsValid():
+        rb = UsdPhysics.RigidBodyAPI(body_prim)
+        rb.CreateKinematicEnabledAttr(True)
+        print("[ResQ-AI] Configured Drone rigid body as Kinematic for AI Control.")
+
+    root_prim = stage.GetPrimAtPath("/World/ResQDrone")
+
     # ---- Orchestrator bridge (YOLO + logic gates) -------------------------
     orchestrator = OrchestratorBridge(
         yolo_weights=_args.yolo_weights,
@@ -218,6 +229,10 @@ def main() -> None:
     warmup_steps = 120  # let cameras warm up before reading
 
     flight_report: list[dict] = []
+    
+    # Flight Controller State
+    current_target_wp = np.array([0.0, 0.0, 15.0]) # Default hover target
+    drone_speed = 0.2  # meters per frame (approx 12 m/s at 60Hz physics)
 
     try:
         while simulation_app.is_running():
@@ -262,12 +277,32 @@ def main() -> None:
                 wp = frame_result.get("target_waypoint")
                 if wp:
                     print(f"[Step {step}] Cosmos waypoint: {wp}  reason: {frame_result.get('reasoning', '')[:80]}")
+                    current_target_wp = np.array(wp)
 
                 # Print Cosmos prompt for this frame
                 if frame_result.get("cosmos_prompt"):
                     print(f"\n[Step {step}] Cosmos Reason 2 prompt:")
                     print(frame_result["cosmos_prompt"][:500])
                     print("…\n" if len(frame_result["cosmos_prompt"]) > 500 else "\n")
+
+            # ---- Physicalize Cosmos Flight Command (Kinematic Movement) ----
+            current_pos = imu_backend.latest_state["position"]
+            direction = current_target_wp - current_pos
+            distance = np.linalg.norm(direction)
+            
+            if distance > 0.5: # Deadband to prevent jitter when target reached
+                velocity_vector = (direction / distance) * drone_speed
+                new_pos = current_pos + velocity_vector
+                
+                # Apply the translation to the USD Node directly
+                if root_prim.IsValid():
+                    translate_attr = root_prim.GetAttribute("xformOp:translate")
+                    if translate_attr and translate_attr.IsValid():
+                        translate_attr.Set(Gf.Vec3d(float(new_pos[0]), float(new_pos[1]), float(new_pos[2])))
+                if body_prim.IsValid():
+                    body_translate_attr = body_prim.GetAttribute("xformOp:translate")
+                    if body_translate_attr and body_translate_attr.IsValid():
+                        body_translate_attr.Set(Gf.Vec3d(0.0, 0.0, 0.0)) # keep body centered on root
 
             if _args.max_steps and step >= _args.max_steps + warmup_steps:
                 print(f"[ResQ-AI] Reached --max-steps={_args.max_steps}, stopping.")
