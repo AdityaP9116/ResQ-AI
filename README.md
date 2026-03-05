@@ -126,7 +126,7 @@ ResQ-AI/
 - **Python 3.10+**
 - **NVIDIA API Key** (for Cosmos VLM via NIM)
 
-# ResQ-AI Asset Dependencies
+### ResQ-AI Asset Dependencies
 
 Download these packs from https://docs.omniverse.nvidia.com/usd/latest/usd_content_samples/downloadable_packs.html
 and unzip them into this folder:
