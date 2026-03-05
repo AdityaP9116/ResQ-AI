@@ -76,12 +76,17 @@ from pxr import Gf, UsdGeom
 
 from pegasus.simulator.logic.interface.pegasus_interface import PegasusInterface
 
-from sim_bridge.generate_urban_scene import main as generate_scene
 from sim_bridge.spawn_drone import spawn_resqai_drone
 from sim_bridge.thermal_sim import generate_synthetic_thermal, generate_thermal_from_rgb
 from sim_bridge.projection_utils import make_intrinsics_from_fov
 
 from orchestrator.orchestrator_bridge import OrchestratorBridge
+
+# --- New subsystem imports (Prompts 1-5) ----------------------------------
+from sim_bridge.yolo_detector import DualYOLODetector
+from sim_bridge.thermal_processor import ThermalProcessor
+from sim_bridge.civilian_tracker import CivilianTracker
+from sim_bridge.report_generator import ReportGenerator
 
 
 # ---------------------------------------------------------------------------
@@ -449,6 +454,30 @@ def main() -> None:
         debug_dir=debug_dir,
     )
 
+    # ---- New subsystems (Prompts 1-5) ------------------------------------
+    print("[E2E Test] Initialising new subsystems...")
+    try:
+        dual_yolo = DualYOLODetector()
+        print("[E2E Test]   DualYOLODetector ready (fire + person)")
+    except Exception as _e:
+        dual_yolo = None
+        print(f"[E2E Test]   DualYOLODetector failed: {_e}")
+
+    thermal_proc = ThermalProcessor()
+    print("[E2E Test]   ThermalProcessor ready")
+
+    civ_tracker = None
+    try:
+        civ_tracker = CivilianTracker()
+        print(f"[E2E Test]   CivilianTracker ready ({civ_tracker.get_civilian_report()['total']} civilians)")
+    except Exception as _e:
+        print(f"[E2E Test]   CivilianTracker failed: {_e}")
+
+    report_gen = ReportGenerator(
+        reports_dir=os.path.join(debug_dir, "reports"),
+    )
+    print(f"[E2E Test]   ReportGenerator ready (mission {report_gen.get_mission_id()})")
+
     world.reset()  # Initialise physics + Scene before playing
 
     # ---- Save initial ROOT pose BEFORE warmup ----------------------------
@@ -739,11 +768,61 @@ def main() -> None:
 
             frames_processed += 1
 
+            # ---- New subsystems: dual YOLO + thermal + civilian tracking ----
+            dual_detections = []
+            thermal_hotspots = []
+
+            # Thermal hotspot analysis
+            if thermal is not None:
+                thermal_hotspots = thermal_proc.process(thermal)
+
+            # Dual YOLO: person + fire detection with thermal cross-validation
+            if dual_yolo is not None:
+                try:
+                    dual_detections = dual_yolo.detect(
+                        rgb, thermal_hotspots=thermal_hotspots)
+                except Exception as _yd_err:
+                    if frames_processed % 100 == 1:
+                        print(f"[E2E Test] DualYOLO error: {_yd_err}")
+
+            # Civilian tracking
+            if civ_tracker is not None:
+                civ_tracker.update(
+                    detections=dual_detections,
+                    fire_report=None,
+                    frame_idx=step,
+                )
+
+            # Mission reporting (every 5 seconds)
+            if report_gen.should_generate():
+                civ_report = civ_tracker.get_civilian_report() if civ_tracker else None
+                drone_pos_list = [float(pos[0]), float(pos[1]), float(pos[2])]
+
+                # Count person/fire from dual detections
+                _n_people = sum(1 for d in dual_detections if d["class"] == "person")
+                _n_fire = sum(1 for d in dual_detections if d["class"] == "fire" and d.get("confirmed"))
+
+                report = report_gen.generate(
+                    fire_report=None,
+                    civilian_report=civ_report,
+                    detections=dual_detections,
+                    cosmos_decisions=[],
+                    drone_position=drone_pos_list,
+                    drone_battery=max(0, 100.0 - step * 0.01),
+                    drone_status="patrolling",
+                )
+                if frames_processed % 50 == 0:
+                    print(f"[E2E Test] Report: people={_n_people} fire={_n_fire} "
+                          f"urgency={report.get('urgency_level', '?')}")
+
+            # ---- Original hazard logging ------------------------------------
             if frame_result and frame_result.get("hazards"):
                 n = len(frame_result["hazards"])
                 total_hazards += n
                 if frames_processed % 20 == 0:
-                    print(f"[E2E Test] step={step} | {n} active hazard(s) | pos=[{pos[0]:.1f}, {pos[1]:.1f}, {pos[2]:.1f}]")
+                    print(f"[E2E Test] step={step} | {n} active hazard(s) | "
+                          f"people={len([d for d in dual_detections if d['class']=='person'])} | "
+                          f"pos=[{pos[0]:.1f}, {pos[1]:.1f}, {pos[2]:.1f}]")
             elif frames_processed % 50 == 0:
                 print(f"[E2E Test] step={step} | no detections | pos=[{pos[0]:.1f}, {pos[1]:.1f}, {pos[2]:.1f}]")
 
@@ -756,6 +835,19 @@ def main() -> None:
 
     timeline.stop()
 
+    # ---- Generate final report ---------------------------------------------
+    if report_gen is not None:
+        civ_report = civ_tracker.get_civilian_report() if civ_tracker else None
+        report_gen.generate(
+            fire_report=None,
+            civilian_report=civ_report,
+            detections=[],
+            cosmos_decisions=[],
+            drone_position=[0, 0, 50],
+            drone_battery=max(0, 100.0 - step * 0.01),
+            drone_status="shutdown",
+        )
+
     # ---- Summary ----------------------------------------------------------
     elapsed = time.perf_counter() - prev_time
     debug_files = []
@@ -763,12 +855,15 @@ def main() -> None:
     if os.path.isdir(frames_dir):
         debug_files = os.listdir(frames_dir)
 
+    total_reports = len(report_gen.get_all_reports()) if report_gen else 0
+
     print("\n" + "=" * 60)
     print("  ResQ-AI Headless E2E Test - Summary")
     print("=" * 60)
     print(f"  Sim steps run    : {step}")
     print(f"  Frames processed : {frames_processed}")
     print(f"  Total hazards    : {total_hazards}")
+    print(f"  Mission reports  : {total_reports}")
     print(f"  Wall time        : {elapsed:.1f}s")
     print(f"  Debug dir        : {debug_dir}")
     print(f"  Debug files      : {len(debug_files)}")
@@ -780,12 +875,17 @@ def main() -> None:
     cosmos_count = sum(1 for f in debug_files if f.endswith("_cosmos_prompt.json"))
     seg_count = sum(1 for f in debug_files if f.endswith("_seg.jpg"))
     vlm_count = sum(1 for f in debug_files if f.startswith("vlm_response"))
+    report_count = sum(1 for f in debug_files if f.startswith("mission_"))
     print(f"    RGB frames     : {rgb_count}")
     print(f"    Thermal frames : {thermal_count}")
     print(f"    Seg overlays   : {seg_count}")
     print(f"    YOLO JSONs     : {yolo_count}")
     print(f"    Cosmos prompts : {cosmos_count}")
     print(f"    VLM responses  : {vlm_count}")
+    print(f"    Mission reports: {total_reports}")
+    if civ_tracker is not None:
+        cr = civ_tracker.get_civilian_report()
+        print(f"  Civilians tracked: {cr['total']} (danger: {cr['critical_danger']})")
     print("=" * 60)
 
     simulation_app.close()

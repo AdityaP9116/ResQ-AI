@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResQ-AI — Mission Control</title>
+    <meta name="description" content="Real-time disaster response drone mission dashboard powered by ResQ-AI">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg-primary: #0a0e17;
+            --bg-secondary: #111827;
+            --bg-card: #1a2332;
+            --bg-card-hover: #1f2937;
+            --border: #2d3748;
+            --text-primary: #e2e8f0;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --accent-cyan: #06b6d4;
+            --accent-blue: #3b82f6;
+            --accent-red: #ef4444;
+            --accent-orange: #f97316;
+            --accent-green: #22c55e;
+            --accent-yellow: #eab308;
+            --accent-purple: #a855f7;
+            --glow-cyan: rgba(6, 182, 212, 0.15);
+            --glow-red: rgba(239, 68, 68, 0.15);
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-card) 100%);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(20px);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span { color: var(--accent-cyan); }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-badge.live {
+            background: rgba(34, 197, 94, 0.15);
+            color: var(--accent-green);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+
+        .status-badge.offline {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--accent-red);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: currentColor;
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .mission-timer {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--accent-cyan);
+        }
+
+        .urgency-tag {
+            padding: 4px 14px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .urgency-low { background: rgba(34, 197, 94, 0.2); color: var(--accent-green); border: 1px solid rgba(34, 197, 94, 0.3); }
+        .urgency-medium { background: rgba(234, 179, 8, 0.2); color: var(--accent-yellow); border: 1px solid rgba(234, 179, 8, 0.3); }
+        .urgency-high { background: rgba(249, 115, 22, 0.2); color: var(--accent-orange); border: 1px solid rgba(249, 115, 22, 0.3); }
+        .urgency-critical { background: rgba(239, 68, 68, 0.25); color: var(--accent-red); border: 1px solid rgba(239, 68, 68, 0.4); animation: pulse-urgency 1.5s ease-in-out infinite; }
+
+        @keyframes pulse-urgency {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+            50% { box-shadow: 0 0 12px 4px rgba(239, 68, 68, 0.2); }
+        }
+
+        /* Main grid */
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            grid-template-rows: auto 1fr;
+            gap: 16px;
+            padding: 16px;
+            height: calc(100vh - 56px);
+        }
+
+        /* Stats bar */
+        .stats-bar {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 12px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 14px 16px;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 20px var(--glow-cyan);
+        }
+
+        .stat-label {
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .stat-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 26px;
+            font-weight: 600;
+        }
+
+        .stat-value.fire { color: var(--accent-red); }
+        .stat-value.people { color: var(--accent-blue); }
+        .stat-value.danger { color: var(--accent-orange); }
+        .stat-value.rescued { color: var(--accent-green); }
+        .stat-value.battery { color: var(--accent-cyan); }
+        .stat-value.area { color: var(--accent-yellow); }
+
+        /* Map area */
+        .map-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .map-header {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .map-title {
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+        }
+
+        .map-canvas-wrapper {
+            position: relative;
+            width: 100%;
+            height: calc(100% - 44px);
+        }
+
+        #mapCanvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        /* Right sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            overflow-y: auto;
+        }
+
+        .panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .panel-header {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--border);
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .panel-header .icon { font-size: 14px; }
+
+        .panel-body {
+            padding: 12px 14px;
+            max-height: 220px;
+            overflow-y: auto;
+        }
+
+        .panel-body::-webkit-scrollbar { width: 4px; }
+        .panel-body::-webkit-scrollbar-track { background: transparent; }
+        .panel-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+        /* Decision log */
+        .decision-item {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(45, 55, 72, 0.5);
+        }
+
+        .decision-item:last-child { border-bottom: none; }
+
+        .decision-time {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .decision-action {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--accent-cyan);
+            margin-bottom: 3px;
+        }
+
+        .decision-reasoning {
+            font-size: 11px;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        /* Civilian list */
+        .civ-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 6px 0;
+            font-size: 12px;
+        }
+
+        .civ-state {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .civ-state.idle { background: var(--accent-green); }
+        .civ-state.alert { background: var(--accent-yellow); }
+        .civ-state.fleeing { background: var(--accent-orange); }
+        .civ-state.panicking { background: var(--accent-red); }
+        .civ-state.injured { background: #dc2626; }
+        .civ-state.incapacitated { background: #7f1d1d; }
+        .civ-state.rescued { background: var(--accent-cyan); }
+
+        /* Fire zone list */
+        .fire-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 6px 0;
+            font-size: 12px;
+        }
+
+        .fire-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .fire-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--accent-red);
+            animation: fire-pulse 1s ease-in-out infinite;
+        }
+
+        @keyframes fire-pulse {
+            0%, 100% { opacity: 1; box-shadow: 0 0 4px var(--accent-red); }
+            50% { opacity: 0.5; box-shadow: 0 0 12px var(--accent-red); }
+        }
+
+        .fire-intensity {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-orange);
+        }
+
+        /* Recommended actions */
+        .action-item {
+            padding: 8px 10px;
+            margin-bottom: 6px;
+            background: rgba(6, 182, 212, 0.08);
+            border-left: 3px solid var(--accent-cyan);
+            border-radius: 0 6px 6px 0;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .action-item.critical {
+            background: rgba(239, 68, 68, 0.1);
+            border-left-color: var(--accent-red);
+            color: var(--accent-red);
+            font-weight: 500;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto 1fr;
+            }
+            .stats-bar {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* No data state */
+        .no-data {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 13px;
+            padding: 30px 20px;
+        }
+
+        .no-data .icon { font-size: 32px; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <div class="logo">ResQ<span>-AI</span></div>
+            <div id="connectionStatus" class="status-badge offline">
+                <span class="status-dot"></span>
+                <span id="connectionText">CONNECTING</span>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="mission-timer" id="missionTimer">00:00:00</div>
+            <div id="urgencyBadge" class="urgency-tag urgency-low">LOW</div>
+        </div>
+    </header>
+
+    <!-- Dashboard -->
+    <main class="dashboard">
+        <!-- Stats Bar -->
+        <div class="stats-bar">
+            <div class="stat-card">
+                <div class="stat-label">Active Fires</div>
+                <div class="stat-value fire" id="statFires">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">People Detected</div>
+                <div class="stat-value people" id="statPeople">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">In Danger</div>
+                <div class="stat-value danger" id="statDanger">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Rescued</div>
+                <div class="stat-value rescued" id="statRescued">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Battery</div>
+                <div class="stat-value battery" id="statBattery">100%</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Burn Area</div>
+                <div class="stat-value area" id="statArea">0 m²</div>
+            </div>
+        </div>
+
+        <!-- Map -->
+        <div class="map-container">
+            <div class="map-header">
+                <span class="map-title">🗺️ Tactical Map</span>
+                <span id="droneCoords" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-muted);">
+                    Drone: (0, 0, 50)
+                </span>
+            </div>
+            <div class="map-canvas-wrapper">
+                <canvas id="mapCanvas"></canvas>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <!-- Fire Zones Panel -->
+            <div class="panel">
+                <div class="panel-header">
+                    <span class="icon">🔥</span> Fire Zones
+                </div>
+                <div class="panel-body" id="fireZonesList">
+                    <div class="no-data">No active fires</div>
+                </div>
+            </div>
+
+            <!-- Civilians Panel -->
+            <div class="panel">
+                <div class="panel-header">
+                    <span class="icon">👥</span> Civilian Status
+                </div>
+                <div class="panel-body" id="civiliansList">
+                    <div class="no-data">Awaiting data...</div>
+                </div>
+            </div>
+
+            <!-- AI Decisions Panel -->
+            <div class="panel">
+                <div class="panel-header">
+                    <span class="icon">🧠</span> AI Decisions
+                </div>
+                <div class="panel-body" id="decisionLog">
+                    <div class="no-data">
+                        <div class="icon">🤖</div>
+                        Cosmos AI decisions will appear here
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions Panel -->
+            <div class="panel">
+                <div class="panel-header">
+                    <span class="icon">⚡</span> Recommended Actions
+                </div>
+                <div class="panel-body" id="actionsList">
+                    <div class="no-data">No actions</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+    (function() {
+        // ---------------------------------------------------------------
+        // State
+        // ---------------------------------------------------------------
+        var currentReport = null;
+        var ws = null;
+        var reconnectTimer = null;
+        var mapFires = [];
+        var dronePos = [0, 0, 50];
+        var missionStartTime = null;
+
+        var API_BASE = window.location.protocol + "//" + window.location.host;
+        var WS_URL = (window.location.protocol === "https:" ? "wss://" : "ws://") +
+                     window.location.host + "/ws/live";
+
+        // ---------------------------------------------------------------
+        // WebSocket
+        // ---------------------------------------------------------------
+        function connectWS() {
+            if (ws && ws.readyState <= 1) return;
+
+            ws = new WebSocket(WS_URL);
+
+            ws.onopen = function() {
+                setConnectionStatus(true);
+                console.log("[WS] Connected");
+            };
+
+            ws.onmessage = function(evt) {
+                try {
+                    var data = JSON.parse(evt.data);
+                    if (data && data.mission_id) {
+                        currentReport = data;
+                        updateDashboard(data);
+                    }
+                } catch(e) {
+                    console.error("[WS] Parse error:", e);
+                }
+            };
+
+            ws.onclose = function() {
+                setConnectionStatus(false);
+                console.log("[WS] Disconnected — retrying in 3s");
+                reconnectTimer = setTimeout(connectWS, 3000);
+            };
+
+            ws.onerror = function() {
+                ws.close();
+            };
+        }
+
+        function setConnectionStatus(connected) {
+            var badge = document.getElementById("connectionStatus");
+            var text = document.getElementById("connectionText");
+            if (connected) {
+                badge.className = "status-badge live";
+                text.textContent = "LIVE";
+            } else {
+                badge.className = "status-badge offline";
+                text.textContent = "OFFLINE";
+            }
+        }
+
+        // ---------------------------------------------------------------
+        // Dashboard update
+        // ---------------------------------------------------------------
+        function updateDashboard(report) {
+            // Stats
+            var fires = report.fires || {};
+            var civs = report.civilians || {};
+            var drone = report.drone || {};
+            var dets = report.detections_this_interval || {};
+
+            document.getElementById("statFires").textContent =
+                String(fires.active_count || 0);
+            document.getElementById("statPeople").textContent =
+                String(civs.total || 0);
+            document.getElementById("statDanger").textContent =
+                String(civs.in_danger || 0);
+            document.getElementById("statRescued").textContent =
+                String(civs.rescued || 0);
+            document.getElementById("statBattery").textContent =
+                String(Math.round(drone.battery_pct || 0)) + "%";
+            document.getElementById("statArea").textContent =
+                String(Math.round(fires.total_area_m2 || 0)) + " m²";
+
+            // Timer
+            if (report.elapsed_seconds != null) {
+                if (!missionStartTime) {
+                    missionStartTime = Date.now() / 1000 - report.elapsed_seconds;
+                }
+            }
+
+            // Urgency
+            var urgency = report.urgency_level || "low";
+            var ub = document.getElementById("urgencyBadge");
+            ub.textContent = urgency.toUpperCase();
+            ub.className = "urgency-tag urgency-" + urgency;
+
+            // Drone coords
+            var dp = drone.position || [0, 0, 50];
+            dronePos = dp;
+            document.getElementById("droneCoords").textContent =
+                "Drone: (" + dp[0].toFixed(1) + ", " + dp[1].toFixed(1) +
+                ", " + dp[2].toFixed(1) + ") — " + (drone.status || "idle");
+
+            // Fire zones
+            mapFires = fires.zones || [];
+            updateFireZones(mapFires);
+
+            // Civilians
+            updateCivilians(civs);
+
+            // AI Decisions
+            updateDecisions(report.ai_decisions || []);
+
+            // Actions
+            updateActions(report.recommended_actions || []);
+
+            // Redraw map
+            drawMap();
+        }
+
+        function updateFireZones(zones) {
+            var el = document.getElementById("fireZonesList");
+            if (!zones || zones.length === 0) {
+                el.innerHTML = '<div class="no-data">No active fires</div>';
+                return;
+            }
+            var html = "";
+            for (var i = 0; i < zones.length; i++) {
+                var z = zones[i];
+                html += '<div class="fire-row">' +
+                    '<div class="fire-indicator">' +
+                    '<span class="fire-dot"></span>' +
+                    '<span>' + (z.zone || "FZ_?") + '</span>' +
+                    '</div>' +
+                    '<span class="fire-intensity">' +
+                    (z.intensity || 0).toFixed(1) + ' ⚡</span>' +
+                    '</div>';
+            }
+            el.innerHTML = html;
+        }
+
+        function updateCivilians(civs) {
+            var el = document.getElementById("civiliansList");
+            var bs = civs.by_state;
+            if (!bs) {
+                el.innerHTML = '<div class="no-data">Awaiting data...</div>';
+                return;
+            }
+            var states = ["idle", "alert", "fleeing", "panicking",
+                          "injured", "incapacitated", "rescued"];
+            var html = "";
+            for (var i = 0; i < states.length; i++) {
+                var s = states[i];
+                var count = bs[s] || 0;
+                html += '<div class="civ-row">' +
+                    '<span><span class="civ-state ' + s + '"></span>' +
+                    s.charAt(0).toUpperCase() + s.slice(1) + '</span>' +
+                    '<span style="font-family: JetBrains Mono, monospace; color: var(--text-primary)">' +
+                    count + '</span></div>';
+            }
+            html += '<div class="civ-row" style="border-top: 1px solid var(--border); margin-top: 6px; padding-top: 8px;">' +
+                '<span style="font-weight: 600;">Avg Health</span>' +
+                '<span style="font-family: JetBrains Mono, monospace; color: var(--accent-green)">' +
+                (civs.average_health || 0).toFixed(0) + '%</span></div>';
+            el.innerHTML = html;
+        }
+
+        function updateDecisions(decisions) {
+            var el = document.getElementById("decisionLog");
+            if (!decisions || decisions.length === 0) {
+                el.innerHTML = '<div class="no-data"><div class="icon">🤖</div>Cosmos AI decisions will appear here</div>';
+                return;
+            }
+            var html = "";
+            var start = Math.max(0, decisions.length - 5);
+            for (var i = decisions.length - 1; i >= start; i--) {
+                var d = decisions[i];
+                var t = d.time ? new Date(d.time * 1000).toLocaleTimeString() : "--";
+                html += '<div class="decision-item">' +
+                    '<div class="decision-time">' + t + '</div>' +
+                    '<div class="decision-action">' + (d.action || d.priority || "—") + '</div>' +
+                    '<div class="decision-reasoning">' + (d.reasoning || "—") + '</div>' +
+                    '</div>';
+            }
+            el.innerHTML = html;
+        }
+
+        function updateActions(actions) {
+            var el = document.getElementById("actionsList");
+            if (!actions || actions.length === 0) {
+                el.innerHTML = '<div class="no-data">No actions</div>';
+                return;
+            }
+            var html = "";
+            for (var i = 0; i < actions.length; i++) {
+                var a = actions[i];
+                var cls = a.indexOf("CRITICAL") >= 0 ? "action-item critical" : "action-item";
+                html += '<div class="' + cls + '">' + a + '</div>';
+            }
+            el.innerHTML = html;
+        }
+
+        // ---------------------------------------------------------------
+        // Map canvas
+        // ---------------------------------------------------------------
+        function drawMap() {
+            var canvas = document.getElementById("mapCanvas");
+            var wrapper = canvas.parentElement;
+            canvas.width = wrapper.clientWidth;
+            canvas.height = wrapper.clientHeight;
+
+            var ctx = canvas.getContext("2d");
+            var W = canvas.width;
+            var H = canvas.height;
+
+            // Background
+            ctx.fillStyle = "#0d1117";
+            ctx.fillRect(0, 0, W, H);
+
+            // Grid
+            ctx.strokeStyle = "rgba(45, 55, 72, 0.4)";
+            ctx.lineWidth = 0.5;
+            var gridSize = 40;
+            for (var gx = 0; gx < W; gx += gridSize) {
+                ctx.beginPath(); ctx.moveTo(gx, 0); ctx.lineTo(gx, H); ctx.stroke();
+            }
+            for (var gy = 0; gy < H; gy += gridSize) {
+                ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(W, gy); ctx.stroke();
+            }
+
+            // Scene bounds: roughly -200..200 in X, -120..120 in Y
+            var sceneW = 400;
+            var sceneH = 240;
+            var scale = Math.min(W / sceneW, H / sceneH) * 0.85;
+            var cx = W / 2;
+            var cy = H / 2;
+
+            function toScreenX(wx) { return cx + wx * scale; }
+            function toScreenY(wy) { return cy - wy * scale; }
+
+            // Draw building blocks (simplified rectangles)
+            ctx.fillStyle = "rgba(55, 65, 81, 0.5)";
+            ctx.strokeStyle = "rgba(75, 85, 99, 0.6)";
+            ctx.lineWidth = 1;
+            var blocks = [
+                [-112, -28, 56, 56], [-112, 28, 56, 56], [0, -28, 56, 56],
+                [0, 28, 56, 56], [112, -28, 56, 56], [112, 28, 56, 56]
+            ];
+            for (var bi = 0; bi < blocks.length; bi++) {
+                var b = blocks[bi];
+                var bx = toScreenX(b[0] - b[2]/2);
+                var by = toScreenY(b[1] + b[3]/2);
+                var bw = b[2] * scale;
+                var bh = b[3] * scale;
+                ctx.fillRect(bx, by, bw, bh);
+                ctx.strokeRect(bx, by, bw, bh);
+            }
+
+            // Draw fire zones
+            var now = Date.now() / 1000;
+            for (var fi = 0; fi < mapFires.length; fi++) {
+                var fire = mapFires[fi];
+                var fp = fire.position || [0, 0, 0];
+                var fx = toScreenX(fp[0]);
+                var fy = toScreenY(fp[1]);
+                var fr = Math.max((fire.radius || 5) * scale, 8);
+                var intensity = fire.intensity || 0.5;
+
+                // Pulsing glow
+                var pulsePhase = Math.sin(now * 3 + fi) * 0.3 + 0.7;
+
+                // Outer glow
+                var grad = ctx.createRadialGradient(fx, fy, 0, fx, fy, fr * 2);
+                grad.addColorStop(0, "rgba(239, 68, 68, " + (0.3 * pulsePhase * intensity) + ")");
+                grad.addColorStop(0.5, "rgba(249, 115, 22, " + (0.15 * pulsePhase) + ")");
+                grad.addColorStop(1, "rgba(239, 68, 68, 0)");
+                ctx.fillStyle = grad;
+                ctx.beginPath();
+                ctx.arc(fx, fy, fr * 2, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Core
+                ctx.fillStyle = "rgba(239, 68, 68, " + (0.7 * pulsePhase) + ")";
+                ctx.beginPath();
+                ctx.arc(fx, fy, fr * 0.6, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Label
+                ctx.fillStyle = "#ef4444";
+                ctx.font = "10px 'JetBrains Mono'";
+                ctx.fillText(fire.zone || "", fx - 12, fy - fr - 4);
+            }
+
+            // Draw drone
+            var dx = toScreenX(dronePos[0]);
+            var dy = toScreenY(dronePos[1]);
+
+            // Drone trail glow
+            ctx.fillStyle = "rgba(6, 182, 212, 0.1)";
+            ctx.beginPath();
+            ctx.arc(dx, dy, 20, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Drone body
+            ctx.fillStyle = "#06b6d4";
+            ctx.beginPath();
+            ctx.arc(dx, dy, 6, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Drone crosshair
+            ctx.strokeStyle = "rgba(6, 182, 212, 0.6)";
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(dx - 14, dy); ctx.lineTo(dx - 8, dy);
+            ctx.moveTo(dx + 8, dy); ctx.lineTo(dx + 14, dy);
+            ctx.moveTo(dx, dy - 14); ctx.lineTo(dx, dy - 8);
+            ctx.moveTo(dx, dy + 8); ctx.lineTo(dx, dy + 14);
+            ctx.stroke();
+
+            // Drone label
+            ctx.fillStyle = "#06b6d4";
+            ctx.font = "bold 10px 'Inter'";
+            ctx.fillText("DRONE", dx + 12, dy - 4);
+            ctx.font = "9px 'JetBrains Mono'";
+            ctx.fillStyle = "#64748b";
+            ctx.fillText("ALT " + dronePos[2].toFixed(0) + "m", dx + 12, dy + 8);
+
+            // Scale legend
+            ctx.fillStyle = "#4a5568";
+            ctx.font = "9px 'Inter'";
+            var legendLen = 50 * scale;
+            ctx.fillRect(20, H - 20, legendLen, 2);
+            ctx.fillText("50m", 20, H - 26);
+        }
+
+        // ---------------------------------------------------------------
+        // Timer
+        // ---------------------------------------------------------------
+        function updateTimer() {
+            if (!missionStartTime) return;
+            var elapsed = Date.now() / 1000 - missionStartTime;
+            var h = Math.floor(elapsed / 3600);
+            var m = Math.floor((elapsed % 3600) / 60);
+            var s = Math.floor(elapsed % 60);
+            document.getElementById("missionTimer").textContent =
+                String(h).padStart(2, "0") + ":" +
+                String(m).padStart(2, "0") + ":" +
+                String(s).padStart(2, "0");
+        }
+
+        // ---------------------------------------------------------------
+        // Fallback polling
+        // ---------------------------------------------------------------
+        function pollAPI() {
+            fetch(API_BASE + "/api/status")
+                .then(function(r) { return r.json(); })
+                .then(function(data) {
+                    if (data && data.mission_id) {
+                        currentReport = data;
+                        updateDashboard(data);
+                        setConnectionStatus(true);
+                    }
+                })
+                .catch(function() {});
+        }
+
+        // ---------------------------------------------------------------
+        // Init
+        // ---------------------------------------------------------------
+        function init() {
+            connectWS();
+            setInterval(updateTimer, 1000);
+            setInterval(drawMap, 100);  // smooth fire animation
+            setInterval(pollAPI, 5000); // fallback polling
+
+            // Initial draw
+            drawMap();
+        }
+
+        // Handle resize
+        window.addEventListener("resize", function() { drawMap(); });
+
+        // Start
+        if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", init);
+        } else {
+            init();
+        }
+    })();
+    </script>
+</body>
+</html>
