@@ -40,18 +40,29 @@ from typing import Any
 from dotenv import load_dotenv
 load_dotenv(os.path.join(os.path.dirname(__file__), "..", ".env"))
 
+import logging
+import sys
+
+# Set up logging configuration
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', handlers=[logging.StreamHandler(sys.stdout)])
+logger = logging.getLogger("VLMServer")
+
 from fastapi import FastAPI
 from pydantic import BaseModel
 
 app = FastAPI(title="ResQ-AI VLM Server")
 
 # ---------------------------------------------------------------------------
-# Globals set by CLI args at startup
 # ---------------------------------------------------------------------------
-_BACKEND: str = "mock"
-_NVIDIA_API_KEY: str = ""
+# Globals set by CLI args or ENV at startup
+# ---------------------------------------------------------------------------
+_BACKEND: str = os.getenv("VLM_BACKEND", "mock")
+_NVIDIA_API_KEY: str = os.getenv("NVIDIA_API_KEY", "")
 _VLLM_URL: str = "http://localhost:8001"
-_COSMOS_MODEL: str = "nvidia/cosmos-reason2-8b"
+_COSMOS_MODEL: str = os.getenv("RESQAI_COSMOS_MODEL", "nvidia/cosmos-reason2-8b")
+
+logger.info(f"Loaded NVIDIA_API_KEY: {_NVIDIA_API_KEY[:5]}***" if _NVIDIA_API_KEY else "Loaded NVIDIA_API_KEY: None/Empty")
+
 
 # ---------------------------------------------------------------------------
 # Hazard priority for mock backend
