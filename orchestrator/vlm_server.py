@@ -57,7 +57,7 @@ app = FastAPI(title="ResQ-AI VLM Server")
 # Globals set by CLI args or ENV at startup
 # ---------------------------------------------------------------------------
 _BACKEND: str = os.getenv("VLM_BACKEND", "mock")
-_NVIDIA_API_KEY: str = os.getenv("NVIDIA_API_KEY", "")
+_NVIDIA_API_KEY: str = os.getenv("NVIDIA_API_KEY", "").strip()
 _VLLM_URL: str = "http://localhost:8001"
 _COSMOS_MODEL: str = os.getenv("RESQAI_COSMOS_MODEL", "nvidia/cosmos-reason2-8b")
 
