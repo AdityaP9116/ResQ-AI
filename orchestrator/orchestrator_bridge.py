@@ -70,6 +70,7 @@ def build_cosmos_prompt(
     hazards_3d: list[dict],
     drone_position: np.ndarray | list | None = None,
     frame_idx: int = 0,
+    fire_report: dict | None = None,
 ) -> str:
     """Package detected hazards + 3-D coordinates into a JSON prompt for
     Cosmos Reason 2 so it can output a navigational waypoint.
@@ -89,6 +90,7 @@ def build_cosmos_prompt(
                     "confidence": 0.92
                 }
             ],
+            "fire_situation": { ... },
             "instruction": "..."
         }
 
@@ -97,6 +99,7 @@ def build_cosmos_prompt(
             ``bbox_centre``, ``world_xyz`` (may be None), ``confidence``.
         drone_position: Current drone [x, y, z] in world frame.
         frame_idx: Current simulation step for logging.
+        fire_report: Optional fire situation report from FireManager.
 
     Returns:
         A JSON string ready to send to Cosmos Reason 2.
@@ -124,13 +127,28 @@ def build_cosmos_prompt(
             "position": drone_pos,
         },
         "observations": observations,
+        "fire_situation": fire_report if fire_report else {"active_fires": [], "total_area_burning_m2": 0},
         "instruction": (
-            "You are a search-and-rescue navigation agent.  Given the drone's "
-            "current position and the 3-D world coordinates of detected hazards, "
-            "output the next waypoint [x, y, z] the drone should fly to in order "
-            "to investigate the highest-priority hazard while maintaining a safe "
-            "stand-off distance.  Respond with JSON: "
-            '{\"waypoint\": [x, y, z], \"reasoning\": \"...\"}.'
+            f"You are a search-and-rescue navigation agent controlling an autonomous drone "
+            f"at bird's eye altitude ({drone_pos[2]:.0f}m). "
+            "YOLO object detection has identified the hazard locations in the observations list. "
+            "The fire_situation report shows active fire zones with burn areas and positions. "
+            "Your PRIMARY task: decide which area the drone should fly to next. "
+            "PRIORITY RULES (strict order): "
+            "(1) CRITICAL: areas with BOTH active fire AND people nearby — investigate FIRST. "
+            "(2) HIGH: areas with the largest fire concentration (most detections, biggest burn area). "
+            "(3) MEDIUM: areas with people but no immediate fire — mark for rescue. "
+            "(4) LOW: already-investigated areas or single small hazards. "
+            "ANALYSIS STEPS: "
+            "(a) Group observations by proximity — which area has the most fire + people? "
+            "(b) Check fire_situation active_fires for each zone's burn area and spread direction. "
+            "(c) Choose the highest-priority area and provide waypoint [x, y, z] ABOVE it at current altitude. "
+            "(d) Explain why this area is top priority (fire count, people count, burn area). "
+            "IMPORTANT: The drone stays at high altitude for bird's eye view. Do NOT lower altitude. "
+            "Respond with JSON: "
+            '{\"target_waypoint\": [x, y, z], \"reasoning\": \"priority analysis with fire+people counts...\", '
+            '\"decision\": \"investigate|continue\", \"status\": \"critical|nominal\", '
+            '\"advice\": \"...\", \"ground_crew_actions\": \"...\"}.'
         ),
     }
 
@@ -262,6 +280,7 @@ class OrchestratorBridge:
         camera_world_pose: tuple | np.ndarray | None,
         frame_idx: int = 0,
         drone_position: np.ndarray | None = None,
+        fire_report: dict | None = None,
     ) -> dict | None:
         """Run the full orchestrator pipeline on a single frame.
 
@@ -365,7 +384,8 @@ class OrchestratorBridge:
             hazards_3d.append(entry)
 
         # ---- Build Cosmos Reason 2 JSON prompt ----------------------------
-        cosmos_prompt = build_cosmos_prompt(hazards_3d, drone_position, frame_idx)
+        cosmos_prompt = build_cosmos_prompt(hazards_3d, drone_position, frame_idx,
+                                              fire_report=fire_report)
 
         # ---- DEBUG: save Cosmos prompt ------------------------------------
         if self._debug_dir:

@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ResQ-AI — Full Mission Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg0: #06080d; --bg1: #0d1117; --bg2: #131a24; --bg3: #1a2332;
+      --bd: #1e2d3d; --bd2: #2a4a6b;
+      --t1: #e2e8f0; --t2: #94a3b8; --t3: #4a5c6e;
+      --cyan: #06b6d4; --blue: #3b82f6; --red: #ef4444; --orange: #f97316;
+      --green: #22c55e; --yellow: #eab308; --purple: #a855f7;
+      --accent: #a855f7;
+    }
+    html, body { height: 100%; overflow: hidden; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg0); color: var(--t1); }
+
+    /* Header */
+    .header {
+      height: 52px; display: flex; align-items: center; justify-content: space-between;
+      padding: 0 28px;
+      background: linear-gradient(135deg, rgba(13,17,23,.97), rgba(19,26,36,.97));
+      border-bottom: 1px solid var(--bd);
+    }
+    .header h1 { font-size: 17px; font-weight: 600; letter-spacing: .5px; }
+    .header h1 span { color: var(--cyan); }
+    .header .subtitle { color: var(--t3); font-weight: 400; font-size: 13px; margin-left: 8px; }
+    .header .nav { display: flex; gap: 8px; }
+    .header .nav a {
+      padding: 6px 16px; border-radius: 8px; font-size: 12px; font-weight: 500;
+      text-decoration: none; color: var(--t2); border: 1px solid var(--bd);
+      transition: all .2s;
+    }
+    .header .nav a:hover { color: var(--t1); border-color: var(--t1); }
+    .header .nav a.active { background: rgba(168,85,247,.15); color: var(--purple); border-color: var(--purple); }
+
+    /* Main layout: video left, sidebar right */
+    .main {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      grid-template-rows: 1fr;
+      height: calc(100vh - 52px);
+    }
+
+    /* Left column */
+    .left-col { display: flex; flex-direction: column; overflow: hidden; }
+
+    /* Video area — 58% */
+    .video-area {
+      flex: 0 0 58%; min-height: 0;
+      position: relative; background: #000;
+    }
+    .video-area video { width: 100%; height: 100%; object-fit: contain; }
+    .video-tag {
+      position: absolute; top: 12px; left: 12px;
+      padding: 5px 12px; border-radius: 6px;
+      background: rgba(0,0,0,.8); color: var(--purple);
+      font-size: 12px; font-family: 'JetBrains Mono', monospace;
+      border: 1px solid rgba(168,85,247,.3);
+      z-index: 5;
+    }
+    .progress-bar {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 4px;
+      background: rgba(255,255,255,.1);
+    }
+    .progress-fill { height: 100%; background: var(--purple); width: 0%; transition: width .3s linear; }
+
+    /* Map area — 42% */
+    .map-area {
+      flex: 1; min-height: 0; position: relative;
+      background: var(--bg1); border-top: 1px solid var(--bd);
+    }
+    .map-area canvas { width: 100%; height: 100%; }
+    .map-label {
+      position: absolute; top: 10px; left: 12px;
+      padding: 4px 10px; border-radius: 4px;
+      background: rgba(0,0,0,.7); color: var(--t2);
+      font-size: 11px; font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Right sidebar */
+    .sidebar {
+      display: flex; flex-direction: column;
+      border-left: 1px solid var(--bd); overflow: hidden;
+    }
+
+    /* Phase bar */
+    .phase-bar {
+      padding: 14px 18px; border-bottom: 1px solid var(--bd); background: var(--bg1);
+    }
+    .phase-steps { display: flex; gap: 8px; align-items: center; }
+    .phase-step { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--t3); }
+    .phase-step .dot {
+      width: 22px; height: 22px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px; font-weight: 700; border: 2px solid var(--bd2); color: var(--t3);
+    }
+    .phase-step.active .dot { background: rgba(168,85,247,.15); border-color: var(--purple); color: var(--purple); }
+    .phase-step.done .dot { background: rgba(34,197,94,.15); border-color: var(--green); color: var(--green); }
+    .arr { color: var(--t3); font-size: 12px; }
+
+    /* Zone info */
+    .zone-info {
+      padding: 16px 18px; border-bottom: 1px solid var(--bd); background: var(--bg1);
+    }
+    .zone-info .zi-header {
+      display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;
+    }
+    .zone-info .zi-name { font-size: 16px; font-weight: 700; }
+    .zone-info .zi-status {
+      font-size: 11px; padding: 3px 10px; border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .status-investigating { background: rgba(249,115,22,.12); color: var(--orange); border: 1px solid rgba(249,115,22,.3); }
+    .status-assessed { background: rgba(34,197,94,.12); color: var(--green); border: 1px solid rgba(34,197,94,.3); }
+    .status-ranked { background: rgba(168,85,247,.12); color: var(--purple); border: 1px solid rgba(168,85,247,.3); }
+    .status-transit { background: rgba(59,130,246,.12); color: var(--blue); border: 1px solid rgba(59,130,246,.3); }
+
+    .metrics-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .metric {
+      background: var(--bg2); border: 1px solid var(--bd); border-radius: 6px;
+      padding: 8px; text-align: center;
+    }
+    .metric .mv { font-size: 18px; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+    .metric .ml { font-size: 9px; color: var(--t3); text-transform: uppercase; letter-spacing: .8px; margin-top: 2px; }
+    .mv-red { color: var(--red); }
+    .mv-orange { color: var(--orange); }
+    .mv-yellow { color: var(--yellow); }
+    .mv-cyan { color: var(--cyan); }
+    .mv-purple { color: var(--purple); }
+
+    /* Cosmos panel */
+    .cosmos-panel { flex: 1; min-height: 0; overflow-y: auto; padding: 16px 18px; }
+    .cosmos-panel::-webkit-scrollbar { width: 5px; }
+    .cosmos-panel::-webkit-scrollbar-track { background: var(--bg1); }
+    .cosmos-panel::-webkit-scrollbar-thumb { background: var(--bd2); border-radius: 3px; }
+    .cosmos-title {
+      font-size: 11px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 1.5px; color: var(--purple); margin-bottom: 10px;
+    }
+    .cosmos-block {
+      background: var(--bg2); border: 1px solid var(--bd); border-radius: 8px;
+      padding: 12px 14px; margin-bottom: 10px;
+    }
+    .cosmos-block .cb-label {
+      font-size: 10px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 1px; color: var(--t3); margin-bottom: 6px;
+    }
+    .cosmos-block .cb-text { font-size: 12px; line-height: 1.6; color: var(--t2); }
+    .cosmos-block .cb-text strong { color: var(--t1); }
+
+    /* YOLO image */
+    .yolo-img-preview {
+      width: 100%; border-radius: 8px; border: 1px solid var(--bd); margin-top: 10px;
+    }
+
+    /* Zone progress mini-bar */
+    .zone-progress { display: flex; gap: 4px; margin-top: 12px; }
+    .zone-pip {
+      flex: 1; height: 6px; border-radius: 3px;
+      background: var(--bg3); border: 1px solid var(--bd);
+      transition: background .3s;
+    }
+    .zone-pip.visited { background: var(--purple); border-color: rgba(168,85,247,.4); }
+    .zone-pip.current {
+      background: var(--orange); border-color: rgba(249,115,22,.4);
+      animation: pipPulse 1s infinite;
+    }
+    @keyframes pipPulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: .5; }
+    }
+
+    /* Ranking overlay */
+    .ranking-overlay {
+      display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 100; background: rgba(6,8,13,.92); backdrop-filter: blur(12px);
+      flex-direction: column; align-items: center; justify-content: center;
+    }
+    .ranking-overlay.visible { display: flex; }
+    .ranking-card {
+      background: var(--bg2); border: 1px solid var(--bd2); border-radius: 16px;
+      padding: 36px 44px; max-width: 740px; width: 92%;
+      animation: slideUp .5s ease;
+    }
+    @keyframes slideUp {
+      from { transform: translateY(40px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .ranking-title { font-size: 22px; font-weight: 700; text-align: center; margin-bottom: 8px; }
+    .ranking-subtitle {
+      font-size: 13px; color: var(--t3); text-align: center; margin-bottom: 28px;
+    }
+    .ranking-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+    .ranking-table th {
+      font-size: 10px; text-transform: uppercase; letter-spacing: 1.2px;
+      color: var(--t3); text-align: left; padding: 8px 12px;
+      border-bottom: 1px solid var(--bd);
+    }
+    .ranking-table td {
+      padding: 12px; font-size: 13px;
+      border-bottom: 1px solid rgba(30,45,61,.5);
+    }
+    .ranking-table tr:first-child td { color: var(--red); font-weight: 600; }
+    .ranking-table .rank-num {
+      font-size: 20px; font-weight: 800; font-family: 'JetBrains Mono', monospace;
+    }
+    .rank-1 { color: var(--red); }
+    .rank-2 { color: var(--orange); }
+    .rank-3 { color: var(--yellow); }
+    .rank-4 { color: var(--blue); }
+    .rank-5 { color: var(--t2); }
+    .rank-badge {
+      display: inline-block; padding: 3px 8px; border-radius: 4px;
+      font-size: 11px; font-weight: 600;
+    }
+    .risk-Critical { background: rgba(239,68,68,.15); color: var(--red); border: 1px solid rgba(239,68,68,.3); }
+    .risk-High { background: rgba(249,115,22,.15); color: var(--orange); border: 1px solid rgba(249,115,22,.3); }
+    .risk-Medium { background: rgba(234,179,8,.15); color: var(--yellow); border: 1px solid rgba(234,179,8,.3); }
+    .risk-Low { background: rgba(34,197,94,.15); color: var(--green); border: 1px solid rgba(34,197,94,.3); }
+    .ranking-action {
+      font-size: 12px; color: var(--t2); line-height: 1.5;
+      background: var(--bg3); border-radius: 8px; padding: 12px 14px; margin-bottom: 8px;
+    }
+    .ranking-action strong { color: var(--purple); }
+
+    .restart-btn {
+      display: block; width: 100%; padding: 14px; border: none; border-radius: 10px;
+      background: linear-gradient(135deg, rgba(168,85,247,.2), rgba(59,130,246,.2));
+      color: var(--purple); font-size: 14px; font-weight: 600;
+      cursor: pointer; text-align: center;
+      border: 1px solid rgba(168,85,247,.3); transition: all .3s; margin-top: 10px;
+    }
+    .restart-btn:hover {
+      background: linear-gradient(135deg, rgba(168,85,247,.3), rgba(59,130,246,.3));
+      border-color: var(--purple);
+    }
+    .sidebar-restart-btn {
+      display: none; width: calc(100% - 32px); margin: 0 16px 16px; padding: 11px;
+      border: none; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600;
+      background: linear-gradient(135deg,rgba(239,68,68,.15),rgba(249,115,22,.15));
+      color: var(--red); border: 1px solid rgba(239,68,68,.3); transition: all .2s; text-align: center;
+    }
+    .sidebar-restart-btn:hover { background: linear-gradient(135deg,rgba(239,68,68,.25),rgba(249,115,22,.25)); border-color: var(--red); }
+    .sidebar-restart-btn.visible { display: block; }
+    .zone-summary-block {
+      border-left: 3px solid var(--bd2); padding: 10px 12px; margin-bottom: 10px; border-radius: 0 6px 6px 0;
+      background: var(--bg2);
+    }
+    .zone-summary-block .zsb-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+    .zone-summary-block .zsb-name { font-size: 12px; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+    .zone-summary-block .zsb-score { font-size: 11px; color: var(--t2); }
+    .zone-summary-block .zsb-metrics { display: flex; gap: 10px; margin-bottom: 6px; }
+    .zone-summary-block .zsb-metric { font-size: 11px; }
+    .zone-summary-block .zsb-metric span { font-weight: 600; }
+    .zone-summary-block .zsb-text { font-size: 11px; color: var(--t2); line-height: 1.5; }
+    .back-btn {
+      display: block; width: 100%; padding: 14px; border: none; border-radius: 10px;
+      background: linear-gradient(135deg, rgba(6,182,212,.15), rgba(59,130,246,.15));
+      color: var(--cyan); font-size: 14px; font-weight: 600;
+      cursor: pointer; text-align: center; text-decoration: none;
+      border: 1px solid rgba(6,182,212,.25); transition: all .3s; margin-top: 8px;
+    }
+    .back-btn:hover { border-color: var(--cyan); }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Res<span>Q</span>-AI <span class="subtitle">Full Mission Dashboard</span></h1>
+    <div class="nav">
+      <a href="page3.html">Aerial Detection</a>
+      <a href="page4.html" class="active">Mission Dashboard</a>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="left-col">
+      <div class="video-area">
+        <video id="mainVideo" muted></video>
+        <div class="video-tag" id="videoTag">V2 DRONE — 5-ZONE MISSION</div>
+        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+      </div>
+      <div class="map-area">
+        <canvas id="mapCanvas"></canvas>
+        <div class="map-label" id="mapLabel">TACTICAL MAP — 5 FIRE ZONES</div>
+      </div>
+    </div>
+
+    <div class="sidebar">
+      <div class="phase-bar">
+        <div class="phase-steps">
+          <div class="phase-step done" id="phStep1"><div class="dot">1</div><span>Detect</span></div>
+          <span class="arr">→</span>
+          <div class="phase-step active" id="phStep2"><div class="dot">2</div><span>YOLO</span></div>
+          <span class="arr">→</span>
+          <div class="phase-step" id="phStep3"><div class="dot">3</div><span>Assess</span></div>
+          <span class="arr">→</span>
+          <div class="phase-step" id="phStep4"><div class="dot">4</div><span>Rank</span></div>
+        </div>
+      </div>
+
+      <div class="zone-info" id="zoneInfo">
+        <div class="zi-header">
+          <div class="zi-name" id="zoneName">Starting...</div>
+          <div class="zi-status status-transit" id="zoneStatus">Initializing</div>
+        </div>
+        <div class="metrics-row" id="metricsRow">
+          <div class="metric"><div class="mv mv-purple" id="mIntensity">—</div><div class="ml">Intensity</div></div>
+          <div class="metric"><div class="mv mv-orange" id="mSpread">—</div><div class="ml">Spread Risk</div></div>
+          <div class="metric"><div class="mv mv-red" id="mPriority">—</div><div class="ml">Priority</div></div>
+        </div>
+        <div class="zone-progress" id="zoneProgress"></div>
+      </div>
+
+      <div class="cosmos-panel" id="cosmosPanel">
+        <div class="cosmos-title" id="cosmosTitle">Cosmos Reason 2 — Pipeline</div>
+        <div id="cosmosContent">
+          <div class="cosmos-block">
+            <div class="cb-label">Status</div>
+            <div class="cb-text">Awaiting mission start — drone will investigate all 5 fire zones...</div>
+          </div>
+        </div>
+      </div>
+      <button class="sidebar-restart-btn" id="sidebarRestartBtn">↺ Restart Mission Playback</button>
+    </div>
+  </div>
+
+  <!-- Ranking overlay -->
+  <div class="ranking-overlay" id="rankingOverlay">
+    <div class="ranking-card">
+      <div class="ranking-title">Final Fire Zone Ranking — All 5 Zones</div>
+      <div class="ranking-subtitle">Cosmos Reason 2 — Comprehensive v2 Assessment</div>
+      <table class="ranking-table" id="rankingTable">
+        <thead><tr><th>Rank</th><th>Zone</th><th>Priority</th><th>Intensity</th><th>Risk</th><th>Score</th></tr></thead>
+        <tbody id="rankingBody"></tbody>
+      </table>
+      <div id="rankingActions"></div>
+      <div style="display:flex; gap:8px; margin-top:10px;">
+        <button class="restart-btn" id="viewFinalBtn" style="flex:1;">View Final Mission State</button>
+        <button class="restart-btn" id="restartBtn" style="flex:1; background:linear-gradient(135deg,rgba(239,68,68,.15),rgba(249,115,22,.15)); color:var(--red); border-color:rgba(239,68,68,.3);">↺ Restart Playback</button>
+      </div>
+      <a href="page3.html" class="back-btn">← Back to Aerial Detection</a>
+    </div>
+  </div>
+
+  <script>
+    const BASE = '../debug_output_2';
+
+    // All 5 fire zones
+    const ZONES = {
+      FZ_0: { pos: [-94.80, -16.50], color: '#ef4444', label: 'Fire Zone 0' },
+      FZ_1: { pos: [-98.63,  46.50], color: '#f97316', label: 'Fire Zone 1' },
+      FZ_2: { pos: [ -1.79,  46.50], color: '#eab308', label: 'Fire Zone 2' },
+      FZ_3: { pos: [ 87.55, -16.50], color: '#a855f7', label: 'Fire Zone 3' },
+      FZ_4: { pos: [ 79.75,  46.50], color: '#3b82f6', label: 'Fire Zone 4' },
+    };
+
+    const ZONE_ORDER = ['FZ_1', 'FZ_2', 'FZ_0', 'FZ_3', 'FZ_4'];
+
+    let ZONE_TIMELINE = [];
+    let FLIGHT_PATH = [];
+    let phase2Data = null, phase3Data = null, missionData = null;
+    let visitedZones = new Set();
+
+    // ── Data Loading ──
+    async function loadAllData() {
+      const [p2r, p3r, mr, flightR] = await Promise.all([
+        fetch(`${BASE}/phase2_results.json`).then(r => r.json()).catch(() => null),
+        fetch(`${BASE}/phase3_results.json`).then(r => r.json()).catch(() => null),
+        fetch(`${BASE}/mission_report.json`).then(r => r.json()).catch(() => null),
+        fetch(`${BASE}/flight_data.json`).then(r => r.json()).catch(() => null),
+      ]);
+      phase2Data = p2r;
+      phase3Data = p3r;
+      missionData = mr;
+
+      if (flightR) {
+        ZONE_TIMELINE = flightR.zone_timeline.map(z => ({
+          zone: z.zone, enterT: z.enterT, focusT: z.focusT, leaveT: z.leaveT
+        }));
+        FLIGHT_PATH = flightR.flight_path;
+        console.log(`Loaded: ${FLIGHT_PATH.length} waypoints, ${ZONE_TIMELINE.length} zones`);
+      } else {
+        // Fallback: generate synthetic timeline for 5 zones
+        const dur = 1.0;
+        const survey = 0.07;
+        const perZone = (dur - survey) / ZONE_ORDER.length;
+        ZONE_TIMELINE = ZONE_ORDER.map((z, i) => ({
+          zone: z,
+          enterT: survey + i * perZone,
+          focusT: survey + i * perZone + perZone * 0.4,
+          leaveT: survey + (i + 1) * perZone - 0.005,
+        }));
+        // Synthetic flight path: orbit then visit each zone
+        FLIGHT_PATH = [{ t: 0, x: 0, y: 0 }];
+        for (const z of ZONE_ORDER) {
+          const zd = ZONES[z];
+          FLIGHT_PATH.push({ t: ZONE_TIMELINE.find(zt => zt.zone === z).focusT, x: zd.pos[0], y: zd.pos[1] });
+        }
+        FLIGHT_PATH.push({ t: 1, x: 0, y: 0 });
+        console.log('Using fallback synthetic timeline');
+      }
+
+      // Build zone progress pips
+      buildZonePips();
+    }
+
+    // ── Zone Progress Pips ──
+    function buildZonePips() {
+      const container = document.getElementById('zoneProgress');
+      container.innerHTML = '';
+      for (const z of ZONE_ORDER) {
+        const pip = document.createElement('div');
+        pip.className = 'zone-pip';
+        pip.id = `pip-${z}`;
+        pip.title = z;
+        container.appendChild(pip);
+      }
+    }
+
+    function updatePips(currentZone) {
+      for (const z of ZONE_ORDER) {
+        const pip = document.getElementById(`pip-${z}`);
+        if (!pip) continue;
+        if (z === currentZone) {
+          pip.className = 'zone-pip current';
+        } else if (visitedZones.has(z)) {
+          pip.className = 'zone-pip visited';
+        } else {
+          pip.className = 'zone-pip';
+        }
+      }
+    }
+
+    // ── Video ──
+    const video = document.getElementById('mainVideo');
+    const progressFill = document.getElementById('progressFill');
+
+    function initVideo() {
+      video.src = `${BASE}/resqai_sim.mp4`;
+      video.load();
+      video.addEventListener('timeupdate', onTimeUpdate);
+      video.addEventListener('ended', onVideoEnded);
+      video.play().catch(() => {
+        video.addEventListener('click', () => video.play(), { once: true });
+      });
+    }
+
+    let lastZoneIdx = -1;
+    let assessmentShown = {};
+
+    function onTimeUpdate() {
+      if (!video.duration) return;
+      const t = video.currentTime / video.duration;
+      progressFill.style.width = (t * 100) + '%';
+      drawMap(t);
+
+      // Determine current zone
+      let currentZone = null;
+      let zoneIdx = -1;
+      for (let i = 0; i < ZONE_TIMELINE.length; i++) {
+        const zt = ZONE_TIMELINE[i];
+        if (t >= zt.enterT && t <= zt.leaveT) {
+          currentZone = zt.zone;
+          zoneIdx = i;
+          break;
+        }
+      }
+
+      if (currentZone) visitedZones.add(currentZone);
+      updatePips(currentZone);
+
+      if (zoneIdx !== lastZoneIdx) {
+        lastZoneIdx = zoneIdx;
+        if (currentZone) {
+          showZoneInfo(currentZone);
+        } else if (ZONE_TIMELINE.length > 0 && t < ZONE_TIMELINE[0].enterT) {
+          showTransitInfo('Departing survey orbit — en route to first fire zone');
+        } else {
+          const nextIdx = ZONE_TIMELINE.findIndex(zt => t < zt.enterT);
+          if (nextIdx >= 0) {
+            showTransitInfo(`Transiting to ${ZONE_TIMELINE[nextIdx].zone}...`);
+          }
+        }
+      }
+
+      // Show assessment when arriving at focus time
+      for (let i = 0; i < ZONE_TIMELINE.length; i++) {
+        const zt = ZONE_TIMELINE[i];
+        if (t >= zt.focusT && !assessmentShown[zt.zone]) {
+          assessmentShown[zt.zone] = true;
+          showCosmosAssessment(zt.zone);
+        }
+      }
+    }
+
+    function showTransitInfo(msg) {
+      document.getElementById('zoneName').textContent = 'Transit';
+      document.getElementById('zoneStatus').textContent = 'En Route';
+      document.getElementById('zoneStatus').className = 'zi-status status-transit';
+      document.getElementById('mIntensity').textContent = '—';
+      document.getElementById('mSpread').textContent = '—';
+      document.getElementById('mPriority').textContent = '—';
+      document.getElementById('videoTag').textContent = 'V2 DRONE — IN TRANSIT';
+      document.getElementById('cosmosContent').innerHTML = `
+        <div class="cosmos-block">
+          <div class="cb-label">Navigation</div>
+          <div class="cb-text">${msg}</div>
+        </div>`;
+    }
+
+    function showZoneInfo(zone) {
+      const p2zone = phase2Data?.zones?.[zone] || {};
+      const p3zone = phase3Data?.zone_assessments?.[zone] || {};
+      const parsed = p3zone.parsed || {};
+
+      document.getElementById('zoneName').textContent = zone;
+      document.getElementById('zoneStatus').textContent = 'Investigating';
+      document.getElementById('zoneStatus').className = 'zi-status status-investigating';
+      document.getElementById('videoTag').textContent = `V2 DRONE — ${zone}`;
+
+      document.getElementById('mIntensity').textContent = p2zone.best_confidence
+        ? (p2zone.best_confidence * 100).toFixed(0) + '%' : '—';
+      document.getElementById('mSpread').textContent = '—';
+      document.getElementById('mPriority').textContent = '—';
+
+      const yoloFrame = p2zone.annotated_frames?.[p2zone.annotated_frames.length - 1];
+      let yoloHtml = '';
+      if (yoloFrame) {
+        yoloHtml = `<img class="yolo-img-preview" src="${BASE}/${yoloFrame}" alt="YOLO Detection" />`;
+      }
+
+      document.getElementById('cosmosContent').innerHTML = `
+        <div class="cosmos-block">
+          <div class="cb-label">YOLO Detection — ${zone}</div>
+          <div class="cb-text">
+            <strong>Fire detections:</strong> ${p2zone.total_fire_frames || 0} frames<br>
+            <strong>Peak confidence:</strong> ${((p2zone.best_confidence || 0) * 100).toFixed(1)}%<br>
+            <strong>Best frame:</strong> Step ${p2zone.best_step_actual || '?'}
+          </div>
+          ${yoloHtml}
+        </div>`;
+
+      document.getElementById('phStep2').className = 'phase-step active';
+      document.getElementById('phStep3').className = 'phase-step';
+      document.getElementById('phStep4').className = 'phase-step';
+    }
+
+    function showCosmosAssessment(zone) {
+      const p3zone = phase3Data?.zone_assessments?.[zone] || {};
+      const parsed = p3zone.parsed || {};
+      const p2zone = phase2Data?.zones?.[zone] || {};
+
+      document.getElementById('zoneStatus').textContent = 'Assessed';
+      document.getElementById('zoneStatus').className = 'zi-status status-assessed';
+
+      const intensity = parsed.intensity_rating || p3zone.intensity_rating || 5;
+      const priority = parsed.rescue_priority || p3zone.rescue_priority || 5;
+      const spreadRisk = parsed.spread_risk || p3zone.spread_risk || '?';
+
+      document.getElementById('mIntensity').textContent = intensity + '/10';
+      document.getElementById('mIntensity').className = `mv ${intensity >= 7 ? 'mv-red' : intensity >= 5 ? 'mv-orange' : 'mv-cyan'}`;
+      document.getElementById('mSpread').textContent = spreadRisk;
+      document.getElementById('mPriority').textContent = priority + '/10';
+      document.getElementById('mPriority').className = `mv ${priority >= 7 ? 'mv-red' : priority >= 5 ? 'mv-orange' : 'mv-cyan'}`;
+
+      const yoloFrame = p2zone.annotated_frames?.[p2zone.annotated_frames.length - 1];
+      let yoloHtml = '';
+      if (yoloFrame) {
+        yoloHtml = `<img class="yolo-img-preview" src="${BASE}/${yoloFrame}" alt="YOLO Detection" />`;
+      }
+
+      let html = `
+        <div class="cosmos-block">
+          <div class="cb-label">YOLO Detection — ${zone}</div>
+          <div class="cb-text">
+            <strong>Detections:</strong> ${p2zone.total_fire_frames || 0} frames |
+            <strong>Confidence:</strong> ${((p2zone.best_confidence || 0) * 100).toFixed(1)}%
+          </div>
+          ${yoloHtml}
+        </div>`;
+
+      if (parsed.smoke_analysis) {
+        html += `<div class="cosmos-block">
+          <div class="cb-label">Smoke Analysis</div>
+          <div class="cb-text">${escHtml(parsed.smoke_analysis)}</div>
+        </div>`;
+      }
+      if (parsed.spread_explanation) {
+        html += `<div class="cosmos-block">
+          <div class="cb-label">Spread Risk — ${spreadRisk}</div>
+          <div class="cb-text">${escHtml(parsed.spread_explanation)}</div>
+        </div>`;
+      }
+      if (parsed.structural_damage) {
+        html += `<div class="cosmos-block">
+          <div class="cb-label">Structural Damage</div>
+          <div class="cb-text">${escHtml(parsed.structural_damage)}</div>
+        </div>`;
+      }
+      if (parsed.recommended_action) {
+        html += `<div class="cosmos-block">
+          <div class="cb-label">Recommended Action</div>
+          <div class="cb-text"><strong>${escHtml(parsed.recommended_action)}</strong></div>
+        </div>`;
+      }
+      if (!parsed.smoke_analysis && p3zone.cosmos_raw) {
+        html += `<div class="cosmos-block">
+          <div class="cb-label">Cosmos Assessment</div>
+          <div class="cb-text">${escHtml(p3zone.cosmos_raw.substring(0, 600))}</div>
+        </div>`;
+      }
+
+      document.getElementById('cosmosContent').innerHTML = html;
+      document.getElementById('phStep3').className = 'phase-step active';
+
+      // If all zones assessed, activate rank step
+      if (Object.keys(assessmentShown).length >= ZONE_ORDER.length) {
+        document.getElementById('phStep4').className = 'phase-step active';
+      }
+    }
+
+    function onVideoEnded() { showRanking(); showFinalState(); }
+
+    function showFinalState() {
+      // Update sidebar header
+      document.getElementById('zoneName').textContent = 'Mission Complete';
+      document.getElementById('zoneStatus').textContent = '5/5 Surveyed';
+      document.getElementById('zoneStatus').className = 'zi-status status-assessed';
+      document.getElementById('videoTag').textContent = 'V2 DRONE — MISSION COMPLETE';
+      document.getElementById('cosmosTitle').textContent = 'All Fire Zones — Final Assessment';
+
+      // Clear live metrics
+      document.getElementById('mIntensity').textContent = '5 zones';
+      document.getElementById('mIntensity').className = 'mv mv-purple';
+      document.getElementById('mSpread').textContent = 'surveyed';
+      document.getElementById('mPriority').textContent = 'complete';
+
+      // Build all-zones summary
+      const ranking = phase3Data?.final_ranking || [];
+      let html = '';
+      for (const entry of ranking) {
+        const za = phase3Data?.zone_assessments?.[entry.zone] || {};
+        const parsed = za.parsed || {};
+        const zd = ZONES[entry.zone];
+        const colorHex = zd?.color || '#a855f7';
+        const riskColors = { Critical: 'var(--red)', High: 'var(--orange)', Medium: 'var(--yellow)', Low: 'var(--green)' };
+        const riskColor = riskColors[entry.spread_risk] || 'var(--t2)';
+        const summary = parsed.summary || za.summary || entry.summary || '';
+        const action = parsed.recommended_action || za.recommended_action || entry.recommended_action || '';
+        html += `<div class="zone-summary-block" style="border-left-color:${colorHex}">
+          <div class="zsb-header">
+            <div class="zsb-name" style="color:${colorHex}">#${entry.rank} ${entry.zone}</div>
+            <div class="zsb-score">Score: ${entry.composite_score}</div>
+          </div>
+          <div class="zsb-metrics">
+            <div class="zsb-metric">Intensity <span style="color:${entry.intensity_rating>=7?'var(--red)':entry.intensity_rating>=5?'var(--orange)':'var(--cyan)'}">${entry.intensity_rating}/10</span></div>
+            <div class="zsb-metric">Priority <span style="color:${entry.rescue_priority>=7?'var(--red)':entry.rescue_priority>=5?'var(--orange)':'var(--cyan)'}">${entry.rescue_priority}/10</span></div>
+            <div class="zsb-metric">Risk <span style="color:${riskColor}">${entry.spread_risk}</span></div>
+          </div>
+          ${summary ? `<div class="zsb-text">${escHtml(summary.substring(0, 180))}</div>` : ''}
+          ${action ? `<div class="zsb-text" style="margin-top:4px;color:var(--t1)"><strong>Action:</strong> ${escHtml(action.substring(0, 120))}</div>` : ''}
+        </div>`;
+      }
+      if (!html) {
+        html = '<div class="cosmos-block"><div class="cb-label">Status</div><div class="cb-text">No assessment data available.</div></div>';
+      }
+      document.getElementById('cosmosContent').innerHTML = html;
+
+      // Show sidebar restart button
+      document.getElementById('sidebarRestartBtn').classList.add('visible');
+
+      // All phase steps done
+      document.getElementById('phStep1').className = 'phase-step done';
+      document.getElementById('phStep2').className = 'phase-step done';
+      document.getElementById('phStep3').className = 'phase-step done';
+      document.getElementById('phStep4').className = 'phase-step done';
+    }
+
+    function showRanking() {
+      const ranking = phase3Data?.final_ranking || [];
+      const body = document.getElementById('rankingBody');
+      body.innerHTML = '';
+
+      for (const entry of ranking) {
+        const rankClass = entry.rank <= 5 ? `rank-${entry.rank}` : '';
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><span class="rank-num ${rankClass}">#${entry.rank}</span></td>
+          <td><strong>${entry.zone}</strong></td>
+          <td>${entry.rescue_priority}/10</td>
+          <td>${entry.intensity_rating}/10</td>
+          <td><span class="rank-badge risk-${entry.spread_risk}">${entry.spread_risk}</span></td>
+          <td>${entry.composite_score}</td>
+        `;
+        body.appendChild(tr);
+      }
+
+      const actionsDiv = document.getElementById('rankingActions');
+      actionsDiv.innerHTML = '';
+      for (const entry of ranking) {
+        if (entry.recommended_action) {
+          const div = document.createElement('div');
+          div.className = 'ranking-action';
+          div.innerHTML = `<strong>${entry.zone} (#${entry.rank}):</strong> ${escHtml(entry.recommended_action)}`;
+          actionsDiv.appendChild(div);
+        }
+      }
+
+      document.getElementById('phStep4').className = 'phase-step done';
+      document.getElementById('rankingOverlay').classList.add('visible');
+    }
+
+    document.getElementById('viewFinalBtn').addEventListener('click', () => {
+      document.getElementById('rankingOverlay').classList.remove('visible');
+      showFinalState();
+    });
+
+    document.getElementById('restartBtn').addEventListener('click', () => {
+      document.getElementById('rankingOverlay').classList.remove('visible');
+      restartPlayback();
+    });
+
+    document.getElementById('sidebarRestartBtn').addEventListener('click', () => {
+      restartPlayback();
+    });
+
+    function restartPlayback() {
+      document.getElementById('sidebarRestartBtn').classList.remove('visible');
+      document.getElementById('cosmosTitle').textContent = 'Cosmos Reason 2 — Pipeline';
+      lastZoneIdx = -1;
+      assessmentShown = {};
+      visitedZones.clear();
+      video.currentTime = 0;
+      video.play();
+      showTransitInfo('Restarting mission — departing survey orbit');
+    }
+
+    // ── Tactical Map ──
+    const canvas = document.getElementById('mapCanvas');
+    const ctx = canvas.getContext('2d');
+
+    function resizeCanvas() {
+      const rect = canvas.parentElement.getBoundingClientRect();
+      canvas.width = rect.width * devicePixelRatio;
+      canvas.height = rect.height * devicePixelRatio;
+      ctx.scale(devicePixelRatio, devicePixelRatio);
+      canvas.style.width = rect.width + 'px';
+      canvas.style.height = rect.height + 'px';
+    }
+
+    function worldToMap(wx, wy) {
+      const rect = canvas.parentElement.getBoundingClientRect();
+      const W = rect.width, H = rect.height;
+      const pad = 40;
+      const sx = (wx + 120) / 240;
+      const sy = 1 - (wy + 40) / 120;
+      return { x: pad + sx * (W - 2 * pad), y: pad + sy * (H - 2 * pad) };
+    }
+
+    function lerpPath(t) {
+      for (let i = 0; i < FLIGHT_PATH.length - 1; i++) {
+        const a = FLIGHT_PATH[i], b = FLIGHT_PATH[i + 1];
+        if (t >= a.t && t <= b.t) {
+          const f = (t - a.t) / (b.t - a.t);
+          return { x: a.x + f * (b.x - a.x), y: a.y + f * (b.y - a.y) };
+        }
+      }
+      const last = FLIGHT_PATH[FLIGHT_PATH.length - 1];
+      return last ? { x: last.x, y: last.y } : { x: 0, y: 0 };
+    }
+
+    function drawMap(t) {
+      resizeCanvas();
+      const rect = canvas.parentElement.getBoundingClientRect();
+      const W = rect.width, H = rect.height;
+
+      // Background
+      ctx.fillStyle = '#0d1117';
+      ctx.fillRect(0, 0, W, H);
+
+      // Grid
+      ctx.strokeStyle = 'rgba(30,45,61,.4)';
+      ctx.lineWidth = 0.5;
+      for (let x = 0; x <= W; x += 40) {
+        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
+      }
+      for (let y = 0; y <= H; y += 40) {
+        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
+      }
+
+      // Fire zones
+      for (const [name, zd] of Object.entries(ZONES)) {
+        const mp = worldToMap(zd.pos[0], zd.pos[1]);
+        const isVisited = visitedZones.has(name);
+
+        // Glow — stronger for visited
+        const grd = ctx.createRadialGradient(mp.x, mp.y, 0, mp.x, mp.y, isVisited ? 32 : 24);
+        grd.addColorStop(0, zd.color + (isVisited ? '40' : '20'));
+        grd.addColorStop(1, 'transparent');
+        ctx.fillStyle = grd;
+        ctx.fillRect(mp.x - 32, mp.y - 32, 64, 64);
+
+        // Circle
+        ctx.beginPath();
+        ctx.arc(mp.x, mp.y, 12, 0, Math.PI * 2);
+        ctx.fillStyle = zd.color + (isVisited ? '40' : '15');
+        ctx.strokeStyle = zd.color;
+        ctx.lineWidth = isVisited ? 2.5 : 1.5;
+        ctx.fill();
+        ctx.stroke();
+
+        // Checkmark for assessed zones
+        if (assessmentShown[name]) {
+          ctx.font = 'bold 10px Inter';
+          ctx.fillStyle = '#22c55e';
+          ctx.textAlign = 'center';
+          ctx.fillText('✓', mp.x, mp.y + 4);
+        }
+
+        // Label
+        ctx.font = '600 10px Inter';
+        ctx.fillStyle = zd.color;
+        ctx.textAlign = 'center';
+        ctx.fillText(name, mp.x, mp.y - 18);
+      }
+
+      // Flight path trail
+      ctx.strokeStyle = 'rgba(168,85,247,.3)';
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([4, 4]);
+      ctx.beginPath();
+      for (let i = 0; i < FLIGHT_PATH.length; i++) {
+        const fp = FLIGHT_PATH[i];
+        if (fp.t > t) break;
+        const mp = worldToMap(fp.x, fp.y);
+        if (i === 0) ctx.moveTo(mp.x, mp.y);
+        else ctx.lineTo(mp.x, mp.y);
+      }
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Smooth continuous trail
+      ctx.strokeStyle = 'rgba(168,85,247,.6)';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      const steps = 60;
+      for (let i = 0; i <= steps; i++) {
+        const st = (i / steps) * Math.min(t, 1);
+        const wp = lerpPath(st);
+        const mp = worldToMap(wp.x, wp.y);
+        if (i === 0) ctx.moveTo(mp.x, mp.y);
+        else ctx.lineTo(mp.x, mp.y);
+      }
+      ctx.stroke();
+
+      // Drone position
+      const droneWorld = lerpPath(t);
+      const droneMap = worldToMap(droneWorld.x, droneWorld.y);
+
+      // Drone glow (purple for v2)
+      const dgrd = ctx.createRadialGradient(droneMap.x, droneMap.y, 0, droneMap.x, droneMap.y, 22);
+      dgrd.addColorStop(0, 'rgba(168,85,247,.45)');
+      dgrd.addColorStop(1, 'transparent');
+      ctx.fillStyle = dgrd;
+      ctx.fillRect(droneMap.x - 22, droneMap.y - 22, 44, 44);
+
+      // Drone icon (triangle)
+      ctx.fillStyle = '#a855f7';
+      ctx.beginPath();
+      ctx.moveTo(droneMap.x, droneMap.y - 8);
+      ctx.lineTo(droneMap.x - 6, droneMap.y + 6);
+      ctx.lineTo(droneMap.x + 6, droneMap.y + 6);
+      ctx.closePath();
+      ctx.fill();
+
+      // Drone label
+      ctx.font = '500 10px "JetBrains Mono"';
+      ctx.fillStyle = '#a855f7';
+      ctx.textAlign = 'center';
+      ctx.fillText('DRONE', droneMap.x, droneMap.y + 20);
+
+      // Current zone highlight
+      for (const zt of ZONE_TIMELINE) {
+        if (t >= zt.enterT && t <= zt.leaveT) {
+          const zd = ZONES[zt.zone];
+          ctx.beginPath();
+          ctx.arc(droneMap.x, droneMap.y, 18 + Math.sin(Date.now() / 300) * 3, 0, Math.PI * 2);
+          ctx.strokeStyle = zd.color;
+          ctx.lineWidth = 2;
+          ctx.setLineDash([3, 3]);
+          ctx.stroke();
+          ctx.setLineDash([]);
+
+          // Line from drone to zone marker
+          const mp = worldToMap(zd.pos[0], zd.pos[1]);
+          const dist = Math.hypot(droneMap.x - mp.x, droneMap.y - mp.y);
+          if (dist > 30) {
+            ctx.beginPath();
+            ctx.moveTo(droneMap.x, droneMap.y);
+            ctx.lineTo(mp.x, mp.y);
+            ctx.strokeStyle = zd.color + '40';
+            ctx.lineWidth = 1;
+            ctx.setLineDash([2, 4]);
+            ctx.stroke();
+            ctx.setLineDash([]);
+          }
+        }
+      }
+
+      // Legend
+      ctx.font = '400 9px Inter';
+      ctx.fillStyle = '#4a5c6e';
+      ctx.textAlign = 'left';
+      ctx.fillText(`t=${(t * 100).toFixed(0)}%  zones=${visitedZones.size}/5`, 8, H - 8);
+    }
+
+    function escHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    // ── Init ──
+    async function init() {
+      await loadAllData();
+      initVideo();
+      drawMap(0);
+      showTransitInfo('v2 Mission starting — drone departing survey orbit for 5-zone investigation');
+
+      function tick() {
+        if (video.duration) {
+          const t = video.currentTime / video.duration;
+          drawMap(t);
+        }
+        requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+
+    window.addEventListener('resize', () => resizeCanvas());
+    init().catch(err => console.error('Init error:', err));
+  </script>
+</body>
+</html>

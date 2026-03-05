@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ResQ-AI — Aerial Fire Detection</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg0: #06080d; --bg1: #0d1117; --bg2: #131a24; --bg3: #1a2332;
+      --bd: #1e2d3d; --bd2: #2a4a6b;
+      --t1: #e2e8f0; --t2: #94a3b8; --t3: #4a5c6e;
+      --cyan: #06b6d4; --blue: #3b82f6; --red: #ef4444; --orange: #f97316;
+      --green: #22c55e; --yellow: #eab308; --purple: #a855f7;
+    }
+    html, body { height: 100%; overflow: hidden; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg0); color: var(--t1); }
+
+    .header {
+      height: 52px; display: flex; align-items: center; justify-content: space-between;
+      padding: 0 28px;
+      background: linear-gradient(135deg, rgba(13,17,23,.97), rgba(19,26,36,.97));
+      border-bottom: 1px solid var(--bd);
+    }
+    .header h1 { font-size: 17px; font-weight: 600; letter-spacing: .5px; }
+    .header h1 span { color: var(--cyan); }
+    .header .subtitle { color: var(--t3); font-weight: 400; font-size: 13px; margin-left: 8px; }
+    .header .nav { display: flex; gap: 8px; }
+    .header .nav a {
+      padding: 6px 16px; border-radius: 8px; font-size: 13px; font-weight: 500;
+      text-decoration: none; color: var(--t2); border: 1px solid var(--bd);
+      transition: all .2s;
+    }
+    .header .nav a:hover { color: var(--t1); border-color: var(--t1); }
+    .header .nav a.active { background: rgba(168,85,247,.2); color: var(--purple); border-color: var(--purple); }
+
+    .main {
+      display: grid;
+      grid-template-columns: 1fr 440px;
+      height: calc(100vh - 52px);
+    }
+
+    .image-panel {
+      position: relative; background: #000; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .image-panel img { max-width: 100%; max-height: 100%; object-fit: contain; }
+    .image-label {
+      position: absolute; top: 14px; left: 14px;
+      padding: 6px 14px; border-radius: 6px;
+      background: rgba(0,0,0,.75); color: var(--purple);
+      font-size: 13px; font-family: 'JetBrains Mono', monospace;
+      backdrop-filter: blur(8px); border: 1px solid rgba(168,85,247,.3);
+    }
+    .image-badge {
+      position: absolute; bottom: 14px; left: 14px;
+      padding: 5px 12px; border-radius: 6px;
+      background: rgba(239,68,68,.15); color: var(--red);
+      font-size: 12px; font-family: 'JetBrains Mono', monospace;
+      border: 1px solid rgba(239,68,68,.3);
+    }
+    .rendered-badge {
+      position: absolute; top: 14px; right: 14px;
+      padding: 5px 12px; border-radius: 6px;
+      background: rgba(34,197,94,.12); color: var(--green);
+      font-size: 11px; font-family: 'JetBrains Mono', monospace;
+      border: 1px solid rgba(34,197,94,.3);
+      text-transform: uppercase; letter-spacing: 1px;
+    }
+
+    .analysis-panel {
+      display: flex; flex-direction: column;
+      border-left: 1px solid var(--bd);
+      overflow-y: auto;
+    }
+    .analysis-panel::-webkit-scrollbar { width: 6px; }
+    .analysis-panel::-webkit-scrollbar-track { background: var(--bg1); }
+    .analysis-panel::-webkit-scrollbar-thumb { background: var(--bd2); border-radius: 3px; }
+
+    .section {
+      padding: 20px 22px;
+      border-bottom: 1px solid var(--bd);
+    }
+    .section-title {
+      font-size: 12px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 1.5px; color: var(--purple); margin-bottom: 14px;
+    }
+    .section-title .badge {
+      display: inline-block; margin-left: 8px; padding: 2px 8px;
+      border-radius: 4px; font-size: 10px; font-weight: 600;
+      text-transform: uppercase;
+    }
+    .badge-live { background: rgba(239,68,68,.15); color: var(--red); border: 1px solid rgba(239,68,68,.3); }
+    .badge-done { background: rgba(34,197,94,.12); color: var(--green); border: 1px solid rgba(34,197,94,.3); }
+    .badge-v2 { background: rgba(168,85,247,.12); color: var(--purple); border: 1px solid rgba(168,85,247,.3); }
+
+    .zone-card {
+      background: var(--bg2); border: 1px solid var(--bd); border-radius: 10px;
+      padding: 14px 16px; margin-bottom: 10px;
+      transition: all .2s;
+    }
+    .zone-card:hover { border-color: var(--bd2); }
+    .zone-card .zone-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .zone-card .zone-name { font-size: 15px; font-weight: 600; color: var(--t1); }
+    .zone-card .zone-conf {
+      font-size: 12px; font-family: 'JetBrains Mono', monospace;
+      padding: 3px 8px; border-radius: 4px;
+      background: rgba(239,68,68,.12); color: var(--orange);
+      border: 1px solid rgba(239,68,68,.2);
+    }
+    .zone-card .zone-desc { font-size: 12px; color: var(--t3); line-height: 1.5; }
+    .zone-card .zone-meta {
+      display: flex; gap: 12px; margin-top: 8px; font-size: 11px; color: var(--t3);
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .zone-card .severity {
+      padding: 2px 6px; border-radius: 3px; font-size: 10px; font-weight: 600;
+    }
+    .severity-critical { background: rgba(239,68,68,.2); color: var(--red); }
+    .severity-high { background: rgba(249,115,22,.2); color: var(--orange); }
+    .severity-medium { background: rgba(234,179,8,.2); color: var(--yellow); }
+    .severity-low { background: rgba(34,197,94,.2); color: var(--green); }
+
+    .phase-indicator { display: flex; gap: 12px; align-items: center; margin-bottom: 18px; }
+    .phase-step { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--t3); }
+    .phase-step .dot {
+      width: 24px; height: 24px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 700; border: 2px solid var(--bd2); color: var(--t3);
+    }
+    .phase-step.active .dot { background: rgba(168,85,247,.15); border: 2px solid var(--purple); color: var(--purple); }
+    .phase-step.done .dot { background: rgba(34,197,94,.15); border: 2px solid var(--green); color: var(--green); }
+    .phase-step .arrow { color: var(--t3); font-size: 14px; }
+
+    .proceed-btn {
+      display: block; width: 100%; padding: 14px; border: none; border-radius: 10px;
+      background: linear-gradient(135deg, rgba(168,85,247,.2), rgba(59,130,246,.2));
+      color: var(--purple); font-size: 14px; font-weight: 600;
+      cursor: pointer; text-decoration: none; text-align: center;
+      border: 1px solid rgba(168,85,247,.3);
+      transition: all .3s; margin-top: 16px;
+    }
+    .proceed-btn:hover {
+      background: linear-gradient(135deg, rgba(168,85,247,.3), rgba(59,130,246,.3));
+      border-color: var(--purple);
+    }
+
+    @keyframes scanMove {
+      0% { top: 0%; opacity: 0; }
+      10% { opacity: 0.8; }
+      90% { opacity: 0.8; }
+      100% { top: 100%; opacity: 0; }
+    }
+    .scanning { position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 5; }
+    .scan-line {
+      position: absolute; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, transparent, var(--purple), transparent);
+      animation: scanMove 3s ease-in-out infinite;
+      box-shadow: 0 0 20px var(--purple); opacity: 0;
+    }
+
+    .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .stat-card {
+      background: var(--bg2); border: 1px solid var(--bd); border-radius: 8px;
+      padding: 10px 12px; text-align: center;
+    }
+    .stat-card .stat-val {
+      font-size: 22px; font-weight: 700; color: var(--purple);
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .stat-card .stat-label {
+      font-size: 10px; color: var(--t3); text-transform: uppercase;
+      letter-spacing: 1px; margin-top: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Res<span>Q</span>-AI <span class="subtitle">Aerial Fire Detection</span></h1>
+    <div class="nav">
+      <a href="page3.html" class="active">Aerial Detection</a>
+      <a href="page4.html">Mission Dashboard</a>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="image-panel" id="imagePanel">
+      <img id="aerialImg" src="" alt="Rendered Aerial View" />
+      <div class="image-label" id="imgLabel">LOADING...</div>
+      <div class="rendered-badge">ISAAC SIM RENDERED</div>
+      <div class="image-badge" id="imgBadge" style="display:none"></div>
+      <div class="scanning" id="scanOverlay"><div class="scan-line"></div></div>
+    </div>
+
+    <div class="analysis-panel" id="analysisPanel">
+      <div class="section">
+        <div class="phase-indicator">
+          <div class="phase-step active" id="ph1"><div class="dot">1</div><span>Detect</span></div>
+          <span class="arrow" style="color:var(--t3)">→</span>
+          <div class="phase-step" id="ph2"><div class="dot">2</div><span>Investigate</span></div>
+          <span class="arrow" style="color:var(--t3)">→</span>
+          <div class="phase-step" id="ph3"><div class="dot">3</div><span>Assess</span></div>
+        </div>
+
+        <div class="stats-grid" id="statsGrid">
+          <div class="stat-card"><div class="stat-val" id="statZones">—</div><div class="stat-label">Zones Found</div></div>
+          <div class="stat-card"><div class="stat-val" id="statAlt">180m</div><div class="stat-label">Camera Alt</div></div>
+        </div>
+      </div>
+
+      <div class="section" id="zonesSection" style="display:none">
+        <div class="section-title">Detected Fire Zones <span class="badge badge-done" id="zonesBadge"></span></div>
+        <div id="zonesList"></div>
+      </div>
+
+      <div class="section" id="proceedSection" style="display:none">
+        <a href="page4.html" class="proceed-btn">
+          Proceed to Mission Dashboard → YOLO + Cosmos Assessment (All 5 Zones)
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const BASE = '../debug_output_2';
+
+    const ZONE_POSITIONS = {
+      FZ_0: [-94.80, -16.50], FZ_1: [-98.63, 46.50], FZ_2: [-1.79, 46.50],
+      FZ_3: [87.55, -16.50], FZ_4: [79.75, 46.50]
+    };
+
+    async function loadData() {
+      const res = await fetch(`${BASE}/phase1_results.json`);
+      const p1 = await res.json();
+      let report = {};
+      try { const rr = await fetch(`${BASE}/mission_report.json`); report = await rr.json(); } catch(e) {}
+      return { p1, report };
+    }
+
+    function getSeverityClass(s) {
+      if (!s) return '';
+      const l = s.toLowerCase();
+      if (l === 'critical') return 'severity-critical';
+      if (l === 'high') return 'severity-high';
+      if (l === 'medium') return 'severity-medium';
+      return 'severity-low';
+    }
+
+    async function animate() {
+      const { p1, report } = await loadData();
+
+      const imgEl = document.getElementById('aerialImg');
+      const imgLabel = document.getElementById('imgLabel');
+      const imgBadge = document.getElementById('imgBadge');
+
+      // Show rendered aerial image
+      imgEl.src = `${BASE}/phase1_survey_frame.jpg`;
+      imgLabel.textContent = 'RENDERED AERIAL — 180m ALT — Flow Particle Fires';
+
+      await new Promise(r => imgEl.onload = r);
+
+      await sleep(800);
+
+      // Switch to annotated
+      imgEl.src = `${BASE}/phase1_annotated.jpg`;
+      imgLabel.textContent = `ANNOTATED — ${p1.detections?.length || 0} Fire Zones Detected`;
+      imgBadge.style.display = 'block';
+      imgBadge.textContent = `${p1.detections?.length || 0} zones identified`;
+
+      document.getElementById('scanOverlay').style.display = 'none';
+      document.getElementById('statZones').textContent = p1.detections?.length || 0;
+      document.getElementById('ph1').className = 'phase-step done';
+
+      await sleep(500);
+
+      // Zone cards
+      const zonesSection = document.getElementById('zonesSection');
+      zonesSection.style.display = 'block';
+      document.getElementById('zonesBadge').textContent = `${p1.detections?.length || 0} zones`;
+
+      const zonesList = document.getElementById('zonesList');
+      for (const det of (p1.detections || [])) {
+        const card = document.createElement('div');
+        card.className = 'zone-card';
+        const pos = ZONE_POSITIONS[det.id] || [0, 0];
+        const severity = det.severity || 'Unknown';
+        const sevClass = getSeverityClass(severity);
+        card.innerHTML = `
+          <div class="zone-header">
+            <div class="zone-name">${det.id || 'Unknown'} <span class="severity ${sevClass}">${severity}</span></div>
+            <div class="zone-conf">${((det.confidence || 0) * 100).toFixed(0)}%</div>
+          </div>
+          <div class="zone-desc">${det.description || 'Fire zone detected'}</div>
+          <div class="zone-meta">
+            <span>Pos: [${pos[0].toFixed(1)}, ${pos[1].toFixed(1)}]</span>
+            <span>Source: ${det.source || 'cosmos'}</span>
+          </div>
+        `;
+        zonesList.appendChild(card);
+        await sleep(200);
+      }
+
+      await sleep(600);
+      document.getElementById('proceedSection').style.display = 'block';
+    }
+
+    function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+    animate().catch(err => {
+      console.error('Load error:', err);
+      document.getElementById('cosmosResponse').textContent = 'Error loading data: ' + err.message;
+    });
+  </script>
+</body>
+</html>

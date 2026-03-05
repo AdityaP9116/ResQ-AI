@@ -1,895 +1,820 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ResQ-AI — Mission Control</title>
-    <meta name="description" content="Real-time disaster response drone mission dashboard powered by ResQ-AI">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ResQ-AI — Mission Control</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg0: #06080d; --bg1: #0d1117; --bg2: #131a24; --bg3: #1a2332;
+      --bd: #1e2d3d; --bd2: #2a4a6b;
+      --t1: #e2e8f0; --t2: #94a3b8; --t3: #4a5c6e;
+      --cyan: #06b6d4; --blue: #3b82f6; --red: #ef4444; --orange: #f97316;
+      --green: #22c55e; --yellow: #eab308; --purple: #a855f7;
+    }
+    html, body { height: 100%; overflow: hidden; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg0); color: var(--t1); }
 
-        :root {
-            --bg-primary: #0a0e17;
-            --bg-secondary: #111827;
-            --bg-card: #1a2332;
-            --bg-card-hover: #1f2937;
-            --border: #2d3748;
-            --text-primary: #e2e8f0;
-            --text-secondary: #94a3b8;
-            --text-muted: #64748b;
-            --accent-cyan: #06b6d4;
-            --accent-blue: #3b82f6;
-            --accent-red: #ef4444;
-            --accent-orange: #f97316;
-            --accent-green: #22c55e;
-            --accent-yellow: #eab308;
-            --accent-purple: #a855f7;
-            --glow-cyan: rgba(6, 182, 212, 0.15);
-            --glow-red: rgba(239, 68, 68, 0.15);
-        }
+    /* Header */
+    .header {
+      height: 48px; display: flex; align-items: center; justify-content: space-between;
+      padding: 0 24px;
+      background: linear-gradient(135deg, rgba(13,17,23,.97), rgba(19,26,36,.97));
+      border-bottom: 1px solid var(--bd);
+    }
+    .header h1 { font-size: 16px; font-weight: 600; letter-spacing: .5px; }
+    .header h1 span { color: var(--cyan); }
+    .header .status { font-size: 12px; color: var(--t2); font-family: 'JetBrains Mono', monospace; }
+    .header .status .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--green); margin-right: 6px; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .4; } }
 
-        body {
-            font-family: 'Inter', system-ui, sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
+    /* Main layout */
+    .main {
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      height: calc(100vh - 48px);
+    }
 
-        /* Header */
-        .header {
-            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-card) 100%);
-            border-bottom: 1px solid var(--border);
-            padding: 12px 24px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            backdrop-filter: blur(20px);
-        }
+    .left-col {
+      display: flex; flex-direction: column;
+      overflow: hidden;
+    }
 
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
+    /* Video section — 55% of left col */
+    .video-section {
+      flex: 0 0 55%; min-height: 0;
+      background: #000;
+      position: relative;
+      display: flex; flex-direction: column;
+    }
+    .video-container {
+      flex: 1; min-height: 0;
+      position: relative;
+    }
+    .video-container video {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%; object-fit: contain;
+      background: #000;
+      display: none;
+    }
+    .video-container video.active { display: block; }
 
-        .logo {
-            font-size: 20px;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-        }
+    .video-tabs {
+      position: absolute; top: 12px; left: 12px; z-index: 10;
+      display: flex; gap: 6px;
+    }
+    .video-tabs button {
+      padding: 5px 14px; border: 1px solid var(--bd2); border-radius: 6px;
+      background: rgba(13,17,23,.85); color: var(--t2); font-size: 12px;
+      font-family: 'Inter', sans-serif; cursor: pointer; backdrop-filter: blur(8px);
+      transition: all .2s;
+    }
+    .video-tabs button.active { background: rgba(6,182,212,.15); color: var(--cyan); border-color: var(--cyan); }
+    .video-tabs button:hover { color: var(--t1); border-color: var(--t1); }
+    .video-label {
+      position: absolute; bottom: 8px; left: 12px;
+      padding: 4px 10px; border-radius: 4px;
+      background: rgba(0,0,0,.7); color: var(--t2); font-size: 11px;
+      font-family: 'JetBrains Mono', monospace; backdrop-filter: blur(4px);
+      z-index: 10;
+    }
 
-        .logo span { color: var(--accent-cyan); }
+    /* Transport controls — attached under video */
+    .transport {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 14px;
+      background: var(--bg2);
+      border-top: 1px solid var(--bd);
+      border-bottom: 1px solid var(--bd);
+      flex-shrink: 0;
+    }
+    .transport button {
+      width: 32px; height: 32px; border: 1px solid var(--bd2); border-radius: 6px;
+      background: var(--bg3); color: var(--t1); font-size: 14px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Inter', sans-serif;
+    }
+    .transport button:hover { border-color: var(--cyan); color: var(--cyan); }
+    .transport .scrubber-wrap {
+      flex: 1; position: relative; height: 20px;
+      display: flex; align-items: center;
+    }
+    .transport input[type=range] {
+      width: 100%; accent-color: var(--cyan); height: 4px; cursor: pointer;
+    }
+    .transport .time-label {
+      font-size: 11px; color: var(--t3); font-family: 'JetBrains Mono', monospace;
+      white-space: nowrap; min-width: 130px; text-align: right;
+    }
 
-        .status-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 4px 12px;
-            border-radius: 9999px;
-            font-size: 12px;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
+    /* Map section — 45% of left col */
+    .map-section {
+      flex: 1; min-height: 0;
+      position: relative;
+      background: var(--bg1);
+    }
+    .map-section canvas { width: 100%; height: 100%; }
+    .map-title {
+      position: absolute; top: 10px; left: 14px;
+      font-size: 13px; font-weight: 600; color: var(--t2); letter-spacing: .3px; z-index: 5;
+    }
+    .map-legend {
+      position: absolute; bottom: 10px; left: 14px;
+      display: flex; gap: 14px; font-size: 11px; color: var(--t3); z-index: 5;
+    }
+    .map-legend .li { display: flex; align-items: center; gap: 5px; }
+    .map-legend .li .dot { width: 8px; height: 8px; border-radius: 50%; }
 
-        .status-badge.live {
-            background: rgba(34, 197, 94, 0.15);
-            color: var(--accent-green);
-            border: 1px solid rgba(34, 197, 94, 0.3);
-        }
+    /* Cosmos panel (right column) */
+    .cosmos-panel {
+      background: var(--bg1);
+      border-left: 1px solid var(--bd);
+      display: flex; flex-direction: column;
+      overflow: hidden;
+    }
+    .cosmos-header {
+      padding: 16px 18px 12px;
+      border-bottom: 1px solid var(--bd);
+      flex-shrink: 0;
+    }
+    .cosmos-header h2 { font-size: 14px; font-weight: 600; color: var(--t1); margin-bottom: 4px; }
+    .cosmos-header p { font-size: 11px; color: var(--t3); }
+    .cosmos-feed {
+      flex: 1; overflow-y: auto; padding: 12px 14px;
+    }
+    .cosmos-feed::-webkit-scrollbar { width: 5px; }
+    .cosmos-feed::-webkit-scrollbar-thumb { background: var(--bd); border-radius: 3px; }
 
-        .status-badge.offline {
-            background: rgba(239, 68, 68, 0.15);
-            color: var(--accent-red);
-            border: 1px solid rgba(239, 68, 68, 0.3);
-        }
+    .cosmos-entry {
+      margin-bottom: 14px; padding: 14px 16px;
+      background: var(--bg2); border: 1px solid var(--bd); border-radius: 10px;
+      transition: border-color .3s, box-shadow .3s;
+    }
+    .cosmos-entry:hover { border-color: var(--bd2); }
+    .cosmos-entry.active { border-color: var(--cyan); box-shadow: 0 0 20px rgba(6,182,212,.08); }
+    .cosmos-entry.future { opacity: 0.25; }
+    .cosmos-entry .meta {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 8px;
+    }
+    .cosmos-entry .step-badge {
+      font-size: 11px; font-weight: 600; font-family: 'JetBrains Mono', monospace;
+      padding: 2px 8px; border-radius: 4px;
+      background: rgba(6,182,212,.12); color: var(--cyan);
+    }
+    .cosmos-entry .state-badge {
+      font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: .8px;
+      padding: 2px 8px; border-radius: 4px;
+    }
+    .cosmos-entry .state-badge.focus { background: rgba(239,68,68,.15); color: var(--red); }
+    .cosmos-entry .state-badge.survey { background: rgba(59,130,246,.15); color: var(--blue); }
+    .cosmos-entry .state-badge.approach { background: rgba(249,115,22,.15); color: var(--orange); }
+    .cosmos-entry .state-badge.tracking { background: rgba(168,85,247,.15); color: var(--purple); }
 
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: currentColor;
-            animation: pulse-dot 2s ease-in-out infinite;
-        }
+    .cosmos-entry .target {
+      font-size: 11px; color: var(--t3); margin-bottom: 8px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .cosmos-entry .reasoning {
+      font-size: 12.5px; color: var(--t2); line-height: 1.55;
+    }
+    .cosmos-entry .reasoning strong { color: var(--t1); font-weight: 500; }
 
-        @keyframes pulse-dot {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
-
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .mission-timer {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 18px;
-            font-weight: 500;
-            color: var(--accent-cyan);
-        }
-
-        .urgency-tag {
-            padding: 4px 14px;
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .urgency-low { background: rgba(34, 197, 94, 0.2); color: var(--accent-green); border: 1px solid rgba(34, 197, 94, 0.3); }
-        .urgency-medium { background: rgba(234, 179, 8, 0.2); color: var(--accent-yellow); border: 1px solid rgba(234, 179, 8, 0.3); }
-        .urgency-high { background: rgba(249, 115, 22, 0.2); color: var(--accent-orange); border: 1px solid rgba(249, 115, 22, 0.3); }
-        .urgency-critical { background: rgba(239, 68, 68, 0.25); color: var(--accent-red); border: 1px solid rgba(239, 68, 68, 0.4); animation: pulse-urgency 1.5s ease-in-out infinite; }
-
-        @keyframes pulse-urgency {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
-            50% { box-shadow: 0 0 12px 4px rgba(239, 68, 68, 0.2); }
-        }
-
-        /* Main grid */
-        .dashboard {
-            display: grid;
-            grid-template-columns: 1fr 350px;
-            grid-template-rows: auto 1fr;
-            gap: 16px;
-            padding: 16px;
-            height: calc(100vh - 56px);
-        }
-
-        /* Stats bar */
-        .stats-bar {
-            grid-column: 1 / -1;
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 12px;
-        }
-
-        .stat-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 14px 16px;
-            transition: all 0.3s ease;
-        }
-
-        .stat-card:hover {
-            background: var(--bg-card-hover);
-            border-color: var(--accent-cyan);
-            box-shadow: 0 0 20px var(--glow-cyan);
-        }
-
-        .stat-label {
-            font-size: 11px;
-            font-weight: 500;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 6px;
-        }
-
-        .stat-value {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 26px;
-            font-weight: 600;
-        }
-
-        .stat-value.fire { color: var(--accent-red); }
-        .stat-value.people { color: var(--accent-blue); }
-        .stat-value.danger { color: var(--accent-orange); }
-        .stat-value.rescued { color: var(--accent-green); }
-        .stat-value.battery { color: var(--accent-cyan); }
-        .stat-value.area { color: var(--accent-yellow); }
-
-        /* Map area */
-        .map-container {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .map-header {
-            padding: 12px 16px;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .map-title {
-            font-size: 13px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: var(--text-secondary);
-        }
-
-        .map-canvas-wrapper {
-            position: relative;
-            width: 100%;
-            height: calc(100% - 44px);
-        }
-
-        #mapCanvas {
-            width: 100%;
-            height: 100%;
-            display: block;
-        }
-
-        /* Right sidebar */
-        .sidebar {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            overflow-y: auto;
-        }
-
-        .panel {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            overflow: hidden;
-        }
-
-        .panel-header {
-            padding: 10px 14px;
-            border-bottom: 1px solid var(--border);
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: var(--text-secondary);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .panel-header .icon { font-size: 14px; }
-
-        .panel-body {
-            padding: 12px 14px;
-            max-height: 220px;
-            overflow-y: auto;
-        }
-
-        .panel-body::-webkit-scrollbar { width: 4px; }
-        .panel-body::-webkit-scrollbar-track { background: transparent; }
-        .panel-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
-
-        /* Decision log */
-        .decision-item {
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(45, 55, 72, 0.5);
-        }
-
-        .decision-item:last-child { border-bottom: none; }
-
-        .decision-time {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 10px;
-            color: var(--text-muted);
-            margin-bottom: 4px;
-        }
-
-        .decision-action {
-            font-size: 12px;
-            font-weight: 500;
-            color: var(--accent-cyan);
-            margin-bottom: 3px;
-        }
-
-        .decision-reasoning {
-            font-size: 11px;
-            color: var(--text-secondary);
-            line-height: 1.4;
-        }
-
-        /* Civilian list */
-        .civ-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 6px 0;
-            font-size: 12px;
-        }
-
-        .civ-state {
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            margin-right: 8px;
-        }
-
-        .civ-state.idle { background: var(--accent-green); }
-        .civ-state.alert { background: var(--accent-yellow); }
-        .civ-state.fleeing { background: var(--accent-orange); }
-        .civ-state.panicking { background: var(--accent-red); }
-        .civ-state.injured { background: #dc2626; }
-        .civ-state.incapacitated { background: #7f1d1d; }
-        .civ-state.rescued { background: var(--accent-cyan); }
-
-        /* Fire zone list */
-        .fire-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 6px 0;
-            font-size: 12px;
-        }
-
-        .fire-indicator {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .fire-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: var(--accent-red);
-            animation: fire-pulse 1s ease-in-out infinite;
-        }
-
-        @keyframes fire-pulse {
-            0%, 100% { opacity: 1; box-shadow: 0 0 4px var(--accent-red); }
-            50% { opacity: 0.5; box-shadow: 0 0 12px var(--accent-red); }
-        }
-
-        .fire-intensity {
-            font-family: 'JetBrains Mono', monospace;
-            color: var(--accent-orange);
-        }
-
-        /* Recommended actions */
-        .action-item {
-            padding: 8px 10px;
-            margin-bottom: 6px;
-            background: rgba(6, 182, 212, 0.08);
-            border-left: 3px solid var(--accent-cyan);
-            border-radius: 0 6px 6px 0;
-            font-size: 12px;
-            color: var(--text-secondary);
-        }
-
-        .action-item.critical {
-            background: rgba(239, 68, 68, 0.1);
-            border-left-color: var(--accent-red);
-            color: var(--accent-red);
-            font-weight: 500;
-        }
-
-        /* Responsive */
-        @media (max-width: 900px) {
-            .dashboard {
-                grid-template-columns: 1fr;
-                grid-template-rows: auto auto 1fr;
-            }
-            .stats-bar {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        /* No data state */
-        .no-data {
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 13px;
-            padding: 30px 20px;
-        }
-
-        .no-data .icon { font-size: 32px; margin-bottom: 10px; }
-    </style>
+    .fire-summary {
+      padding: 14px 18px;
+      border-top: 1px solid var(--bd);
+      background: var(--bg2);
+      flex-shrink: 0;
+    }
+    .fire-summary h3 { font-size: 12px; font-weight: 600; color: var(--t2); margin-bottom: 8px; text-transform: uppercase; letter-spacing: .6px; }
+    .fire-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 5px 0; font-size: 12px;
+    }
+    .fire-row .zone { font-family: 'JetBrains Mono', monospace; color: var(--orange); font-weight: 500; }
+    .fire-row .details { color: var(--t3); font-family: 'JetBrains Mono', monospace; font-size: 11px; }
+  </style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="header-left">
-            <div class="logo">ResQ<span>-AI</span></div>
-            <div id="connectionStatus" class="status-badge offline">
-                <span class="status-dot"></span>
-                <span id="connectionText">CONNECTING</span>
-            </div>
+
+  <div class="header">
+    <h1><span>ResQ-AI</span> Mission Control</h1>
+    <div class="status"><span class="dot"></span>Mission 4bf2af38 &mdash; 5 Fire Zones &mdash; 310 Steps</div>
+  </div>
+
+  <div class="main">
+    <div class="left-col">
+      <div class="video-section">
+        <div class="video-container">
+          <div class="video-tabs" id="videoTabs"></div>
+          <video id="vid0" muted loop playsinline preload="auto" class="active"></video>
+          <video id="vid1" muted loop playsinline preload="auto"></video>
+          <video id="vid2" muted loop playsinline preload="auto"></video>
+          <div class="video-label" id="videoLabel"></div>
         </div>
-        <div class="header-right">
-            <div class="mission-timer" id="missionTimer">00:00:00</div>
-            <div id="urgencyBadge" class="urgency-tag urgency-low">LOW</div>
+        <div class="transport">
+          <button id="playBtn" title="Play / Pause">&#9654;</button>
+          <div class="scrubber-wrap">
+            <input type="range" id="scrubber" min="0" max="1000" value="0" step="1">
+          </div>
+          <div class="time-label" id="timeLabel">Step 0 / 310 &mdash; 0:00</div>
         </div>
-    </header>
+      </div>
 
-    <!-- Dashboard -->
-    <main class="dashboard">
-        <!-- Stats Bar -->
-        <div class="stats-bar">
-            <div class="stat-card">
-                <div class="stat-label">Active Fires</div>
-                <div class="stat-value fire" id="statFires">0</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-label">People Detected</div>
-                <div class="stat-value people" id="statPeople">0</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-label">In Danger</div>
-                <div class="stat-value danger" id="statDanger">0</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-label">Rescued</div>
-                <div class="stat-value rescued" id="statRescued">0</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-label">Battery</div>
-                <div class="stat-value battery" id="statBattery">100%</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-label">Burn Area</div>
-                <div class="stat-value area" id="statArea">0 m²</div>
-            </div>
+      <div class="map-section">
+        <div class="map-title">TACTICAL MAP &mdash; Drone Flight Path</div>
+        <canvas id="mapCanvas"></canvas>
+        <div class="map-legend">
+          <div class="li"><div class="dot" style="background:#06b6d4"></div> Drone Path</div>
+          <div class="li"><div class="dot" style="background:#ef4444"></div> Fire Zone</div>
+          <div class="li"><div class="dot" style="background:#22c55e"></div> Current Position</div>
+          <div class="li"><div class="dot" style="background:#f97316"></div> Cosmos Target</div>
         </div>
+      </div>
+    </div>
 
-        <!-- Map -->
-        <div class="map-container">
-            <div class="map-header">
-                <span class="map-title">🗺️ Tactical Map</span>
-                <span id="droneCoords" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-muted);">
-                    Drone: (0, 0, 50)
-                </span>
-            </div>
-            <div class="map-canvas-wrapper">
-                <canvas id="mapCanvas"></canvas>
-            </div>
-        </div>
+    <div class="cosmos-panel">
+      <div class="cosmos-header">
+        <h2>Cosmos VLM Reasoning</h2>
+        <p>Priority analysis &amp; navigation directives from Cosmos Reason 2</p>
+      </div>
+      <div class="cosmos-feed" id="cosmosFeed"></div>
+      <div class="fire-summary" id="fireSummary"></div>
+    </div>
+  </div>
 
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <!-- Fire Zones Panel -->
-            <div class="panel">
-                <div class="panel-header">
-                    <span class="icon">🔥</span> Fire Zones
-                </div>
-                <div class="panel-body" id="fireZonesList">
-                    <div class="no-data">No active fires</div>
-                </div>
-            </div>
+<script>
+(function() {
+  "use strict";
 
-            <!-- Civilians Panel -->
-            <div class="panel">
-                <div class="panel-header">
-                    <span class="icon">👥</span> Civilian Status
-                </div>
-                <div class="panel-body" id="civiliansList">
-                    <div class="no-data">Awaiting data...</div>
-                </div>
-            </div>
+  // ========================================================================
+  // SIMULATION DATA (from actual run: DIAG logs, cosmos_reasoning.txt, latest.json)
+  // ========================================================================
+  var MAX_STEP = 310;
 
-            <!-- AI Decisions Panel -->
-            <div class="panel">
-                <div class="panel-header">
-                    <span class="icon">🧠</span> AI Decisions
-                </div>
-                <div class="panel-body" id="decisionLog">
-                    <div class="no-data">
-                        <div class="icon">🤖</div>
-                        Cosmos AI decisions will appear here
-                    </div>
-                </div>
-            </div>
+  var FIRE_ZONES = [
+    { name: "FZ_0", x: -94.8, y: -16.5, radius: 8.03, intensity: 1.04, burn_s: 18.8, ignite_step: 170 },
+    { name: "FZ_1", x: -98.6, y:  46.5, radius: 6.97, intensity: 1.47, burn_s: 33.8, ignite_step:  15 },
+    { name: "FZ_2", x:  -1.8, y:  46.5, radius: 8.25, intensity: 1.40, burn_s: 23.4, ignite_step: 135 },
+    { name: "FZ_3", x:  87.6, y: -16.5, radius: 4.46, intensity: 1.12, burn_s: 13.0, ignite_step: 215 },
+    { name: "FZ_4", x:  79.7, y:  46.5, radius: 7.23, intensity: 1.26, burn_s: 21.3, ignite_step: 160 }
+  ];
 
-            <!-- Actions Panel -->
-            <div class="panel">
-                <div class="panel-header">
-                    <span class="icon">⚡</span> Recommended Actions
-                </div>
-                <div class="panel-body" id="actionsList">
-                    <div class="no-data">No actions</div>
-                </div>
-            </div>
-        </div>
-    </main>
+  // Drone positions from DIAG log (every 10 steps)
+  var DIAG_POINTS = [
+    { s:   0, x:   0.0, y:  15.0, st: "survey"   },
+    { s:  10, x: -24.7, y:   6.8, st: "approach"  },
+    { s:  20, x: -57.8, y:  -4.2, st: "approach"  },
+    { s:  30, x: -85.6, y: -13.4, st: "approach"  },
+    { s:  40, x: -93.1, y: -15.9, st: "focus"     },
+    { s:  50, x: -93.4, y: -16.2, st: "focus"     },
+    { s:  60, x: -93.5, y: -16.3, st: "focus"     },
+    { s:  70, x: -93.6, y: -16.3, st: "focus"     },
+    { s:  80, x: -93.7, y: -16.3, st: "focus"     },
+    { s:  90, x: -93.7, y: -16.2, st: "focus"     },
+    { s: 100, x: -74.8, y: -11.4, st: "survey"    },
+    { s: 110, x: -51.0, y: -13.7, st: "survey"    },
+    { s: 120, x: -41.0, y: -21.7, st: "survey"    },
+    { s: 130, x: -31.5, y: -29.6, st: "survey"    },
+    { s: 140, x: -42.4, y: -16.1, st: "approach"  },
+    { s: 150, x: -65.0, y:   9.0, st: "approach"  },
+    { s: 160, x: -86.3, y:  32.7, st: "approach"  },
+    { s: 170, x: -96.4, y:  44.0, st: "focus"     },
+    { s: 180, x: -97.7, y:  45.4, st: "focus"     },
+    { s: 190, x: -97.8, y:  45.5, st: "focus"     },
+    { s: 200, x: -97.7, y:  45.6, st: "focus"     },
+    { s: 210, x: -97.6, y:  45.6, st: "focus"     },
+    { s: 220, x: -97.5, y:  45.7, st: "focus"     },
+    { s: 230, x: -88.7, y:  42.7, st: "survey"    },
+    { s: 240, x: -64.5, y:  28.7, st: "survey"    },
+    { s: 250, x: -56.3, y:  14.4, st: "survey"    },
+    { s: 260, x: -53.5, y:   2.2, st: "survey"    },
+    { s: 270, x: -44.0, y:   0.7, st: "approach"  },
+    { s: 280, x: -20.9, y:  25.7, st: "approach"  },
+    { s: 290, x:  -5.5, y:  42.5, st: "approach"  },
+    { s: 300, x:  -2.7, y:  45.5, st: "focus"     },
+    { s: 310, x:  -2.6, y:  45.5, st: "focus"     }
+  ];
 
-    <script>
-    (function() {
-        // ---------------------------------------------------------------
-        // State
-        // ---------------------------------------------------------------
-        var currentReport = null;
-        var ws = null;
-        var reconnectTimer = null;
-        var mapFires = [];
-        var dronePos = [0, 0, 50];
-        var missionStartTime = null;
+  // Build per-step positions via linear interpolation
+  var DRONE_PATH = [];
+  for (var s = 0; s <= MAX_STEP; s++) {
+    var prev = DIAG_POINTS[0], next = DIAG_POINTS[DIAG_POINTS.length - 1];
+    for (var d = 0; d < DIAG_POINTS.length - 1; d++) {
+      if (s >= DIAG_POINTS[d].s && s <= DIAG_POINTS[d + 1].s) {
+        prev = DIAG_POINTS[d]; next = DIAG_POINTS[d + 1]; break;
+      }
+    }
+    var range = next.s - prev.s;
+    var t = range > 0 ? (s - prev.s) / range : 0;
+    DRONE_PATH.push({
+      x: prev.x + (next.x - prev.x) * t,
+      y: prev.y + (next.y - prev.y) * t,
+      st: prev.st
+    });
+  }
 
-        var API_BASE = window.location.protocol + "//" + window.location.host;
-        var WS_URL = (window.location.protocol === "https:" ? "wss://" : "ws://") +
-                     window.location.host + "/ws/live";
+  // Flight events (for map labels)
+  var EVENTS = [
+    { s:   0, label: "START \u2192 FZ_0",  type: "nav"   },
+    { s:  40, label: "Focus FZ_0",          type: "focus" },
+    { s:  90, label: "FZ_0 visited \u2713", type: "done"  },
+    { s: 130, label: "\u2192 FZ_1",         type: "nav"   },
+    { s: 170, label: "Focus FZ_1",          type: "focus" },
+    { s: 224, label: "FZ_1 visited \u2713", type: "done"  },
+    { s: 265, label: "\u2192 FZ_2",         type: "nav"   },
+    { s: 300, label: "Focus FZ_2",          type: "focus" }
+  ];
 
-        // ---------------------------------------------------------------
-        // WebSocket
-        // ---------------------------------------------------------------
-        function connectWS() {
-            if (ws && ws.readyState <= 1) return;
+  // Cosmos VLM reasoning entries (from cosmos_reasoning.txt)
+  var COSMOS = [
+    {
+      step: 41, state: "focus", target: [-98.6, 46.5], zone: "FZ_1",
+      score: 2.7, area: 107, fires_active: 1,
+      reasoning: "1 fire zone evaluated. <strong>FZ_1 is TOP PRIORITY</strong> (score 2.7). Burn area: 107 m\u00b2, intensity 0.81. Directive: maintain bird\u2019s-eye altitude for overview. Distance to target: 62 m.",
+      summary: "FZ_1 ignited \u2014 107 m\u00b2 burning at low intensity. Single-zone monitoring phase."
+    },
+    {
+      step: 47, state: "focus", target: [-98.6, 46.5], zone: "FZ_1",
+      score: 2.7, area: 107, fires_active: 1,
+      reasoning: "Continued observation of FZ_1. Burn area stable at 107 m\u00b2. Assessing spread vectors and wind direction.",
+      summary: "Holding position over FZ_0. No spread detected yet."
+    },
+    {
+      step: 122, state: "survey", target: [-98.6, 46.5], zone: "FZ_1",
+      score: 3.2, area: 119, fires_active: 1,
+      reasoning: "<strong>FZ_1 intensity rising to 1.00</strong> \u2014 area expanded to 119 m\u00b2. Switching to orbital survey sweep for broader situational awareness. All other zones quiet.",
+      summary: "FZ_1 growing \u2014 119 m\u00b2 at full intensity. Surveying for new ignitions."
+    },
+    {
+      step: 128, state: "survey", target: [-98.6, 46.5], zone: "FZ_1",
+      score: 3.2, area: 121, fires_active: 1,
+      reasoning: "FZ_1 burn area 121 m\u00b2, intensity 1.02. Continuing orbital scan at 92 m distance. No new fire zones detected yet.",
+      summary: "Orbital scan continuing. FZ_1 steady at 121 m\u00b2."
+    },
+    {
+      step: 174, state: "focus", target: [-98.6, 46.5], zone: "FZ_1",
+      score: 6.5, area: 440, fires_active: 3,
+      reasoning: "<strong>CRITICAL \u2014 3 fire zones now active!</strong> FZ_1 TOP PRIORITY (score 6.5, 1 YOLO detection confirmed). FZ_2: 177 m\u00b2. FZ_4: 135 m\u00b2. <strong>Total: 440 m\u00b2 burning.</strong> Recommend immediate aerial assessment.",
+      summary: "Fire spreading rapidly \u2014 3 zones active, 440 m\u00b2 total. YOLO confirmed fire at FZ_1."
+    },
+    {
+      step: 254, state: "survey", target: [-1.8, 46.5], zone: "FZ_2",
+      score: 4.5, area: 733, fires_active: 5,
+      reasoning: "<strong>All 5 fire zones now active.</strong> Redirecting to FZ_2 \u2014 largest burn area at 197 m\u00b2. Zone ranking: FZ_2 (197 m\u00b2) > FZ_1 (141 m\u00b2) > FZ_4 (151 m\u00b2). <strong>Total scene: 733 m\u00b2 burning.</strong>",
+      summary: "All 5 zones burning \u2014 733 m\u00b2 total. Redirecting to FZ_2 as new priority."
+    },
+    {
+      step: 279, state: "approach", target: [-1.8, 46.5], zone: "FZ_2",
+      score: 4.7, area: 760, fires_active: 5,
+      reasoning: "Approaching FZ_2 on priority vector. Area: 204 m\u00b2, intensity 1.31. Distance: 52 m. <strong>Total burn: 760 m\u00b2</strong> and accelerating.",
+      summary: "En route to FZ_2. Total fire area now 760 m\u00b2."
+    },
+    {
+      step: 290, state: "approach", target: [-1.8, 46.5], zone: "FZ_2",
+      score: 7.8, area: 772, fires_active: 5,
+      reasoning: "<strong>YOLO fire confirmed at FZ_2!</strong> Priority score surged to 7.8. Closing to 13 m. FZ_2 burn area: 208 m\u00b2. <strong>Total scene: 772 m\u00b2 burning.</strong> All zones ranked: FZ_2 > FZ_1 > FZ_4 > FZ_0 > FZ_3.",
+      summary: "YOLO confirms FZ_2 fire. Score 7.8 \u2014 highest of mission. Total: 772 m\u00b2."
+    }
+  ];
 
-            ws = new WebSocket(WS_URL);
+  // ========================================================================
+  // VIDEO DEFINITIONS — 3 cameras, each has its own duration
+  // ========================================================================
+  var VIDEO_DEFS = [
+    { id: "vid0", file: "external_overview_hq.mp4", label: "External Overview", duration: 10.3 },
+    { id: "vid1", file: "forward_fpv_hq.mp4",       label: "Forward FPV",       duration: 10.3 },
+    { id: "vid2", file: "resqai_sim.mp4",            label: "Drone Camera",      duration: 20.067 }
+  ];
 
-            ws.onopen = function() {
-                setConnectionStatus(true);
-                console.log("[WS] Connected");
-            };
+  // Try multiple base paths for video files
+  var VIDEO_BASE = "debug_output/";
 
-            ws.onmessage = function(evt) {
-                try {
-                    var data = JSON.parse(evt.data);
-                    if (data && data.mission_id) {
-                        currentReport = data;
-                        updateDashboard(data);
-                    }
-                } catch(e) {
-                    console.error("[WS] Parse error:", e);
-                }
-            };
+  // ========================================================================
+  // DOM REFS
+  // ========================================================================
+  var videoEls = VIDEO_DEFS.map(function(v) { return document.getElementById(v.id); });
+  var videoLabel = document.getElementById("videoLabel");
+  var scrubber   = document.getElementById("scrubber");
+  var timeLabel  = document.getElementById("timeLabel");
+  var playBtn    = document.getElementById("playBtn");
+  var cosmosFeed = document.getElementById("cosmosFeed");
+  var fireSummary = document.getElementById("fireSummary");
+  var canvas     = document.getElementById("mapCanvas");
+  var ctx        = canvas.getContext("2d");
 
-            ws.onclose = function() {
-                setConnectionStatus(false);
-                console.log("[WS] Disconnected — retrying in 3s");
-                reconnectTimer = setTimeout(connectWS, 3000);
-            };
+  var activeIdx  = 0;       // currently visible video index
+  var isSeeking  = false;   // true while user drags scrubber
 
-            ws.onerror = function() {
-                ws.close();
-            };
+  // ========================================================================
+  // VIDEO INIT — load all 3 videos, try path fallbacks
+  // ========================================================================
+  var PATHS_TO_TRY = ["/debug_output/", "../debug_output/", "debug_output/"];
+
+  function initVideos() {
+    // Build tab buttons
+    var tabsDiv = document.getElementById("videoTabs");
+    tabsDiv.innerHTML = "";
+    VIDEO_DEFS.forEach(function(v, idx) {
+      var btn = document.createElement("button");
+      btn.textContent = v.label;
+      btn.className = idx === 0 ? "active" : "";
+      btn.onclick = function() { switchVideo(idx); };
+      tabsDiv.appendChild(btn);
+    });
+
+    // Set sources with fallback
+    VIDEO_DEFS.forEach(function(v, idx) {
+      var el = videoEls[idx];
+      tryVideoPath(el, v.file, 0);
+    });
+
+    videoLabel.textContent = VIDEO_DEFS[0].label;
+  }
+
+  function tryVideoPath(el, file, pathIdx) {
+    if (pathIdx >= PATHS_TO_TRY.length) return;
+    el.src = PATHS_TO_TRY[pathIdx] + file;
+    el.onerror = function() { tryVideoPath(el, file, pathIdx + 1); };
+  }
+
+  // ========================================================================
+  // SYNC ENGINE — video is the MASTER CLOCK
+  //
+  // "progress" = 0..1 normalized position through the mission
+  // step       = Math.round(progress * MAX_STEP)
+  // For each video: video.currentTime = progress * video.duration
+  // ========================================================================
+
+  /** Get current mission progress (0..1) from the active video */
+  function getProgress() {
+    var el = videoEls[activeIdx];
+    if (!el.duration || isNaN(el.duration)) return 0;
+    return Math.min(el.currentTime / el.duration, 1);
+  }
+
+  /** Get current simulation step from progress */
+  function getStep() {
+    return Math.round(getProgress() * MAX_STEP);
+  }
+
+  /** Seek ALL videos + UI to a given progress (0..1) */
+  function seekToProgress(progress) {
+    progress = Math.max(0, Math.min(progress, 1));
+    for (var i = 0; i < videoEls.length; i++) {
+      var dur = VIDEO_DEFS[i].duration;
+      var target = progress * dur;
+      // Only seek if difference is noticeable (avoids constant seeking on hidden vids)
+      if (Math.abs(videoEls[i].currentTime - target) > 0.05) {
+        videoEls[i].currentTime = target;
+      }
+    }
+    updateUI(progress);
+  }
+
+  /** Switch visible video — no restart, just swap visibility + sync */
+  function switchVideo(idx) {
+    if (idx === activeIdx) return;
+    var progress = getProgress();
+    var wasPlaying = !videoEls[activeIdx].paused;
+
+    // Pause old
+    videoEls[activeIdx].pause();
+    videoEls[activeIdx].classList.remove("active");
+
+    // Show new
+    activeIdx = idx;
+    videoEls[idx].classList.add("active");
+    videoEls[idx].currentTime = progress * VIDEO_DEFS[idx].duration;
+
+    if (wasPlaying) {
+      videoEls[idx].play().catch(function(){});
+    }
+
+    // Update tabs
+    var btns = document.querySelectorAll(".video-tabs button");
+    for (var i = 0; i < btns.length; i++) btns[i].classList.toggle("active", i === idx);
+
+    videoLabel.textContent = VIDEO_DEFS[idx].label;
+  }
+
+  // ========================================================================
+  // PLAY / PAUSE
+  // ========================================================================
+  function togglePlay() {
+    var el = videoEls[activeIdx];
+    if (el.paused) {
+      el.play().catch(function(){});
+      playBtn.innerHTML = "&#9646;&#9646;";  // pause icon
+    } else {
+      el.pause();
+      playBtn.innerHTML = "&#9654;";  // play icon
+    }
+  }
+  playBtn.onclick = togglePlay;
+
+  // ========================================================================
+  // SCRUBBER — user drags to seek
+  // ========================================================================
+  scrubber.addEventListener("input", function() {
+    isSeeking = true;
+    var progress = parseInt(scrubber.value) / 1000;
+    seekToProgress(progress);
+  });
+  scrubber.addEventListener("change", function() {
+    isSeeking = false;
+  });
+
+  // ========================================================================
+  // ANIMATION LOOP — reads active video time → updates map, cosmos, scrubber
+  // ========================================================================
+  function animationLoop() {
+    if (!isSeeking) {
+      var progress = getProgress();
+      // Keep hidden videos roughly in sync (coarse — only correct if drifted >0.15s worth)
+      for (var i = 0; i < videoEls.length; i++) {
+        if (i === activeIdx) continue;
+        var target = progress * VIDEO_DEFS[i].duration;
+        if (Math.abs(videoEls[i].currentTime - target) > 0.15) {
+          videoEls[i].currentTime = target;
         }
+      }
+      updateUI(progress);
+    }
+    requestAnimationFrame(animationLoop);
+  }
 
-        function setConnectionStatus(connected) {
-            var badge = document.getElementById("connectionStatus");
-            var text = document.getElementById("connectionText");
-            if (connected) {
-                badge.className = "status-badge live";
-                text.textContent = "LIVE";
-            } else {
-                badge.className = "status-badge offline";
-                text.textContent = "OFFLINE";
-            }
+  // ========================================================================
+  // UI UPDATE — driven by progress
+  // ========================================================================
+  function updateUI(progress) {
+    var step = Math.round(progress * MAX_STEP);
+
+    // Scrubber position
+    scrubber.value = Math.round(progress * 1000);
+
+    // Time label
+    var totalSec = progress * VIDEO_DEFS[activeIdx].duration;
+    var mm = Math.floor(totalSec / 60);
+    var ss = Math.floor(totalSec % 60);
+    timeLabel.textContent = "Step " + step + " / " + MAX_STEP +
+      " \u2014 " + mm + ":" + (ss < 10 ? "0" : "") + ss;
+
+    // Play button state
+    playBtn.innerHTML = videoEls[activeIdx].paused ? "&#9654;" : "&#9646;&#9646;";
+
+    // Map, Cosmos and Fire Summary
+    renderMap(step);
+    renderCosmos(step);
+    renderFireSummary(step);
+  }
+
+  // ========================================================================
+  // COSMOS FEED
+  // ========================================================================
+  var _lastCosmosStep = -1;
+
+  function getActiveCosmosIdx(step) {
+    var idx = -1;
+    for (var i = 0; i < COSMOS.length; i++) {
+      if (COSMOS[i].step <= step) idx = i;
+    }
+    return idx;
+  }
+
+  function renderCosmos(step) {
+    // Only re-render when the active cosmos entry changes (performance)
+    var activeCI = getActiveCosmosIdx(step);
+    if (step === _lastCosmosStep) return;
+    _lastCosmosStep = step;
+
+    var html = "";
+    for (var i = 0; i < COSMOS.length; i++) {
+      var c = COSMOS[i];
+      var isFuture = c.step > step;
+      var isActive = (i === activeCI);
+      var classes = "cosmos-entry" + (isActive ? " active" : "") + (isFuture ? " future" : "");
+      var stateClass = c.state;
+
+      html += '<div class="' + classes + '" id="cosmos-' + i + '">';
+      html += '<div class="meta">';
+      html += '<span class="step-badge">Step ' + c.step + '</span>';
+      html += '<span class="state-badge ' + stateClass + '">' + c.state + '</span>';
+      html += '</div>';
+      html += '<div class="target">Target: ' + c.zone + ' \u2192 (' + c.target[0].toFixed(1) + ', ' + c.target[1].toFixed(1) + ')  \u2022  Score: ' + c.score.toFixed(1) + '  \u2022  ' + c.fires_active + ' zone' + (c.fires_active > 1 ? 's' : '') + '</div>';
+      html += '<div class="reasoning">' + c.reasoning + '</div>';
+      if (c.summary) {
+        html += '<div style="margin-top:8px;padding:8px 10px;background:rgba(6,182,212,.06);border-radius:6px;font-size:11.5px;color:var(--cyan);line-height:1.4">\u25B6 ' + c.summary + '</div>';
+      }
+      html += '</div>';
+    }
+    if (!html) html = '<div style="padding:40px 20px;text-align:center;color:var(--t3)">Waiting for first Cosmos analysis...</div>';
+    cosmosFeed.innerHTML = html;
+
+    // Scroll the active entry into view
+    if (activeCI >= 0) {
+      var activeEl = document.getElementById("cosmos-" + activeCI);
+      if (activeEl) activeEl.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+  }
+
+  // ========================================================================
+  // FIRE SUMMARY
+  // ========================================================================
+  function renderFireSummary(step) {
+    var html = '<h3>Fire Zone Status</h3>';
+    var totalArea = 0;
+    for (var i = 0; i < FIRE_ZONES.length; i++) {
+      var fz = FIRE_ZONES[i];
+      var active = step >= fz.ignite_step;
+      var progress = active ? Math.min(1.0, (step - fz.ignite_step) / 100) : 0;
+      var area = Math.round(Math.PI * fz.radius * fz.radius * (0.6 + progress * 0.5));
+      var intens = active ? (fz.intensity * (0.5 + progress * 0.5)).toFixed(2) : "\u2014";
+      if (active) totalArea += area;
+      html += '<div class="fire-row">';
+      html += '<span class="zone" style="opacity:' + (active ? '1' : '.35') + '">' + fz.name + '</span>';
+      html += '<span class="details">' + (active ? area + ' m\u00b2 \u2022 intensity ' + intens : 'not ignited') + '</span>';
+      html += '</div>';
+    }
+    html += '<div class="fire-row" style="border-top:1px solid var(--bd);padding-top:6px;margin-top:4px">';
+    html += '<span style="font-size:12px;font-weight:600;color:var(--red)">TOTAL</span>';
+    html += '<span class="details" style="color:var(--red)">' + totalArea + ' m\u00b2</span>';
+    html += '</div>';
+    fireSummary.innerHTML = html;
+  }
+
+  // ========================================================================
+  // TACTICAL MAP
+  // ========================================================================
+  function resizeCanvas() {
+    var rect = canvas.parentElement.getBoundingClientRect();
+    canvas.width  = rect.width  * window.devicePixelRatio;
+    canvas.height = rect.height * window.devicePixelRatio;
+    ctx.setTransform(window.devicePixelRatio, 0, 0, window.devicePixelRatio, 0, 0);
+  }
+  window.addEventListener("resize", resizeCanvas);
+  resizeCanvas();
+
+  function worldToScreen(wx, wy) {
+    var rect = canvas.parentElement.getBoundingClientRect();
+    var W = rect.width, H = rect.height;
+    var pad = 50;
+    var sx = pad + ((wx + 120) / 240) * (W - pad * 2);
+    var sy = (H - pad) - ((wy + 40) / 110) * (H - pad * 2);
+    return [sx, sy];
+  }
+
+  function renderMap(step) {
+    resizeCanvas();
+    var rect = canvas.parentElement.getBoundingClientRect();
+    var W = rect.width, H = rect.height;
+    ctx.clearRect(0, 0, W, H);
+
+    // Grid lines
+    ctx.strokeStyle = "rgba(30,45,61,.4)";
+    ctx.lineWidth = 0.5;
+    for (var gx = -100; gx <= 100; gx += 50) {
+      var p = worldToScreen(gx, -40), p2 = worldToScreen(gx, 70);
+      ctx.beginPath(); ctx.moveTo(p[0], p[1]); ctx.lineTo(p2[0], p2[1]); ctx.stroke();
+    }
+    for (var gy = -40; gy <= 70; gy += 30) {
+      var q = worldToScreen(-120, gy), q2 = worldToScreen(100, gy);
+      ctx.beginPath(); ctx.moveTo(q[0], q[1]); ctx.lineTo(q2[0], q2[1]); ctx.stroke();
+    }
+
+    // Fire zones
+    for (var fi = 0; fi < FIRE_ZONES.length; fi++) {
+      var fz = FIRE_ZONES[fi];
+      var fp = worldToScreen(fz.x, fz.y);
+      var active = step >= fz.ignite_step;
+      var baseR = 6 + fz.radius * 0.8;
+      if (active) {
+        var pulse = 1 + Math.sin(Date.now() * 0.003 + fi) * 0.2;
+        ctx.beginPath(); ctx.arc(fp[0], fp[1], baseR * pulse * 1.8, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(239,68,68,.1)"; ctx.fill();
+        ctx.beginPath(); ctx.arc(fp[0], fp[1], baseR * pulse, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(239,68,68,.3)"; ctx.fill();
+        ctx.strokeStyle = "#ef4444"; ctx.lineWidth = 1.5; ctx.stroke();
+      } else {
+        ctx.beginPath(); ctx.arc(fp[0], fp[1], baseR * 0.7, 0, Math.PI * 2);
+        ctx.strokeStyle = "rgba(239,68,68,.2)"; ctx.lineWidth = 1; ctx.stroke();
+      }
+      ctx.fillStyle = active ? "rgba(239,68,68,.8)" : "rgba(239,68,68,.3)";
+      ctx.font = "10px 'JetBrains Mono'";
+      ctx.textAlign = "center";
+      ctx.fillText(fz.name, fp[0], fp[1] + baseR + 14);
+    }
+
+    // Drone trail — full history up to current step
+    var safeStep = Math.min(step, MAX_STEP);
+    ctx.beginPath();
+    ctx.strokeStyle = "rgba(6,182,212,.2)";
+    ctx.lineWidth = 1.5;
+    for (var pi = 0; pi <= safeStep; pi++) {
+      var pp = worldToScreen(DRONE_PATH[pi].x, DRONE_PATH[pi].y);
+      if (pi === 0) ctx.moveTo(pp[0], pp[1]); else ctx.lineTo(pp[0], pp[1]);
+    }
+    ctx.stroke();
+
+    // Bright recent trail (last 30 steps)
+    var trailStart = Math.max(0, safeStep - 30);
+    ctx.beginPath();
+    ctx.strokeStyle = "rgba(6,182,212,.6)";
+    ctx.lineWidth = 2.5;
+    for (var ti = trailStart; ti <= safeStep; ti++) {
+      var tp = worldToScreen(DRONE_PATH[ti].x, DRONE_PATH[ti].y);
+      if (ti === trailStart) ctx.moveTo(tp[0], tp[1]); else ctx.lineTo(tp[0], tp[1]);
+    }
+    ctx.stroke();
+
+    // Cosmos target line (dashed orange)
+    var cosmosIdx = getActiveCosmosIdx(step);
+    if (cosmosIdx >= 0) {
+      var ct = COSMOS[cosmosIdx];
+      var ctp = worldToScreen(ct.target[0], ct.target[1]);
+      var curDrone = worldToScreen(DRONE_PATH[safeStep].x, DRONE_PATH[safeStep].y);
+      ctx.beginPath();
+      ctx.setLineDash([6, 4]);
+      ctx.strokeStyle = "rgba(249,115,22,.5)";
+      ctx.lineWidth = 1.5;
+      ctx.moveTo(curDrone[0], curDrone[1]);
+      ctx.lineTo(ctp[0], ctp[1]);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.beginPath(); ctx.arc(ctp[0], ctp[1], 5, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(249,115,22,.4)"; ctx.fill();
+      ctx.strokeStyle = "#f97316"; ctx.lineWidth = 1.5; ctx.stroke();
+    }
+
+    // Drone current position
+    if (safeStep <= MAX_STEP) {
+      var dp = worldToScreen(DRONE_PATH[safeStep].x, DRONE_PATH[safeStep].y);
+      // Direction indicator
+      if (safeStep > 0) {
+        var prevPt = DRONE_PATH[safeStep - 1];
+        var curPt  = DRONE_PATH[safeStep];
+        var dx = curPt.x - prevPt.x, dy = curPt.y - prevPt.y;
+        var len = Math.sqrt(dx * dx + dy * dy);
+        if (len > 0.1) {
+          var ndx = dx / len, ndy = dy / len;
+          var ahead = worldToScreen(curPt.x + ndx * 8, curPt.y + ndy * 8);
+          ctx.beginPath();
+          ctx.moveTo(dp[0], dp[1]);
+          ctx.lineTo(ahead[0], ahead[1]);
+          ctx.strokeStyle = "#22c55e"; ctx.lineWidth = 2; ctx.stroke();
         }
+      }
+      ctx.beginPath(); ctx.arc(dp[0], dp[1], 14, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(34,197,94,.1)"; ctx.fill();
+      ctx.beginPath(); ctx.arc(dp[0], dp[1], 5, 0, Math.PI * 2);
+      ctx.fillStyle = "#22c55e"; ctx.fill();
+      ctx.strokeStyle = "rgba(34,197,94,.5)"; ctx.lineWidth = 2; ctx.stroke();
+    }
 
-        // ---------------------------------------------------------------
-        // Dashboard update
-        // ---------------------------------------------------------------
-        function updateDashboard(report) {
-            // Stats
-            var fires = report.fires || {};
-            var civs = report.civilians || {};
-            var drone = report.drone || {};
-            var dets = report.detections_this_interval || {};
+    // Event labels
+    for (var ei = 0; ei < EVENTS.length; ei++) {
+      var ev = EVENTS[ei];
+      if (ev.s > step) continue;
+      var evStep = Math.min(ev.s, MAX_STEP);
+      var ep = worldToScreen(DRONE_PATH[evStep].x, DRONE_PATH[evStep].y);
+      ctx.fillStyle = ev.type === "focus" ? "rgba(239,68,68,.6)" : ev.type === "done" ? "rgba(34,197,94,.6)" : "rgba(6,182,212,.5)";
+      ctx.font = "9px 'JetBrains Mono'";
+      ctx.textAlign = "left";
+      ctx.fillText(ev.label, ep[0] + 10, ep[1] - 6);
+      ctx.beginPath(); ctx.arc(ep[0], ep[1], 3, 0, Math.PI * 2); ctx.fill();
+    }
+  }
 
-            document.getElementById("statFires").textContent =
-                String(fires.active_count || 0);
-            document.getElementById("statPeople").textContent =
-                String(civs.total || 0);
-            document.getElementById("statDanger").textContent =
-                String(civs.in_danger || 0);
-            document.getElementById("statRescued").textContent =
-                String(civs.rescued || 0);
-            document.getElementById("statBattery").textContent =
-                String(Math.round(drone.battery_pct || 0)) + "%";
-            document.getElementById("statArea").textContent =
-                String(Math.round(fires.total_area_m2 || 0)) + " m²";
+  // ========================================================================
+  // KEYBOARD SHORTCUTS
+  // ========================================================================
+  document.addEventListener("keydown", function(e) {
+    if (e.code === "Space") { e.preventDefault(); togglePlay(); }
+    if (e.code === "ArrowLeft")  { seekBySteps(-10); }
+    if (e.code === "ArrowRight") { seekBySteps(10);  }
+  });
 
-            // Timer
-            if (report.elapsed_seconds != null) {
-                if (!missionStartTime) {
-                    missionStartTime = Date.now() / 1000 - report.elapsed_seconds;
-                }
-            }
+  function seekBySteps(delta) {
+    var step = getStep() + delta;
+    step = Math.max(0, Math.min(step, MAX_STEP));
+    seekToProgress(step / MAX_STEP);
+  }
 
-            // Urgency
-            var urgency = report.urgency_level || "low";
-            var ub = document.getElementById("urgencyBadge");
-            ub.textContent = urgency.toUpperCase();
-            ub.className = "urgency-tag urgency-" + urgency;
+  // ========================================================================
+  // BOOT
+  // ========================================================================
+  initVideos();
+  updateUI(0);
+  requestAnimationFrame(animationLoop);
 
-            // Drone coords
-            var dp = drone.position || [0, 0, 50];
-            dronePos = dp;
-            document.getElementById("droneCoords").textContent =
-                "Drone: (" + dp[0].toFixed(1) + ", " + dp[1].toFixed(1) +
-                ", " + dp[2].toFixed(1) + ") — " + (drone.status || "idle");
+  // Auto-play first video after it loads
+  videoEls[0].addEventListener("loadeddata", function() {
+    videoEls[0].play().catch(function(){});
+  });
 
-            // Fire zones
-            mapFires = fires.zones || [];
-            updateFireZones(mapFires);
-
-            // Civilians
-            updateCivilians(civs);
-
-            // AI Decisions
-            updateDecisions(report.ai_decisions || []);
-
-            // Actions
-            updateActions(report.recommended_actions || []);
-
-            // Redraw map
-            drawMap();
-        }
-
-        function updateFireZones(zones) {
-            var el = document.getElementById("fireZonesList");
-            if (!zones || zones.length === 0) {
-                el.innerHTML = '<div class="no-data">No active fires</div>';
-                return;
-            }
-            var html = "";
-            for (var i = 0; i < zones.length; i++) {
-                var z = zones[i];
-                html += '<div class="fire-row">' +
-                    '<div class="fire-indicator">' +
-                    '<span class="fire-dot"></span>' +
-                    '<span>' + (z.zone || "FZ_?") + '</span>' +
-                    '</div>' +
-                    '<span class="fire-intensity">' +
-                    (z.intensity || 0).toFixed(1) + ' ⚡</span>' +
-                    '</div>';
-            }
-            el.innerHTML = html;
-        }
-
-        function updateCivilians(civs) {
-            var el = document.getElementById("civiliansList");
-            var bs = civs.by_state;
-            if (!bs) {
-                el.innerHTML = '<div class="no-data">Awaiting data...</div>';
-                return;
-            }
-            var states = ["idle", "alert", "fleeing", "panicking",
-                          "injured", "incapacitated", "rescued"];
-            var html = "";
-            for (var i = 0; i < states.length; i++) {
-                var s = states[i];
-                var count = bs[s] || 0;
-                html += '<div class="civ-row">' +
-                    '<span><span class="civ-state ' + s + '"></span>' +
-                    s.charAt(0).toUpperCase() + s.slice(1) + '</span>' +
-                    '<span style="font-family: JetBrains Mono, monospace; color: var(--text-primary)">' +
-                    count + '</span></div>';
-            }
-            html += '<div class="civ-row" style="border-top: 1px solid var(--border); margin-top: 6px; padding-top: 8px;">' +
-                '<span style="font-weight: 600;">Avg Health</span>' +
-                '<span style="font-family: JetBrains Mono, monospace; color: var(--accent-green)">' +
-                (civs.average_health || 0).toFixed(0) + '%</span></div>';
-            el.innerHTML = html;
-        }
-
-        function updateDecisions(decisions) {
-            var el = document.getElementById("decisionLog");
-            if (!decisions || decisions.length === 0) {
-                el.innerHTML = '<div class="no-data"><div class="icon">🤖</div>Cosmos AI decisions will appear here</div>';
-                return;
-            }
-            var html = "";
-            var start = Math.max(0, decisions.length - 5);
-            for (var i = decisions.length - 1; i >= start; i--) {
-                var d = decisions[i];
-                var t = d.time ? new Date(d.time * 1000).toLocaleTimeString() : "--";
-                html += '<div class="decision-item">' +
-                    '<div class="decision-time">' + t + '</div>' +
-                    '<div class="decision-action">' + (d.action || d.priority || "—") + '</div>' +
-                    '<div class="decision-reasoning">' + (d.reasoning || "—") + '</div>' +
-                    '</div>';
-            }
-            el.innerHTML = html;
-        }
-
-        function updateActions(actions) {
-            var el = document.getElementById("actionsList");
-            if (!actions || actions.length === 0) {
-                el.innerHTML = '<div class="no-data">No actions</div>';
-                return;
-            }
-            var html = "";
-            for (var i = 0; i < actions.length; i++) {
-                var a = actions[i];
-                var cls = a.indexOf("CRITICAL") >= 0 ? "action-item critical" : "action-item";
-                html += '<div class="' + cls + '">' + a + '</div>';
-            }
-            el.innerHTML = html;
-        }
-
-        // ---------------------------------------------------------------
-        // Map canvas
-        // ---------------------------------------------------------------
-        function drawMap() {
-            var canvas = document.getElementById("mapCanvas");
-            var wrapper = canvas.parentElement;
-            canvas.width = wrapper.clientWidth;
-            canvas.height = wrapper.clientHeight;
-
-            var ctx = canvas.getContext("2d");
-            var W = canvas.width;
-            var H = canvas.height;
-
-            // Background
-            ctx.fillStyle = "#0d1117";
-            ctx.fillRect(0, 0, W, H);
-
-            // Grid
-            ctx.strokeStyle = "rgba(45, 55, 72, 0.4)";
-            ctx.lineWidth = 0.5;
-            var gridSize = 40;
-            for (var gx = 0; gx < W; gx += gridSize) {
-                ctx.beginPath(); ctx.moveTo(gx, 0); ctx.lineTo(gx, H); ctx.stroke();
-            }
-            for (var gy = 0; gy < H; gy += gridSize) {
-                ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(W, gy); ctx.stroke();
-            }
-
-            // Scene bounds: roughly -200..200 in X, -120..120 in Y
-            var sceneW = 400;
-            var sceneH = 240;
-            var scale = Math.min(W / sceneW, H / sceneH) * 0.85;
-            var cx = W / 2;
-            var cy = H / 2;
-
-            function toScreenX(wx) { return cx + wx * scale; }
-            function toScreenY(wy) { return cy - wy * scale; }
-
-            // Draw building blocks (simplified rectangles)
-            ctx.fillStyle = "rgba(55, 65, 81, 0.5)";
-            ctx.strokeStyle = "rgba(75, 85, 99, 0.6)";
-            ctx.lineWidth = 1;
-            var blocks = [
-                [-112, -28, 56, 56], [-112, 28, 56, 56], [0, -28, 56, 56],
-                [0, 28, 56, 56], [112, -28, 56, 56], [112, 28, 56, 56]
-            ];
-            for (var bi = 0; bi < blocks.length; bi++) {
-                var b = blocks[bi];
-                var bx = toScreenX(b[0] - b[2]/2);
-                var by = toScreenY(b[1] + b[3]/2);
-                var bw = b[2] * scale;
-                var bh = b[3] * scale;
-                ctx.fillRect(bx, by, bw, bh);
-                ctx.strokeRect(bx, by, bw, bh);
-            }
-
-            // Draw fire zones
-            var now = Date.now() / 1000;
-            for (var fi = 0; fi < mapFires.length; fi++) {
-                var fire = mapFires[fi];
-                var fp = fire.position || [0, 0, 0];
-                var fx = toScreenX(fp[0]);
-                var fy = toScreenY(fp[1]);
-                var fr = Math.max((fire.radius || 5) * scale, 8);
-                var intensity = fire.intensity || 0.5;
-
-                // Pulsing glow
-                var pulsePhase = Math.sin(now * 3 + fi) * 0.3 + 0.7;
-
-                // Outer glow
-                var grad = ctx.createRadialGradient(fx, fy, 0, fx, fy, fr * 2);
-                grad.addColorStop(0, "rgba(239, 68, 68, " + (0.3 * pulsePhase * intensity) + ")");
-                grad.addColorStop(0.5, "rgba(249, 115, 22, " + (0.15 * pulsePhase) + ")");
-                grad.addColorStop(1, "rgba(239, 68, 68, 0)");
-                ctx.fillStyle = grad;
-                ctx.beginPath();
-                ctx.arc(fx, fy, fr * 2, 0, Math.PI * 2);
-                ctx.fill();
-
-                // Core
-                ctx.fillStyle = "rgba(239, 68, 68, " + (0.7 * pulsePhase) + ")";
-                ctx.beginPath();
-                ctx.arc(fx, fy, fr * 0.6, 0, Math.PI * 2);
-                ctx.fill();
-
-                // Label
-                ctx.fillStyle = "#ef4444";
-                ctx.font = "10px 'JetBrains Mono'";
-                ctx.fillText(fire.zone || "", fx - 12, fy - fr - 4);
-            }
-
-            // Draw drone
-            var dx = toScreenX(dronePos[0]);
-            var dy = toScreenY(dronePos[1]);
-
-            // Drone trail glow
-            ctx.fillStyle = "rgba(6, 182, 212, 0.1)";
-            ctx.beginPath();
-            ctx.arc(dx, dy, 20, 0, Math.PI * 2);
-            ctx.fill();
-
-            // Drone body
-            ctx.fillStyle = "#06b6d4";
-            ctx.beginPath();
-            ctx.arc(dx, dy, 6, 0, Math.PI * 2);
-            ctx.fill();
-
-            // Drone crosshair
-            ctx.strokeStyle = "rgba(6, 182, 212, 0.6)";
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            ctx.moveTo(dx - 14, dy); ctx.lineTo(dx - 8, dy);
-            ctx.moveTo(dx + 8, dy); ctx.lineTo(dx + 14, dy);
-            ctx.moveTo(dx, dy - 14); ctx.lineTo(dx, dy - 8);
-            ctx.moveTo(dx, dy + 8); ctx.lineTo(dx, dy + 14);
-            ctx.stroke();
-
-            // Drone label
-            ctx.fillStyle = "#06b6d4";
-            ctx.font = "bold 10px 'Inter'";
-            ctx.fillText("DRONE", dx + 12, dy - 4);
-            ctx.font = "9px 'JetBrains Mono'";
-            ctx.fillStyle = "#64748b";
-            ctx.fillText("ALT " + dronePos[2].toFixed(0) + "m", dx + 12, dy + 8);
-
-            // Scale legend
-            ctx.fillStyle = "#4a5568";
-            ctx.font = "9px 'Inter'";
-            var legendLen = 50 * scale;
-            ctx.fillRect(20, H - 20, legendLen, 2);
-            ctx.fillText("50m", 20, H - 26);
-        }
-
-        // ---------------------------------------------------------------
-        // Timer
-        // ---------------------------------------------------------------
-        function updateTimer() {
-            if (!missionStartTime) return;
-            var elapsed = Date.now() / 1000 - missionStartTime;
-            var h = Math.floor(elapsed / 3600);
-            var m = Math.floor((elapsed % 3600) / 60);
-            var s = Math.floor(elapsed % 60);
-            document.getElementById("missionTimer").textContent =
-                String(h).padStart(2, "0") + ":" +
-                String(m).padStart(2, "0") + ":" +
-                String(s).padStart(2, "0");
-        }
-
-        // ---------------------------------------------------------------
-        // Fallback polling
-        // ---------------------------------------------------------------
-        function pollAPI() {
-            fetch(API_BASE + "/api/status")
-                .then(function(r) { return r.json(); })
-                .then(function(data) {
-                    if (data && data.mission_id) {
-                        currentReport = data;
-                        updateDashboard(data);
-                        setConnectionStatus(true);
-                    }
-                })
-                .catch(function() {});
-        }
-
-        // ---------------------------------------------------------------
-        // Init
-        // ---------------------------------------------------------------
-        function init() {
-            connectWS();
-            setInterval(updateTimer, 1000);
-            setInterval(drawMap, 100);  // smooth fire animation
-            setInterval(pollAPI, 5000); // fallback polling
-
-            // Initial draw
-            drawMap();
-        }
-
-        // Handle resize
-        window.addEventListener("resize", function() { drawMap(); });
-
-        // Start
-        if (document.readyState === "loading") {
-            document.addEventListener("DOMContentLoaded", init);
-        } else {
-            init();
-        }
-    })();
-    </script>
+})();
+</script>
 </body>
 </html>

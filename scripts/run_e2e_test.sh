@@ -49,9 +49,22 @@ if [[ "$STREAM" -gt 0 ]]; then
     export RESQAI_LIVESTREAM=2
 fi
 
+# ─── Activate Isaac Sim 5.1 Python 3.11 venv ────────────────────────────────
+VENV_DIR="$SCRIPT_DIR/isaacsim_env"
+if [[ -d "$VENV_DIR" ]]; then
+    echo "[0/3] Activating Isaac Sim 5.1 venv ($VENV_DIR)..."
+    source "$VENV_DIR/bin/activate"
+    export ACCEPT_EULA=Y
+else
+    echo "ERROR: Isaac Sim venv not found at $VENV_DIR"
+    echo "  Create it: python3.11 -m venv isaacsim_env && source isaacsim_env/bin/activate"
+    echo "  pip install 'isaacsim[all,extscache]==5.1.0' --extra-index-url https://pypi.nvidia.com"
+    exit 1
+fi
+
 # ─── Virtual display (Isaac Sim requires a display even in headless mode) ─────
 # Always restart Xvfb fresh to avoid stale-display hangs at GLFW init
-echo "[0/2] (Re)starting Xvfb virtual display on :99..."
+echo "[1/3] (Re)starting Xvfb virtual display on :99..."
 pkill -9 Xvfb 2>/dev/null || true
 sleep 1
 rm -f /tmp/.X99-lock /tmp/.X11-unix/X99
@@ -63,15 +76,13 @@ export DISPLAY=:99
 # ─── Check prerequisites ────────────────────────────────────────────────────
 python3 -c "from isaacsim import SimulationApp" 2>/dev/null || {
     echo "ERROR: isaacsim not found. Run:"
-    echo "  pip install isaacsim==4.5.0.0 isaacsim-core==4.5.0.0 \\"
-    echo "    isaacsim-extscache-physics==4.5.0.0 isaacsim-extscache-kit==4.5.0.0 \\"
-    echo "    isaacsim-extscache-kit-sdk==4.5.0.0 --extra-index-url https://pypi.nvidia.com"
+    echo "  pip install 'isaacsim[all,extscache]==5.1.0' --extra-index-url https://pypi.nvidia.com"
     exit 1
 }
 
 # ─── Start VLM server in background ─────────────────────────────────────────
 VLM_BACKEND="${VLM_BACKEND:-mock}"
-echo "[1/2] Starting VLM server (backend: $VLM_BACKEND)..."
+echo "[2/3] Starting VLM server (backend: $VLM_BACKEND)..."
 python3 orchestrator/vlm_server.py --backend "$VLM_BACKEND" &
 VLM_PID=$!
 # Give it a moment
@@ -81,7 +92,7 @@ echo "  VLM server PID: $VLM_PID"
 
 # ─── Run the headless test ───────────────────────────────────────────────────
 echo ""
-echo "[2/2] Running headless E2E test..."
+echo "[3/3] Running headless E2E test..."
 echo "      Debug output: ${RESQAI_DEBUG_DIR:-$SCRIPT_DIR/debug_output}"
 echo "      Max steps   : ${RESQAI_MAX_STEPS:-300}"
 if [[ "$STREAM" -gt 0 ]]; then
@@ -125,6 +136,22 @@ if [[ $STATUS -eq 0 ]]; then
             -pattern_type glob -i "$FRAMES_DIR/*_thermal.jpg" \
             -vf "scale=960:540" -c:v libx264 -pix_fmt yuv420p "$THERMAL_OUT" \
             > /dev/null 2>&1 && echo "  Thermal vid: $THERMAL_OUT"
+
+        # Re-encode external overview with ffmpeg (higher quality than cv2)
+        EXT_VID="$DEBUG_DIR/external_overview.mp4"
+        EXT_VID_HQ="$DEBUG_DIR/external_overview_hq.mp4"
+        if [[ -f "$EXT_VID" ]]; then
+            ffmpeg -y -i "$EXT_VID" -c:v libx264 -pix_fmt yuv420p -crf 23 "$EXT_VID_HQ" \
+                > /dev/null 2>&1 && echo "  Ext cam vid: $EXT_VID_HQ"
+        fi
+
+        # Re-encode forward FPV video
+        FWD_VID="$DEBUG_DIR/forward_fpv.mp4"
+        FWD_VID_HQ="$DEBUG_DIR/forward_fpv_hq.mp4"
+        if [[ -f "$FWD_VID" ]]; then
+            ffmpeg -y -i "$FWD_VID" -c:v libx264 -pix_fmt yuv420p -crf 23 "$FWD_VID_HQ" \
+                > /dev/null 2>&1 && echo "  FPV cam vid: $FWD_VID_HQ"
+        fi
 
         echo ""
         echo "  Copy to your laptop with:"

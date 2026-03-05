@@ -23,13 +23,13 @@ Gf = importlib.import_module("pxr.Gf")
 # Configuration
 # ---------------------------------------------------------------------------
 
-IGNITE_DELAY_S = 3.0          # seconds before first fire ignites
-SPREAD_CHECK_INTERVAL_S = 5.0 # seconds between spread checks
-SPREAD_RANGE_FACTOR = 20.0    # metres * intensity = spread reach
-INTENSITY_GROWTH = 0.1        # per tick
+IGNITE_DELAY_S = 2.0          # seconds before first fire ignites
+SPREAD_CHECK_INTERVAL_S = 2.0 # seconds between spread checks
+SPREAD_RANGE_FACTOR = 100.0   # metres * intensity = spread reach (zones are 63-97m apart)
+INTENSITY_GROWTH = 0.15       # per tick
 MAX_INTENSITY = 1.5
 WIND_DIRECTION = [1.0, 0.3]   # default wind (normalised internally)
-WIND_INFLUENCE = 0.3          # how much wind biases spread probability
+WIND_INFLUENCE = 0.5          # how much wind biases spread probability
 INITIAL_FIRE_ZONE = 1         # FZ_1 ignites first
 
 
@@ -58,6 +58,7 @@ class FireManager(object):
         self._sub = None        # timeline subscription
         self._last_spread_check = 0.0
         self._started = False
+        self._on_ignite_cb = None  # optional callback(zone_name, zone_index) called on ignition
 
         # Normalise wind
         wx, wy = WIND_DIRECTION
@@ -173,6 +174,15 @@ class FireManager(object):
 
         print("[FireManager] IGNITED " + zone_name)
 
+        # Notify external callback (e.g. to create visual Flow fire)
+        if self._on_ignite_cb is not None:
+            try:
+                # Extract zone index from name like "FZ_2"
+                zone_idx = int(zone_name.split("_")[1])
+                self._on_ignite_cb(zone_name, zone_idx)
+            except Exception as _cb_err:
+                print("[FireManager] on_ignite callback error: " + str(_cb_err))
+
     def _resolve_preset_url(self, preset_path):
         """Find the actual file for a Flow preset path.
 
@@ -203,8 +213,15 @@ class FireManager(object):
                 return candidate
 
         # 3) Isaac Sim extscache
-        isaacsim_root = os.environ.get("ISAAC_SIM_PATH", "C:/isaacsim")
-        extscache = os.path.join(isaacsim_root, "extscache")
+        isaacsim_root = os.environ.get("ISAAC_SIM_PATH", "")
+        if not isaacsim_root:
+            # Try to find from pip-installed isaacsim
+            try:
+                import isaacsim
+                isaacsim_root = os.path.dirname(isaacsim.__file__)
+            except ImportError:
+                isaacsim_root = ""
+        extscache = os.path.join(isaacsim_root, "extscache") if isaacsim_root else ""
         if os.path.isdir(extscache):
             basename = os.path.basename(preset_path)
             parent = os.path.basename(os.path.dirname(preset_path))
@@ -227,12 +244,21 @@ class FireManager(object):
         Uses the FlowCreatePresets command from the omni.flowusd extension,
         which properly creates FlowEmitterSphere, FlowSimulate, FlowOffscreen,
         and FlowRender prims and handles up-axis Y->Z conversion.
+
+        Fire size is scaled proportionally to the zone radius so that
+        smaller zones produce visibly smaller fires.
         """
         try:
             import omni.kit.commands
         except ImportError:
             print("[FireManager] omni.kit.commands not available")
             return
+
+        # Determine visual scale from zone radius (baseline = 7.0m)
+        zone_info = self._zones.get(zone_name, {})
+        zone_radius = zone_info.get("radius", 5.0)
+        _BASELINE_RADIUS = 7.0
+        fire_scale = max(0.35, zone_radius / _BASELINE_RADIUS)  # clamp so tiny fires are still visible
 
         # Resolve fire preset URL
         fire_url = self._resolve_preset_url(fire_preset)
@@ -254,7 +280,12 @@ class FireManager(object):
                     layer=-1,
                 )
                 print("[FireManager] Created Flow fire at " +
-                      prim_path + " from " + fire_url)
+                      prim_path + " from " + fire_url +
+                      " (scale=" + str(round(fire_scale, 2)) + ")")
+
+                # Scale the Flow emitter sphere to vary fire size
+                self._scale_flow_emitters(stage, prim_path, fire_scale)
+
             except Exception as e:
                 print("[FireManager] FlowCreatePresets fire error: " + str(e))
         else:
@@ -267,7 +298,7 @@ class FireManager(object):
             try:
                 omni.kit.commands.execute(
                     "FlowCreatePresets",
-                    preset_name="DarkSmoke",
+                    preset_name="Smoke",
                     paths=[prim_path],
                     url=smoke_url,
                     layer=-1,
@@ -275,6 +306,52 @@ class FireManager(object):
                 print("[FireManager] Created Flow smoke at " + prim_path)
             except Exception as e:
                 print("[FireManager] FlowCreatePresets smoke error: " + str(e))
+
+    # ------------------------------------------------------------------
+    # Flow emitter scaling  (visual size variation per zone)
+    # ------------------------------------------------------------------
+
+    def _scale_flow_emitters(self, stage, prim_path, scale_factor):
+        """Scale FlowEmitterSphere radius and coupleRate under prim_path.
+
+        This makes smaller fire zones produce visibly smaller fires.
+        We scale:
+          - FlowEmitterSphere radius attribute (controls particle spawn volume)
+          - coupleRate (emission density — lower for smaller fires)
+        """
+        try:
+            root_prim = stage.GetPrimAtPath(prim_path)
+            if not root_prim.IsValid():
+                return
+            for child in root_prim.GetAllChildren():
+                cname = child.GetName()
+                # Scale emitter sphere radius
+                if "Emitter" in cname or "emitter" in cname:
+                    rad = child.GetAttribute("radius")
+                    if rad and rad.IsValid():
+                        old_val = float(rad.Get())
+                        rad.Set(old_val * scale_factor)
+                    cr = child.GetAttribute("coupleRate")
+                    if cr and cr.IsValid():
+                        old_cr = float(cr.Get())
+                        cr.Set(old_cr * scale_factor)
+                # Also check grandchildren (Flow creates nested prims)
+                for gchild in child.GetAllChildren():
+                    gcname = gchild.GetName()
+                    if "Emitter" in gcname or "emitter" in gcname:
+                        rad2 = gchild.GetAttribute("radius")
+                        if rad2 and rad2.IsValid():
+                            old_val2 = float(rad2.Get())
+                            rad2.Set(old_val2 * scale_factor)
+                        cr2 = gchild.GetAttribute("coupleRate")
+                        if cr2 and cr2.IsValid():
+                            old_cr2 = float(cr2.Get())
+                            cr2.Set(old_cr2 * scale_factor)
+            if abs(scale_factor - 1.0) > 0.05:
+                print("[FireManager] Scaled emitters at " + prim_path +
+                      " by " + str(round(scale_factor, 2)))
+        except Exception as _se:
+            print("[FireManager] Flow scale error at " + prim_path + ": " + str(_se))
 
     # ------------------------------------------------------------------
     # Update loop

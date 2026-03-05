@@ -1,4 +1,10 @@
-# Python
+# ═══════════════════════════════════════════════════════
+# ResQ-AI — .gitignore
+# Only track source code, configs, and documentation.
+# Large runtime artifacts stay local on the Brev instance.
+# ═══════════════════════════════════════════════════════
+
+# ── Python ──────────────────────────────────────────────
 __pycache__/
 *.py[cod]
 *$py.class
@@ -22,7 +28,7 @@ share/python-wheels/
 *.egg
 MANIFEST
 
-# Environments
+# ── Virtual Environments ───────────────────────────────
 .env
 .venv
 env/
@@ -30,45 +36,76 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+isaac_env/
+isaacsim_env/
 
-# Ultralytics / YOLO
-runs/
-wandb/
-
-# Datasets
-Datasets/
-dataset.zip
-ResQ-AI-Colab.zip
-ResQ-AI-Colab/
-
-# IDEs
+# ── IDEs ───────────────────────────────────────────────
 .idea/
 .vscode/
 *.swp
 *.swo
+.gemini/
 
-# OS
+# ── OS ─────────────────────────────────────────────────
 .DS_Store
 Thumbs.db
+*.tmp
 
-# Heavy Models and Weights
+# ── Model Weights & Binaries (large) ──────────────────
 *.onnx
 *.pt
+*.pth
 *.engine
+*.trt
+weights/
 
-# Media & Archives
+# ── Media & Archives ──────────────────────────────────
 *.mp4
+*.avi
+*.mov
 *.zip
 *.tar.gz
+*.tar.bz2
 
-# Generated Run Data
+# ── Datasets (large image/label sets) ─────────────────
+Datasets/
+dataset.zip
+ResQ-AI-Colab.zip
+ResQ-AI-Colab/
+ResQ-AI-Phase2-Colab.zip
+ResQ-AI-Phase2-Colab-v2.zip
+
+# ── Simulation Debug Output ───────────────────────────
+debug_output/
+debug_output_1/
+debug_output_2/
+outputs/
+
+# ── NVIDIA Omniverse / Isaac Sim Assets (huge) ────────
+assets/
+PegasusSimulator/
+
+# ── Logs ──────────────────────────────────────────────
+*.log
+vlm_server.log
+sim_headless.log
+sim_loop.log
+streaming_run.log
+e2e_test.log
+e2e_test_output.log
+e2e_test_remote_final.log
+
+# ── Generated Runtime Data ────────────────────────────
 Flight_Report.json
 Hazard_Map.html
 hazards/
+*.usda.bak
+walkthrough.md.resolved
 
-# NVIDIA Omniverse asset packs (too large for Git)
-assets/Architecture/
-assets/Characters/
-assets/Particles/
-assets/Environments/
-assets/BaseMaterials/
+# ── Ultralytics / YOLO ────────────────────────────────
+runs/
+wandb/
+
+# ── Misc ──────────────────────────────────────────────
+*.resolved
+node_modules/
