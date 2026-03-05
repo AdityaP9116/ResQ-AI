@@ -43,8 +43,12 @@ Vt = pxr_vt
 RANDOM_SEED = 42
 random.seed(RANDOM_SEED)
 
-ASSETS_ROOT = "C:/Users/anshu/College/CosmosCookoff/ResQ-AI/assets"
-OUTPUT_PATH = "C:/Users/anshu/College/CosmosCookoff/ResQ-AI/resqai_urban_disaster.usda"
+# Resolve paths dynamically relative to this script
+_THIS_DIR = os.path.dirname(os.path.abspath(__file__))
+_PROJ_ROOT = os.path.abspath(os.path.join(_THIS_DIR, ".."))
+
+ASSETS_ROOT = os.path.join(_PROJ_ROOT, "assets").replace("\\", "/")
+OUTPUT_PATH = os.path.join(_PROJ_ROOT, "resqai_urban_disaster.usda").replace("\\", "/")
 BROWNSTONE_BASE = ASSETS_ROOT + "/Architecture/Demos/AEC/BrownstoneDemo"
 
 # ALL assets are in centimeters (mpu=0.01). Scale everything by 0.01.

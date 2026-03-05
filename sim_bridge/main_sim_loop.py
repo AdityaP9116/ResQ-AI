@@ -93,7 +93,7 @@ from omni.isaac.core.world import World
 from pegasus.simulator.logic.interface.pegasus_interface import PegasusInterface
 
 # sim_bridge modules
-from sim_bridge.generate_urban_scene import generate_scene
+from sim_bridge.generate_urban_scene import main as generate_scene
 from sim_bridge.spawn_drone import spawn_resqai_drone
 from sim_bridge.thermal_sim import generate_synthetic_thermal
 from sim_bridge.projection_utils import (
