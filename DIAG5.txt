@@ -1,5 +1,0 @@
-same class: True
-W1: <class 'isaacsim.core.api.world.world.World'>
-W2: <class 'isaacsim.core.api.world.world.World'>
-W1 id: 2823246374256
-W2 id: 2823246374256

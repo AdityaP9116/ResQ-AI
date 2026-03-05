@@ -1,0 +1,35 @@
+{
+  "mission_id": "ba76f837",
+  "timestamp": 1772668482.154262,
+  "elapsed_seconds": 0.0,
+  "drone": {
+    "position": [
+      0,
+      0,
+      50
+    ],
+    "battery_pct": 100.0,
+    "status": "patrolling"
+  },
+  "fires": {
+    "active_count": 0,
+    "total_area_m2": 0.0,
+    "spread_rate": 0.0,
+    "zones": []
+  },
+  "civilians": {
+    "total": 0,
+    "safe": 0,
+    "in_danger": 0,
+    "injured": 0,
+    "incapacitated": 0,
+    "rescued": 0
+  },
+  "detections_this_interval": {
+    "people_spotted": 0,
+    "fire_confirmed": 0
+  },
+  "ai_decisions": [],
+  "urgency_level": "low",
+  "recommended_actions": []
+}
