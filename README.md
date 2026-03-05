@@ -30,75 +30,11 @@ The system follows a **SURVEY → INVESTIGATE → RETURN** state machine, autono
 
 > **ResQ-AI** end-to-end pipeline. AIDER aerial imagery trains the YOLOv8 fire detector, which feeds into an NVIDIA Isaac Sim urban disaster simulation. NVIDIA Cosmos Reason 2 VLM processes fused sensor data to autonomously navigate the drone. Results are streamed to a real-time tactical dashboard.
 
-```mermaid
-flowchart TB
-    subgraph D["① Data & Training"]
-        direction LR
-        D1["AIDER Dataset\n238 aerial disaster images\nNeurIPS benchmark"]
-        D2["YOLOv8 Training\ntrain_yolo.py\nGoogle Colab · T4 GPU"]
-        D3["TensorRT Export\nexport_trt.py\nFP16 optimization"]
-        D4["Fire Detection Model\nbest.onnx · best.engine\n4 hazard classes"]
-        D1 --> D2 --> D3 --> D4
-    end
+<p align="center">
+  <img src="docs/architecture.png" alt="ResQ-AI System Architecture" width="800">
+</p>
 
-    subgraph S["② NVIDIA Isaac Sim Simulation"]
-        direction LR
-        S1["Urban Scene\nGenerator\nProcedural buildings\nroads · fire zones"]
-        S2["Drone + Sensors\nRGB · Depth\nSemantic · IMU\n180m altitude"]
-        S3["Fire System\n5 dynamic zones\nSpread simulation\nIntensity modeling"]
-        S4["Multi-Camera\nCapture\nRGB frames\nThermal synthesis"]
-        S1 --> S2 --> S3 --> S4
-    end
-
-    subgraph A["③ AI Navigation — Cosmos Reason 2 VLM"]
-        direction LR
-        A1["Sensor Fusion\nYOLO detections\nThermal heatmap\n3D projection"]
-        A2["Cosmos VLM\nnvidia/cosmos-reason2-2b\nvia NVIDIA NIM API\nJSON nav output"]
-        A3["State Machine\nSURVEY → APPROACH\n→ FOCUS → TRACKING\nPriority scoring"]
-        A4["Autonomous\nWaypoints\nTarget coordinates\nFlight commands"]
-        A1 --> A2 --> A3 --> A4
-    end
-
-    subgraph EV["     Evaluation — Headless E2E Test · 310 frames"]
-        direction LR
-        EV1["<b>Fire Detection</b>\n5/5 zones detected\nYOLO conf 42-74%"]
-        EV2["<b>Cosmos Nav</b>\nPriority score 0-10\n8 decision points"]
-        EV3["<b>Coverage</b>\n310 frames captured\nRGB + Thermal + Seg"]
-        EV4["<b>Mission Report</b>\n796 m² burn area\n30 civilians tracked"]
-    end
-
-    subgraph DP["④ Deployment"]
-        direction LR
-        DP1["Orchestrator\nrun_orchestrator.py\nE2E pipeline control"]
-        DP2["VLM Server\nFastAPI · NIM / vLLM\nCosmos inference"]
-        DP3["Sim Bridge\nIsaac Sim interface\nSensor → AI loop"]
-        DP4["Frontend\nDashboard\nVideo · Map · AI Log\nTelemetry · Reports"]
-        DP1 --> DP2 --> DP3 --> DP4
-    end
-
-    D --> S --> A --> EV --> DP
-
-    style D fill:#2d1b69,stroke:#7c3aed,color:#e9d5ff
-    style S fill:#14532d,stroke:#22c55e,color:#dcfce7
-    style A fill:#7c2d12,stroke:#f97316,color:#ffedd5
-    style EV fill:#1e3a5f,stroke:#3b82f6,color:#dbeafe
-    style DP fill:#4a1942,stroke:#ec4899,color:#fce7f3
-```
-
-#### Output Schema
-```
-fire_zones[] → zone_id · position(x,y,z) · intensity · radius · burn_area
-cosmos_nav   → target(x,y,z) · priority_score · reasoning · flight_state
-mission_rpt  → fire_count · total_burn · civilian_status · urgency · actions[]
-yolo_det     → class · confidence · bbox · world_coords(x,y,z)
-```
-
-#### Drone State Machine
-```
-🟢 SURVEY ──→ 🟡 APPROACH ──→ 🔴 FOCUS ──→ 🟣 TRACKING ──→ 🔵 RETURN
-  Orbital         Closing on      Detailed       Following        RTH
-  sweep           fire zone       observation    spread vector    base
-```
+<p align="center"><em>Figure 1. ResQ-AI system architecture. Aerial disaster imagery trains the YOLOv8 detector, deployed in NVIDIA Isaac Sim with Cosmos Reason 2 VLM for autonomous drone navigation and real-time fire zone prioritization.</em></p>
 
 ---
 
