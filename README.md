@@ -126,17 +126,16 @@ ResQ-AI/
 - **Python 3.10+**
 - **NVIDIA API Key** (for Cosmos VLM via NIM)
 
-### 1. Clone & Setup
+# ResQ-AI Asset Dependencies
 
-```bash
-git clone https://github.com/AdityaP9116/ResQ-AI.git
-cd ResQ-AI
+Download these packs from https://docs.omniverse.nvidia.com/usd/latest/usd_content_samples/downloadable_packs.html
+and unzip them into this folder:
 
-# Install Python dependencies
-pip install -r requirements.txt
-
-# Setup Isaac Sim (if not already installed)
-bash setup_isaac_sim.sh
+1. **Rigged Characters Asset Pack** (891 MB) → `assets/Characters/`
+2. **Extensions Sample Asset Pack** (159 MB) → `assets/Particles/`
+3. **Base Materials Pack** (8.2 GB) → `assets/BaseMaterials/`
+4. **Environments Skies Pack** (8.9 GB) → `assets/Environments/`
+5. **AEC Demo Assets Pack** (2.0 GB) → `assets/Architecture/`
 ```
 
 ### 2. Configure Environment

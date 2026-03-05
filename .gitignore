@@ -82,8 +82,12 @@ debug_output_2/
 outputs/
 
 # ── NVIDIA Omniverse / Isaac Sim Assets (huge) ────────
-assets/
 PegasusSimulator/
+assets/Architecture/
+assets/Characters/
+assets/Environments/
+assets/Particles/
+assets/BaseMaterials/
 
 # ── Logs ──────────────────────────────────────────────
 *.log
