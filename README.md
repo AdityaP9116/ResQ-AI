@@ -247,10 +247,11 @@ Mission reports are generated every 5 seconds containing:
 
 ## 👥 Team
 
-Built for the **NVIDIA Cosmos Hackathon** by:
-- **Aditya P** — [AdityaP9116](https://github.com/AdityaP9116)
-- **Sriram V** — Development & Integration
-- **Asteya** — Architecture & Frontend
+Built for the **NVIDIA Cosmos Cookoff Hackathon** by:
+- **Aditya** — [AdityaP9116](https://github.com/AdityaP9116)
+- **Anshul** — [AMMistry18](https://github.com/AMMistry18)
+- **Asteya** — [AsteyaLaxmanan](https://github.com/AsteyaLaxmanan)
+- **Sriram** — [SriramV739](https://github.com/SriramV739)
 
 ---
 
